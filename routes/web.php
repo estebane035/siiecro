@@ -16,10 +16,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-######## DASHBOARD ##############################################################
-	Route::get('/dashboard', 	'Dashboard\DashboardController@index');
-#################################################################################
+################ RUTAS DEL DASHBOARD ####################################
+# 	Todos los controladores van dentro de la carpeta Dashboard 			#
+#	Todas las rutas tendran el prefijo dashboard 						#
+#	Todas las rutas tendran el prefijo dashboard. en sus names 			#
+#########################################################################
 
+Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(function () {
+    ######## DASHBOARD ##############################################################
+		Route::get('/', 	'DashboardController@index')->name('dashboard.index');
+	#################################################################################
 
+    ######## USUARIOS ###############################################################
+		Route::resource('usuarios', 			'UsuariosController');
+	#################################################################################
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+#########################################################################
+# 						FIN RUTAS DASHBOARD 							#
+#########################################################################
+
