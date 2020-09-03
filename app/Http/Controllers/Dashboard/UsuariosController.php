@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class UsuariosController extends Controller
 {
-    //
+    public function index(){
+    	return "Index usuarios";
+    }
 }

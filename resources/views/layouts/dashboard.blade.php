@@ -84,6 +84,7 @@
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
                         <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <img src="{{ asset('/img/logo.jpeg') }}" height="50px" style="margin-top: 5px; margin-left: 5px;">
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>

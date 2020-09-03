@@ -2,7 +2,8 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <div class="dropdown profile-element"> 
+                <img src="{{ asset('/img/logo.png') }}" class="img-responsive">
+                <div class="dropdown profile-element m-t-md"> 
                     <span>
                         <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                     </span>
@@ -39,7 +40,7 @@
                 </ul>
             </li>
             <li>
-                <a href="{{ route('dashboard.usuarios.index') }}"><i class="fa fa-bar-chart"></i> <span class="nav-label">Usuarios</span></a>
+                <a href="{{ route('dashboard.usuarios.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Usuarios</span></a>
             </li>
         </ul>
     </div>
