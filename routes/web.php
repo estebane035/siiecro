@@ -13,7 +13,7 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 ################ RUTAS DEL DASHBOARD ####################################
@@ -28,6 +28,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 	#################################################################################
 
     ######## USUARIOS ###############################################################
+		Route::get('usuarios/carga', 			'UsuariosController@cargarTabla');
 		Route::resource('usuarios', 			'UsuariosController');
 	#################################################################################
 });
