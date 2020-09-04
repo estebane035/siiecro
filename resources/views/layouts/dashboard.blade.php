@@ -218,6 +218,9 @@
 <!-- cropper js -->
   {!!Html::script('js/plugins/cropper/cropper.min.js')!!}
 
+<!-- Comun -->
+  {!!Html::script('scripts/dashboard/comun.js')!!}
+
 @yield('scripts')
 
 </html>
