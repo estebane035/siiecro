@@ -5,7 +5,7 @@
                 <img src="{{ asset('/img/logo.png') }}" class="img-responsive">
                 <div class="dropdown profile-element m-t-md"> 
                     <span>
-                        <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                        <img alt="image" class="img-circle" src="{{ asset('img/profile_small.jpg') }}" />
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> 

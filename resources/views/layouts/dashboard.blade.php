@@ -67,6 +67,9 @@
     <!--Cropper js-->
     {!!Html::style('css/plugins/cropper/cropper.min.css')!!}
 
+    <!-- Ladda style -->
+    {!!Html::style('css/plugins/ladda/ladda-themeless.min.css')!!}
+
 
     <!--OWL-->
     {!!Html::style('css/plugins/owl/owl.carousel.css')!!}
@@ -115,6 +118,9 @@
         </div>
     </div>
 </body>
+<div id="modal-1"></div>
+<div id="modal-2"></div>
+<div id="modal-3"></div>
 
 <!-- Mainly scripts -->
   {!!Html::script('js/jquery-3.1.1.min.js')!!}
@@ -213,6 +219,12 @@
 
 <!-- cropper js -->
   {!!Html::script('js/plugins/cropper/cropper.min.js')!!}
+
+<!-- Ladda -->
+  {!!Html::script('js/plugins/ladda/spin.min.js')!!}
+  {!!Html::script('js/plugins/ladda/ladda.min.js')!!}
+  {!!Html::script('js/plugins/ladda/ladda.jquery.min.js')!!}
+
 
 <!-- Comun -->
   {!!Html::script('scripts/dashboard/comun.js')!!}

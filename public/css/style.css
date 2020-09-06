@@ -8543,20 +8543,15 @@ body.md-skin {
     display: inline-block;
   }
 }
-/* Only demo */
-@media (max-width: 1000px) {
-  .welcome-message {
-    display: none;
-  }
+
+.div-input{
+  margin-bottom: 10px;
 }
-@media print {
-  nav.navbar-static-side {
-    display: none;
-  }
-  body {
-    overflow: visible !important;
-  }
-  #page-wrapper {
-    margin: 0;
-  }
+
+.pointer{
+  cursor: pointer;
+}
+
+.inline-block{
+  display: inline-block !important;
 }

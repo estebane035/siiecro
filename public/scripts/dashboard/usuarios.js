@@ -11,3 +11,19 @@ jQuery(document).ready(function($) {
 			], // Columnas
 		);
 });
+
+function crear(){
+	_formularioEnModal	(
+							"#modal-crear", // Nombre Modal 
+							"#modal-1", // Contenedor modal
+							"/dashboard/usuarios/create", // Ruta
+							"#form-usuarios", // Formulario
+							"#name", // Elemento focus
+							"#div-notificacion", // Div Notificacion
+							function(){
+								_ocultarModal("#modal-crear", function(){
+									_recargarTabla("#dt-datos");
+								});
+							} // Callback exito
+						);
+}

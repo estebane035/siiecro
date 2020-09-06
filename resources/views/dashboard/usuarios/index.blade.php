@@ -14,16 +14,21 @@
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <a href="" class="btn btn-primary">Crear nuevo usuario</a>
+            <btn onclick="crear();" class="btn btn-primary">Crear nuevo usuario</btn>
         </div>
     </div>
 @endsection
 
 @section('body')
+
  	<div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
+                    <div class="sk-spinner sk-spinner-double-bounce" id="carga-dt">
+                        <div class="sk-double-bounce1"></div>
+                        <div class="sk-double-bounce2"></div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped" id="dt-datos">
                             <thead>
