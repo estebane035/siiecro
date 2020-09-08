@@ -34,19 +34,13 @@ class BD
         // return "1|".$registro->id;
 	}
 
-	public static function actualiza($idActualizar, $modelo, $request, $data){
+	public static function actualiza($idActualizar, $modelo, $data){
 		DB::beginTransaction();
 		try {
 			$model 				= 	'App\\'.$modelo;
 			$registro 			= 	$model::find($idActualizar);
 			$registro->fill($data);
 			$registro->save();
-
-			if($modelo =='User'){
-				if(Auth::user()->id == $registro->id){
-					$request->session()->put('user', $registro);
-				}
-			}
 
 			DB::commit();
 		}catch(\Illuminate\Database\QueryException $e) {
@@ -64,7 +58,7 @@ class BD
         return Response::json(["mensaje" => "Registro actualizado exitosamente.", "id" => $registro->id, "error" => false], 200);
 	}
 
-	public static function elimina($idEliminar,$modelo, $request){
+	public static function elimina($idEliminar,$modelo){
 		DB::beginTransaction();
 		try {
 			$model 							= 	'App\\'.$modelo;

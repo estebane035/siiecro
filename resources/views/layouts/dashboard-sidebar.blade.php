@@ -3,15 +3,12 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <img src="{{ asset('/img/logo.png') }}" class="img-responsive">
-                <div class="dropdown profile-element m-t-md"> 
-                    <span>
-                        <img alt="image" class="img-circle" src="{{ asset('img/profile_small.jpg') }}" />
-                    </span>
+                <div class="dropdown profile-element m-t-md">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> 
-                            <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                            <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
                             </span> 
-                            <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> 
+                            <span class="text-muted text-xs block">{{ Auth::user()->rol }} <b class="caret"></b></span> 
                         </span> 
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">

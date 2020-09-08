@@ -27,3 +27,35 @@ function crear(){
 							} // Callback exito
 						);
 }
+
+function editar(id){
+	_formularioEnModal	(
+							"#modal-crear", // Nombre Modal 
+							"#modal-1", // Contenedor modal
+							"/dashboard/usuarios/" + id + "/edit", // Ruta
+							"#form-usuarios", // Formulario
+							"#name", // Elemento focus
+							"#div-notificacion", // Div Notificacion
+							function(){
+								_ocultarModal("#modal-crear", function(){
+									_recargarTabla("#dt-datos");
+								});
+							} // Callback exito
+						);
+}
+
+function eliminar(id){
+	_formularioEnModal	(
+							"#modal-eliminar", // Nombre Modal 
+							"#modal-1", // Contenedor modal
+							"/dashboard/usuarios/" + id + "/eliminar", // Ruta
+							"#form-usuarios", // Formulario
+							"#name", // Elemento focus
+							"#div-notificacion", // Div Notificacion
+							function(){
+								_ocultarModal("#modal-eliminar", function(){
+									_recargarTabla("#dt-datos");
+								});
+							} // Callback exito
+						);
+}

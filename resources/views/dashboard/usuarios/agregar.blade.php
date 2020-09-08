@@ -16,17 +16,17 @@
                         <div class="row">
                             <div class="col-md-6 div-input">
                                 <label for="name">Nombre</label>
-                                <input type="text" class="form-control" id="name" name="name" autocomplete="off">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $registro->name }}" autocomplete="off">
                             </div>
                             <div class="col-md-6 div-input">
                                 <label for="email">Correo</label>
-                                <input type="email" class="form-control" id="email" name="email" autocomplete="off">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $registro->email }}" autocomplete="off">
                             </div>
                             <div class="col-md-12 div-input">
                                 <label for="rol">Rol</label>
                                 <select class="form-control select2" name="rol" id="rol" autocomplete="off">
                                     @foreach (config('valores.roles') as $rol)
-                                        <option value="{{ $rol }}">{{ $rol }}</option>
+                                        <option {{ $registro->rol == $rol ? "selected" : "" }} value="{{ $rol }}">{{ $rol }}</option>
                                     @endforeach
                                 </select>
                             </div>
