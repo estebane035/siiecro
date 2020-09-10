@@ -23,10 +23,10 @@
                                 <input type="email" class="form-control" id="email" name="email" value="{{ $registro->email }}" autocomplete="off" required>
                             </div>
                             <div class="col-md-12 div-input">
-                                <label for="rol">Rol</label>
-                                <select class="form-control select2" name="rol" id="rol" autocomplete="off">
-                                    @foreach (config('valores.roles') as $rol)
-                                        <option {{ $registro->rol == $rol ? "selected" : "" }} value="{{ $rol }}">{{ $rol }}</option>
+                                <label for="rol_id">Rol</label>
+                                <select class="form-control select2" name="rol_id" id="rol_id" autocomplete="off">
+                                    @foreach ($roles as $rol)
+                                        <option {{ $registro->rol_id == $rol->id ? "selected" : "" }} value="{{ $rol->id }}">{{ $rol->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>

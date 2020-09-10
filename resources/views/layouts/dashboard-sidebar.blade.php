@@ -8,7 +8,7 @@
                         <span class="clear"> 
                             <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>
                             </span> 
-                            <span class="text-muted text-xs block">{{ Auth::user()->rol }} <b class="caret"></b></span> 
+                            <span class="text-muted text-xs block">{{ Auth::user()->rol()->first()->nombre }} <b class="caret"></b></span> 
                         </span> 
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -38,6 +38,9 @@
             </li>
             <li>
                 <a href="{{ route('dashboard.usuarios.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Usuarios</span></a>
+            </li>
+            <li>
+                <a href="{{ route('dashboard.roles.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Roles</span></a>
             </li>
         </ul>
     </div>

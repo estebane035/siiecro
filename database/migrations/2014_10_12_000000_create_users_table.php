@@ -15,13 +15,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('rol_id')->unsigned();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('rol', config('valores.roles'));
+            // $table->enum('rol', config('valores.roles'));
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('rol_id')->references('id')->on('roles');
+
         });
     }
 

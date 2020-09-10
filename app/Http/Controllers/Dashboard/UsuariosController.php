@@ -11,6 +11,7 @@ use Hash;
 use Auth;
 
 use App\User;
+use App\Roles;
 
 class UsuariosController extends Controller
 {
@@ -26,7 +27,14 @@ class UsuariosController extends Controller
     }
 
     public function cargarTabla(Request $request){
-    	$registros 		= 	User::all();
+    	$registros 		= 	User::selectRaw('
+                                                users.id,
+                                                users.name,
+                                                users.email,
+                                                roles.nombre as rol
+                                            ')
+                                            ->join('roles', 'roles.id', '=', 'users.rol_id')
+                                            ->get();
 
     	return DataTables::of($registros)
     					->addColumn('acciones', function($registro){
@@ -47,7 +55,8 @@ class UsuariosController extends Controller
 
     public function create(Request $request){
         $registro   =   new User;
-        return view('dashboard.usuarios.agregar', ["registro" => $registro]);
+        $roles      =   Roles::all();
+        return view('dashboard.usuarios.agregar', ["registro" => $registro, "roles" => $roles]);
     }
 
     public function store(Request $request){
@@ -66,7 +75,8 @@ class UsuariosController extends Controller
 
     public function edit(Request $request, $id){
         $registro   =   User::findOrFail($id);
-        return view('dashboard.usuarios.agregar', ["registro" => $registro]);
+        $roles      =   Roles::all();
+        return view('dashboard.usuarios.agregar', ["registro" => $registro, "roles" => $roles]);
     }
 
     public function update(Request $request, $id){
