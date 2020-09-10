@@ -50,84 +50,6 @@ function _recargarTabla(tabla){
     $(tabla).DataTable().ajax.reload(null, false);
 }
 
-function _mostrarModal(modal, contenedor, url, callbackExito){
-    $.ajax({
-        url: url,
-        type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    })
-    .done(function(contenido) {
-        $(contenedor).html(contenido);
-        $(contenedor).on('show.bs.modal', function () {
-          callbackExito();
-        });
-
-        $(modal).modal('show');
-    })
-    .fail(function(xhr, ajaxOptions, thrownError) {
-        _errorEjecucion(xhr);
-    })
-    .always(function() {
-    });
-}
-
-function _inicializarFormulario(formulario, elementoFocus, divNotificacion, callbackExito){
-    $(formulario).validate({
-        submitHandler: function(form){
-            $(form).ajaxSubmit({
-                beforeSend: function() {
-                    //Desactiva formulario
-                    $(divNotificacion).html('');
-                    $(formulario).find('input, textarea, button, select').attr('disabled',true);
-
-                    // Si existe un boton de submit le ponemos el loading
-                    var btnSubmit   = $(formulario).find('button[type=submit]')[0];
-                    if(btnSubmit != undefined && btnSubmit != ""){
-                        Ladda.create(btnSubmit).start()
-                    };
-                },
-                success: function(respuesta){
-                    // Si existe el boton de submit le quitamos el loading
-                    var btnSubmit   = $(formulario).find('button[type=submit]')[0];
-                    if(btnSubmit != undefined && btnSubmit != ""){
-                        Ladda.create(btnSubmit).stop()
-                    };
-
-                    $(formulario).find('input, textarea, button, select').attr('disabled',false);
-                    _interpretarRespuesta(respuesta, divNotificacion, callbackExito);
-                },
-                error: function(xhr, ajaxOptions, thrownError){
-                    // Si existe el boton de submit le quitamos el loading
-                    var btnSubmit   = $(formulario).find('button[type=submit]')[0];
-                    if(btnSubmit != undefined && btnSubmit != ""){
-                        Ladda.create(btnSubmit).stop()
-                    };
-
-                    _errorEjecucion(xhr, divNotificacion, formulario);
-                }
-            })
-        }
-    })
-}
-
-function _formularioEnModal(modal, contenedor, url, formulario, elementoFocus, divNotificacion, callbackExito){
-    _mostrarModal(
-            modal,
-            contenedor,
-            url,
-            function(){
-                _inicializarFormulario(
-                        formulario,
-                        elementoFocus, 
-                        divNotificacion, 
-                        callbackExito
-                    );
-            }
-        );
-}
-
 function _notificationDiv(div,tipo,texto){
     //Tipos error, alerta, exito, info
 
@@ -222,4 +144,67 @@ function _ocultarModal(modal, callback){
         $(modal).modal('hide');
         callback();
     }, 550);
+}
+
+function _formAjax(formulario,progress,notificacion,funcionExito){
+    $(formulario).validate({
+        submitHandler: function(form){
+            $(form).ajaxSubmit({
+                beforeSend: function() {
+                    //Desactiva formulario
+                    $(notificacion).html('');
+                    $(progress).removeClass('hidden');
+                    $(formulario).find('input, textarea, button, select').attr('disabled',true);
+
+                    // Si existe un boton de submit le ponemos el loading
+                    var btnSubmit   =   $(formulario).find('button[type=submit]')[0];
+                    if(btnSubmit != undefined && btnSubmit != ""){
+                        Ladda.create(btnSubmit).start()
+                    };
+                },
+                success: function(respuesta){
+                    $(formulario).find('input, textarea, button, select').attr('disabled',false);
+                    $(progress).addClass('hidden');
+
+                    var btnSubmit   = $(formulario).find('button[type=submit]')[0];
+                    if(btnSubmit != undefined && btnSubmit != ""){
+                        Ladda.create(btnSubmit).stop()
+                    };
+
+                    _interpretarRespuesta(respuesta, notificacion, funcionExito);
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    var btnSubmit   = $(formulario).find('button[type=submit]')[0];
+                    if(btnSubmit != undefined && btnSubmit != ""){
+                        Ladda.create(btnSubmit).stop()
+                    };
+
+                    _errorEjecucion(xhr,notificacion,formulario);
+                }
+            })
+        }
+    })
+}
+
+function _mostrarFormulario(url,modal,nombreModal,elementoFocus,funcionCargaForm,form,progress,notificacion,funcionExito){
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function(html){
+            $(modal).html(html);
+            $(modal).on('shown.bs.modal', function () {
+              setTimeout(function(){ $(elementoFocus).focus(); }, 500);
+            });
+            if( $(nombreModal).length<=0){
+               $("#modal-error").modal('show');
+            }else{
+               $(nombreModal).modal('show');
+            }
+            funcionCargaForm();
+            _formAjax(form,progress,notificacion,funcionExito);
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            errorEjecucion(xhr,notificacion,form,progress);
+        }
+    })
 }

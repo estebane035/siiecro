@@ -13,49 +13,56 @@ jQuery(document).ready(function($) {
 });
 
 function crear(){
-	_formularioEnModal	(
-							"#modal-crear", // Nombre Modal 
-							"#modal-1", // Contenedor modal
-							"/dashboard/usuarios/create", // Ruta
-							"#form-usuarios", // Formulario
-							"#name", // Elemento focus
-							"#div-notificacion", // Div Notificacion
-							function(){
-								_ocultarModal("#modal-crear", function(){
-									_recargarTabla("#dt-datos");
-								});
-							} // Callback exito
-						);
+  _mostrarFormulario("/dashboard/usuarios/create", //Url solicitud de datos
+                    "#modal-1", //Div que contendra el modal
+                    "#modal-crear", //Nombre modal
+                    "#name", //Elemento al que se le dara focus una vez cargado el modal
+                    function(){
+
+                    }, //Funcion para el success
+                    "#form-usuarios", //ID del Formulario
+                    "#carga-agregar", //Loading de guardar datos de formulario
+                    "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                    function(){
+                        _ocultarModal("#modal-crear", function(){
+							_recargarTabla("#dt-datos");
+						});
+                    });//Funcion en caso de guardar correctamente);
 }
 
-function editar(id){
-	_formularioEnModal	(
-							"#modal-crear", // Nombre Modal 
-							"#modal-1", // Contenedor modal
-							"/dashboard/usuarios/" + id + "/edit", // Ruta
-							"#form-usuarios", // Formulario
-							"#name", // Elemento focus
-							"#div-notificacion", // Div Notificacion
-							function(){
-								_ocultarModal("#modal-crear", function(){
-									_recargarTabla("#dt-datos");
-								});
-							} // Callback exito
-						);
+function editar(id)
+{
+    _mostrarFormulario("/dashboard/usuarios/"+id+"/edit/", //Url solicitud de datos
+                    "#modal-1", //Div que contendra el modal
+                    "#modal-crear", //Nombre modal
+                    "#name", //Elemento al que se le dara focus una vez cargado el modal
+                    function(){
+                    }, //Funcion para el success
+                    "#form-usuarios", //ID del Formulario
+                    "#carga-agregar", //Loading de guardar datos de formulario
+                    "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                    function(){
+                        _ocultarModal("#modal-crear", function(){
+							_recargarTabla("#dt-datos");
+						});
+                    });//Funcion en caso de guardar correctamente);
 }
 
-function eliminar(id){
-	_formularioEnModal	(
-							"#modal-eliminar", // Nombre Modal 
-							"#modal-1", // Contenedor modal
-							"/dashboard/usuarios/" + id + "/eliminar", // Ruta
-							"#form-usuarios", // Formulario
-							"#name", // Elemento focus
-							"#div-notificacion", // Div Notificacion
-							function(){
-								_ocultarModal("#modal-eliminar", function(){
-									_recargarTabla("#dt-datos");
-								});
-							} // Callback exito
-						);
+function eliminar(id)
+{
+  _mostrarFormulario("/dashboard/usuarios/"+id+"/eliminar/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-eliminar", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
+
+                  }, //Funcion para el success
+                  "#form-usuarios", //ID del Formulario
+                  "#carga-eliminar", //Loading de guardar datos de formulario
+                  "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+						_ocultarModal("#modal-eliminar", function(){
+							_recargarTabla("#dt-datos");
+						});
+                  });//Funcion en caso de guardar correctamente);
 }
