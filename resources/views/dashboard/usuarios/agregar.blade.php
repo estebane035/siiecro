@@ -16,11 +16,11 @@
                         <div class="row">
                             <div class="col-md-6 div-input">
                                 <label for="name">Nombre</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ $registro->name }}" autocomplete="off">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $registro->name }}" autocomplete="off" required>
                             </div>
                             <div class="col-md-6 div-input">
                                 <label for="email">Correo</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ $registro->email }}" autocomplete="off">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $registro->email }}" autocomplete="off" required>
                             </div>
                             <div class="col-md-12 div-input">
                                 <label for="rol">Rol</label>
@@ -32,11 +32,11 @@
                             </div>
                             <div class="col-md-6 div-input">
                                 <label for="contraseña">Contraseña</label>
-                                <input type="password" class="form-control" id="contraseña" name="contraseña" autocomplete="off">
+                                <input type="password" class="form-control" id="contraseña" name="contraseña" autocomplete="off" {{ $registro == "[]" ? "required" : "" }}>
                             </div>
                             <div class="col-md-6 div-input">
                                 <label for="repetir_contraseña">Repetir Contraseña</label>
-                                <input type="password" class="form-control" id="repetir_contraseña" name="repetir_contraseña" autocomplete="off">
+                                <input type="password" class="form-control" id="repetir_contraseña" name="repetir_contraseña" autocomplete="off" {{ $registro == "[]" ? "required" : "" }}>
                             </div>
                         </div>
                     </div>

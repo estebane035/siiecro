@@ -32,6 +32,12 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('usuarios/{id}/eliminar', 	'UsuariosController@eliminar');
 		Route::resource('usuarios', 			'UsuariosController');
 	#################################################################################
+
+    ######## USUARIOS ###############################################################
+		Route::get('areas/carga', 			'AreasController@cargarTabla');
+		Route::get('areas/{id}/eliminar', 	'AreasController@eliminar');
+		Route::resource('areas', 			'AreasController');
+	#################################################################################
 });
 
 #########################################################################

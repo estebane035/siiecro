@@ -52,7 +52,6 @@ function _recargarTabla(tabla){
 
 function _notificationDiv(div,tipo,texto){
     //Tipos error, alerta, exito, info
-
     if(div === null){
         _toast(tipo, texto);
         return;
@@ -81,52 +80,51 @@ function _notificationDiv(div,tipo,texto){
             clase='info';
   }
 
-  $(div).html('<div class="alert alert-'+clase+' bordered" role="alert"><button style="margin-right: -11px;margin-top: -7px;" class="close" data-dismiss="alert"></button><p class="pull-left"><strong><i class="fa fa-'+icono+'" aria-hidden="true"></i> '+titulo+':</strong> '+texto+'</p><div class="clearfix"></div></div>');
+  $(div).html(mensaje);
 }
 
 function _errorEjecucion(xhr, notificacion = null, formulario = null){
-          var string            =   'Algo ocurrio mal:<br/>';
+    var string            =   'Algo ocurrio mal:<br/>';
+    if(xhr.status==422){
+        var errors        =   xhr.responseJSON.errors;
 
-          if(xhr.status==422){
-              var errors        =   xhr.responseJSON.errors;
-
-              $.each(errors, function(index2, item2){
-                $.each(item2, function(index3, item3){
-                  string        +=  '-' + item3 + "<br/>";
-                  i++;
-                });
-              });
-
-              _notificationDiv(notificacion,'alerta',string);
-
-              if(formulario){
-                $(formulario).find('input, textarea, button, select').attr('disabled',false);
-              }
-
-              return false;
-          }
-          try {
-            json              =   $.parseJSON(xhr.responseText);
-            var i             =   0;
-            $.each(xhr.responseJSON, function(index, item){
-                string      +=  '- '+item+"<br/>";
+        $.each(errors, function(index2, item2){
+            $.each(item2, function(index3, item3){
+                string        +=  '-' + item3 + "<br/>";
                 i++;
             });
+        });
 
-             _notificationDiv(notificacion,'alerta',string);
-              
-            if(formulario){
-                $(formulario).find('input, textarea, button, select').attr('disabled',false);
-            }
-          } catch (e) {
+        _notificationDiv(notificacion,'alerta',string);
 
-            if(formulario){
-                $(formulario).find('input, textarea, button, select').attr('disabled',false);
-            }
+        if(formulario){
+            $(formulario).find('input, textarea, button, select').attr('disabled',false);
+        }
 
-            $('#modal-error-contenido').html(xhr.responseText);
-            $('#modal-error').modal('show');
-          }
+        return false;
+    }
+    try {
+        json              =   $.parseJSON(xhr.responseText);
+        var i             =   0;
+        $.each(xhr.responseJSON, function(index, item){
+            string      +=  '- '+item+"<br/>";
+            i++;
+        });
+
+         _notificationDiv(notificacion,'alerta',string);
+          
+        if(formulario){
+            $(formulario).find('input, textarea, button, select').attr('disabled',false);
+        }
+    } catch (e) {
+
+        if(formulario){
+            $(formulario).find('input, textarea, button, select').attr('disabled',false);
+        }
+
+        $('#modal-error-contenido').html(xhr.responseText);
+        $('#modal-error').modal('show');
+    }
 }
 
 function _interpretarRespuesta(respuesta, divNotificacion, callbackExito){
@@ -204,7 +202,7 @@ function _mostrarFormulario(url,modal,nombreModal,elementoFocus,funcionCargaForm
             _formAjax(form,progress,notificacion,funcionExito);
         },
         error: function(xhr, ajaxOptions, thrownError){
-            errorEjecucion(xhr,notificacion,form,progress);
+            _errorEjecucion(xhr);
         }
     })
 }
