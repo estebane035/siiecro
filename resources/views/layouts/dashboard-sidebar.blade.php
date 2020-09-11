@@ -32,7 +32,7 @@
                     <li><a href="#">Catalogo 1</a></li>
                     <li><a href="{{ route('dashboard.obras-tipo-bien-cultural.index') }}">Tipo Bien Cultural</a></li>
                     <li><a href="{{ route('dashboard.obras-tipo-objeto.index') }}">Tipo Objeto</a></li>
-                    <li><a href="#">Catalogo 4</a></li>
+                    <li><a href="{{ route('dashboard.obras-epoca.index') }}">Época</a></li>
                     <li><a href="#">Catalogo 5</a></li>
                 </ul>
             </li>

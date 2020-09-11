@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObrasTipoObjetoTable extends Migration
+class CreateObrasEpocaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateObrasTipoObjetoTable extends Migration
      */
     public function up()
     {
-        Schema::create('obras__tipo_objeto', function (Blueprint $table) {
+        Schema::create('obras__epoca', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateObrasTipoObjetoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obras__tipo_objeto');
+        Schema::dropIfExists('obras__epoca');
     }
 }

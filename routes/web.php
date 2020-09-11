@@ -56,6 +56,12 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('obras-tipo-objeto/{id}/eliminar', 			'ObrasTipoObjetoController@eliminar');
 		Route::resource('obras-tipo-objeto', 					'ObrasTipoObjetoController');
 	#################################################################################
+
+    ######## OBRAS EPOCA ############################################################
+		Route::get('obras-epoca/carga', 						'ObrasEpocaController@cargarTabla');
+		Route::get('obras-epoca/{id}/eliminar', 				'ObrasEpocaController@eliminar');
+		Route::resource('obras-epoca', 							'ObrasEpocaController');
+	#################################################################################
 });
 
 #########################################################################
