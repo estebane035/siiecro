@@ -30,7 +30,7 @@
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Catalogos</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="#">Catalogo 1</a></li>
-                    <li><a href="#">Catalogo 2</a></li>
+                    <li><a href="{{ route('dashboard.obras-tipo-bien-cultural.index') }}">Tipo Bien Cultural</a></li>
                     <li><a href="#">Catalogo 3</a></li>
                     <li><a href="#">Catalogo 4</a></li>
                     <li><a href="#">Catalogo 5</a></li>

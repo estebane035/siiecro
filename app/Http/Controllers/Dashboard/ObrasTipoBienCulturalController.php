@@ -11,9 +11,9 @@ use Response;
 use Hash;
 use Auth;
 
-use App\Roles;
+use App\ObrasTipoBienCultural;
 
-class RolesController extends Controller
+class ObrasTipoBienCulturalController extends Controller
 {
     public function __construct()
     {
@@ -21,14 +21,14 @@ class RolesController extends Controller
     }
     
     public function index(){
-        $titulo         =   "Roles";
+        $titulo         =   "Obras Tipo Bien Cultural";
         
-        return view("dashboard.roles.index", ["titulo" => $titulo]);
+        return view("dashboard.obras.tipo-bien-cultural.index", ["titulo" => $titulo]);
     }
 
     public function cargarTabla(Request $request)
     {
-        $registros      =   Roles::all();
+        $registros      =   ObrasTipoBienCultural::all();
 
         return DataTables::of($registros)
                         ->addColumn('acciones', function($registro){
@@ -43,14 +43,14 @@ class RolesController extends Controller
 
     public function create(Request $request)
     {
-        $registro   =   new Roles;
-        return view('dashboard.roles.agregar', ["registro" => $registro]);
+        $registro   =   new ObrasTipoBienCultural;
+        return view('dashboard.obras.tipo-bien-cultural.agregar', ["registro" => $registro]);
     }
 
     public function store(Request $request)
     {
         if($request->ajax()){
-            return BD::crear('Roles', $request);
+            return BD::crear('ObrasTipoBienCultural', $request);
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
@@ -58,15 +58,15 @@ class RolesController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $registro   =   Roles::findOrFail($id);
-        return view('dashboard.roles.agregar', ["registro" => $registro]);
+        $registro   =   ObrasTipoBienCultural::findOrFail($id);
+        return view('dashboard.obras.tipo-bien-cultural.agregar', ["registro" => $registro]);
     }
 
     public function update(Request $request, $id)
     {
         if($request->ajax()){
             $data   = $request->all();
-            return BD::actualiza($id, "Roles", $data);
+            return BD::actualiza($id, "ObrasTipoBienCultural", $data);
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
@@ -74,14 +74,14 @@ class RolesController extends Controller
 
     public function eliminar(Request $request, $id)
     {
-        $registro   =   Roles::findOrFail($id);
-        return view('dashboard.roles.eliminar', ["registro" => $registro]);
+        $registro   =   ObrasTipoBienCultural::findOrFail($id);
+        return view('dashboard.obras.tipo-bien-cultural.eliminar', ["registro" => $registro]);
     }
 
     public function destroy(Request $request, $id)
     {
         if($request->ajax()){
-            return BD::elimina($id, "Roles");
+            return BD::elimina($id, "ObrasTipoBienCultural");
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
