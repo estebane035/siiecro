@@ -50,6 +50,12 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('obras-tipo-bien-cultural/{id}/eliminar', 	'ObrasTipoBienCulturalController@eliminar');
 		Route::resource('obras-tipo-bien-cultural', 			'ObrasTipoBienCulturalController');
 	#################################################################################
+
+    ######## OBRAS TIPO OBJETO ######################################################
+		Route::get('obras-tipo-objeto/carga', 					'ObrasTipoObjetoController@cargarTabla');
+		Route::get('obras-tipo-objeto/{id}/eliminar', 			'ObrasTipoObjetoController@eliminar');
+		Route::resource('obras-tipo-objeto', 					'ObrasTipoObjetoController');
+	#################################################################################
 });
 
 #########################################################################

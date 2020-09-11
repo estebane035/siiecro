@@ -2,19 +2,19 @@
 
 @section('top-body')
     <div class="col-sm-4">
-        <h2>Administración de Tipo Bien Cultural</h2>
+        <h2>Administración de Tipo Objeto</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('dashboard.dashboard.index') }}">Dashboard</a>
             </li>
             <li class="active">
-                <strong>Obras | Tipo Bien Cultural</strong>
+                <strong>Obras | Tipo Objeto</strong>
             </li>
         </ol>
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <btn onclick="crear();" class="btn btn-primary">Crear nuevo Tipo Bien Cultural</btn>
+            <btn onclick="crear();" class="btn btn-primary">Crear nuevo Tipo Objeto</btn>
         </div>
     </div>
 @endsection
@@ -49,5 +49,5 @@
 @endsection
 
 @section('scripts')
-    {!! Html::script('scripts/dashboard/obras/tipo-bien-cultural.js') !!}
+    {!! Html::script('scripts/dashboard/obras/tipo-objeto.js') !!}
 @endsection
