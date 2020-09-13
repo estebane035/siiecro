@@ -1,4 +1,4 @@
-<div class="modal inmodal" id="modal-crear" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="modal-crear" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-md-12 div-input">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $registro->nombre }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $registro->nombre }}" onchange="generarSiglas();" required autocomplete="off">
                             </div>
                             <div class="col-md-6 div-input">
                                 <label for="campo">Campo</label>

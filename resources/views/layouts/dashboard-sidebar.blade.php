@@ -27,13 +27,18 @@
                 <a href="{{ route('dashboard.dashboard.index') }}"><i class="fa fa-bar-chart"></i> <span class="nav-label">Dashboard</span></a>
             </li>
             <li>
-                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Catalogos</span> <span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Obras</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">Catalogo 1</a></li>
-                    <li><a href="{{ route('dashboard.obras-tipo-bien-cultural.index') }}">Tipo Bien Cultural</a></li>
-                    <li><a href="{{ route('dashboard.obras-tipo-objeto.index') }}">Tipo Objeto</a></li>
-                    <li><a href="{{ route('dashboard.obras-epoca.index') }}">Época</a></li>
-                    <li><a href="#">Catalogo 5</a></li>
+                    <li><a href="{{ route('dashboard.obras.index') }}">Listado</a></li>
+                    <li>
+                        <a href="#">Catálogos <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" style="height: 0px;">
+                            <li><a href="{{ route('dashboard.areas.index') }}">Áreas</a></li>
+                            <li><a href="{{ route('dashboard.obras-epoca.index') }}">Época</a></li>
+                            <li><a href="{{ route('dashboard.obras-tipo-bien-cultural.index') }}">Tipo Bien Cultural</a></li>
+                            <li><a href="{{ route('dashboard.obras-tipo-objeto.index') }}">Tipo Objeto</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             <li>

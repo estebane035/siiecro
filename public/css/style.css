@@ -8555,3 +8555,7 @@ body.md-skin {
 .inline-block{
   display: inline-block !important;
 }
+
+.select2-container{
+    z-index:100000;
+}
