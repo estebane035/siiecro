@@ -17,7 +17,9 @@ function crear(){
                       "#modal-crear", //Nombre modal
                       "#name", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
-
+                        $('.i-checks').iCheck({
+                            checkboxClass: 'icheckbox_square-green'
+                        });
                       }, //Funcion para el success
                       "#form-roles", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
@@ -36,6 +38,9 @@ function editar(id)
                         "#modal-crear", //Nombre modal
                         "#name", //Elemento al que se le dara focus una vez cargado el modal
                         function(){
+                          $('.i-checks').iCheck({
+                            checkboxClass: 'icheckbox_square-green'
+                          });
                         }, //Funcion para el success
                         "#form-roles", //ID del Formulario
                         "#carga-agregar", //Loading de guardar datos de formulario
