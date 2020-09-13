@@ -43,6 +43,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('roles/carga', 			'RolesController@cargarTabla');
 		Route::get('roles/{id}/eliminar', 	'RolesController@eliminar');
 		Route::resource('roles', 			'RolesController');
+	#################################################################################
 
     ######## OBRAS ##################################################################
 		Route::get('obras/carga', 			'ObrasController@cargarTabla');
@@ -66,6 +67,12 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('obras-epoca/carga', 						'ObrasEpocaController@cargarTabla');
 		Route::get('obras-epoca/{id}/eliminar', 				'ObrasEpocaController@eliminar');
 		Route::resource('obras-epoca', 							'ObrasEpocaController');
+	#################################################################################
+
+    ######## OBRAS TEMPORALIDAD #####################################################
+		Route::get('obras-temporalidad/carga', 					'ObrasTemporalidadController@cargarTabla');
+		Route::get('obras-temporalidad/{id}/eliminar', 			'ObrasTemporalidadController@eliminar');
+		Route::resource('obras-temporalidad', 					'ObrasTemporalidadController');
 	#################################################################################
 });
 

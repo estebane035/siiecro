@@ -35,6 +35,7 @@
                         <ul class="nav nav-third-level collapse" style="height: 0px;">
                             <li><a href="{{ route('dashboard.areas.index') }}">Áreas</a></li>
                             <li><a href="{{ route('dashboard.obras-epoca.index') }}">Época</a></li>
+                            <li><a href="{{ route('dashboard.obras-temporalidad.index') }}">Temporalidad</a></li>
                             <li><a href="{{ route('dashboard.obras-tipo-bien-cultural.index') }}">Tipo Bien Cultural</a></li>
                             <li><a href="{{ route('dashboard.obras-tipo-objeto.index') }}">Tipo Objeto</a></li>
                         </ul>

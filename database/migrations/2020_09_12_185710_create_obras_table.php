@@ -35,7 +35,7 @@ class CreateObrasTable extends Migration
             $table->foreign('tipo_objeto_id')->references('id')->on('obras__tipo_objeto');
             $table->foreign('tipo_bien_cultural_id')->references('id')->on('obras__tipo_bien_cultural');
             $table->foreign('epoca_id')->references('id')->on('obras__epoca');
-            // $table->foreign('temporalidad_id')->references('id')->on('obras__temporalidades');
+            $table->foreign('temporalidad_id')->references('id')->on('obras__temporalidad');
         });
     }
 

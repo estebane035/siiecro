@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ObrasTipoBienCulturalSeeder::class);
         $this->call(ObrasTipoObjetoSeeder::class);
         $this->call(ObrasEpocaSeeder::class);
+        $this->call(ObrasTemporalidadSeeder::class);
     }
 }
