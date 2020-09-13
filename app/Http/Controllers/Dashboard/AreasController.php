@@ -47,15 +47,8 @@ class AreasController extends Controller
 
     public function store(Request $request){
         if($request->ajax()){
-            if($request->input('contraseña') != $request->input('repetir_contraseña')){
-                return Response::json(["mensaje" => "Las contraseñas no coinciden.", "error" => true], 200);
-            } else{
-                $request->merge(["password" => Hash::make($request->input('contraseña'))]);
-            }
-
             return BD::crear('Areas', $request);
         }
-
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
     }
 
@@ -66,20 +59,7 @@ class AreasController extends Controller
 
     public function update(Request $request, $id){
         if($request->ajax()){
-            // Si recibimos contraseña debemos verificar que sean iguales
-            // Si no entonces omitimos la contraseña en el request
-            if($request->input('contraseña') != ""){
-                if($request->input('contraseña') != $request->input('repetir_contraseña')){
-                    return Response::json(["mensaje" => "Las contraseñas no coinciden.", "error" => true], 200);
-                } else{
-                    $request->merge(["password" => Hash::make($request->input('contraseña'))]);
-                    $data   =   $request->all();
-                }
-            } else{
-                $data       =   $request->except(["contraseña"]);
-            }
-
-            
+            $data   =  $request->all();
             return BD::actualiza($id, "Areas", $data);
         }
 

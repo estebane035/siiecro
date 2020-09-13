@@ -33,7 +33,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::resource('usuarios', 			'UsuariosController');
 	#################################################################################
 
-    ######## USUARIOS ###############################################################
+    ######## Areas ###############################################################
 		Route::get('areas/carga', 			'AreasController@cargarTabla');
 		Route::get('areas/{id}/eliminar', 	'AreasController@eliminar');
 		Route::resource('areas', 			'AreasController');
@@ -43,6 +43,11 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('roles/carga', 			'RolesController@cargarTabla');
 		Route::get('roles/{id}/eliminar', 	'RolesController@eliminar');
 		Route::resource('roles', 			'RolesController');
+
+    ######## OBRAS ##################################################################
+		Route::get('obras/carga', 			'ObrasController@cargarTabla');
+		Route::get('obras/{id}/eliminar', 	'ObrasController@eliminar');
+		Route::resource('obras', 			'ObrasController');
 	#################################################################################
 
     ######## OBRAS TIPO BIEN CULTURAL ###############################################

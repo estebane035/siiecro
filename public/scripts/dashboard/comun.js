@@ -80,7 +80,7 @@ function _notificationDiv(div,tipo,texto){
             clase='info';
   }
 
-  $(div).html(mensaje);
+  $(div).html(texto);
 }
 
 function _errorEjecucion(xhr, notificacion = null, formulario = null){
@@ -131,6 +131,11 @@ function _interpretarRespuesta(respuesta, divNotificacion, callbackExito){
     if(!respuesta.error){
         callbackExito(respuesta);
         _toast("exito", respuesta.mensaje);
+
+        // Si trae url redirigimos a la url
+        if(respuesta.url != undefined){
+            location.href   = respuesta.url;
+        }
     } else{
         _notificationDiv(divNotificacion, "error", respuesta.mensaje);
     }

@@ -18,15 +18,18 @@ function crear(){
                     "#modal-crear", //Nombre modal
                     "#name", //Elemento al que se le dara focus una vez cargado el modal
                     function(){
-
+                      $("#campo").select2();
+                      $('#campo').on('select2:select', function (e) {
+                        generarSiglas();
+                      });
                     }, //Funcion para el success
                     "#form-areas", //ID del Formulario
                     "#carga-agregar", //Loading de guardar datos de formulario
                     "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                     function(){
                         _ocultarModal("#modal-crear", function(){
-							_recargarTabla("#dt-datos");
-						});
+            							_recargarTabla("#dt-datos");
+            						});
                     });//Funcion en caso de guardar correctamente);
 }
 
@@ -37,14 +40,18 @@ function editar(id)
                     "#modal-crear", //Nombre modal
                     "#name", //Elemento al que se le dara focus una vez cargado el modal
                     function(){
+                      $("#campo").select2();
+                      $('#campo').on('select2:select', function (e) {
+                        generarSiglas();
+                      });
                     }, //Funcion para el success
                     "#form-areas", //ID del Formulario
                     "#carga-agregar", //Loading de guardar datos de formulario
                     "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                     function(){
                         _ocultarModal("#modal-crear", function(){
-							_recargarTabla("#dt-datos");
-						});
+            							_recargarTabla("#dt-datos");
+            						});
                     });//Funcion en caso de guardar correctamente);
 }
 
@@ -61,8 +68,37 @@ function eliminar(id)
                   "#carga-eliminar", //Loading de guardar datos de formulario
                   "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                   function(){
-						_ocultarModal("#modal-eliminar", function(){
-							_recargarTabla("#dt-datos");
-						});
+        						_ocultarModal("#modal-eliminar", function(){
+        							_recargarTabla("#dt-datos");
+        						});
                   });//Funcion en caso de guardar correctamente);
+}
+
+function generarSiglas(){
+  var nombre    =   $("#nombre").val();
+  var campo     =   $("#campo").val();
+  var siglas    =   "";
+
+  if(campo != ""){
+    campo       =   campo.normalize();
+    partes      =   campo.split(" ");
+    partes.forEach(function(palabra){
+      if(palabra != ""){
+        siglas  +=  palabra.charAt(0);
+      }
+    })
+  }
+
+  if(nombre != ""){
+    nombre      =   nombre.normalize();
+    partes      =   nombre.split(" ");
+    partes.forEach(function(palabra){
+      if(palabra != ""){
+        siglas  +=  palabra.charAt(0);
+      }
+    })
+  }
+
+  siglas        =   siglas.toUpperCase();
+  $("#siglas").val(siglas);
 }
