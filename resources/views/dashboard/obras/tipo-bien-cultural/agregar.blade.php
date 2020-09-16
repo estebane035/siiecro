@@ -19,6 +19,15 @@
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $registro->nombre }}" required autocomplete="off">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 div-input">
+                                <div class="i-checks pull-right">
+                                    <label class="pointer">
+                                         Calcular temporalidad &nbsp;&nbsp; <input type="checkbox" name="calcular_temporalidad"  {{ (($registro->calcular_temporalidad == 'si') ? 'checked=""' : '') }} >
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row m-t-md" id="div-notificacion">

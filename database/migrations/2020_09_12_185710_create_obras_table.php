@@ -20,10 +20,10 @@ class CreateObrasTable extends Migration
             $table->integer('tipo_objeto_id')->unsigned();
             $table->integer('tipo_bien_cultural_id')->unsigned();
             $table->integer('epoca_id')->unsigned()->nullable();
-            $table->integer('temporalidad_id')->unsigned();
+            $table->integer('temporalidad_id')->unsigned()->nullable();
             $table->string('nombre')->index();
-            $table->string('autor')->index();
-            $table->string('cultura')->index();
+            $table->string('autor')->index()->nullable();
+            $table->string('cultura')->index()->nullable();
             $table->string('lugar_procedencia_actual');
             $table->string('numero_inventario');
             $table->date('año')->nullable();

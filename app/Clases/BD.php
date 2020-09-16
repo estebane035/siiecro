@@ -23,7 +23,7 @@ class BD
 
             $error 			= 	BD::descripcionDelError($error_code);
 
-            if($error != 'No se encontró la descripción del error.'){
+            if($error != 'No se encontró la descripción del error.' && !env('APP_DEBUG')){
                 return Response::json(["mensaje" => $error, "error" => true], 200);
             }else{
                 return Response::json(["mensaje" => $e->getMessage(), "error" => true], 200);

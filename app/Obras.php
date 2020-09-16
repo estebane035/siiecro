@@ -9,6 +9,8 @@ class Obras extends Model
     protected $fillable = [
         'epoca_id',
         'temporalidad_id',
+        'tipo_objeto_id',
+        'tipo_bien_cultural_id',
         'nombre',
         'autor',
         'cultura',

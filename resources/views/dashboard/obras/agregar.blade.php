@@ -20,18 +20,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
-                                <label for="autor">Autor</label>
-                                <input type="text" class="form-control" id="autor" name="autor" value="{{ $registro->autor }}" required autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6 div-input">
                                 <label for="tipo_bien_cultural_id">Tipo de bien cultural</label>
                                 <select class="form-control select2" id="tipo_bien_cultural_id" name="tipo_bien_cultural_id" required autocomplete="off">
                                     <option value=""></option>
                                     @foreach ($tiposBienCultural as $bienCultural)
-                                        <option {{ $bienCultural->id == $registro->id ? "selected" : "" }} value="{{ $bienCultural->id }}">{{ $bienCultural->nombre }}</option>
+                                        <option {{ $bienCultural->id == $registro->id ? "selected" : "" }} id="tipo-bien-cultural-{{ $bienCultural->id }}" calcular-temporalidad="{{ $bienCultural->calcular_temporalidad }}" value="{{ $bienCultural->id }}">{{ $bienCultural->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -45,21 +39,76 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+
+                        {{-- Si el tipo de bien cultural es calcular temporalidad entonces se muestra la cultura, si no el autor --}}
+                        <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-cultura">
                             <div class="col-md-12 div-input">
                                 <label for="cultura">Cultura</label>
                                 <input type="text" class="form-control" id="cultura" name="cultura" value="{{ $registro->cultura }}" required autocomplete="off">
                             </div>
                         </div>
-                        <div class="row">
+
+                        <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-autor">
+                            <div class="col-md-12 div-input">
+                                <label for="autor">Autor</label>
+                                <input type="text" class="form-control" id="autor" name="autor" value="{{ $registro->autor }}" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        {{-- Si el tipo de bien cultural es calcular temporalidad --}}
+
+                        <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-temporalidad">
                             <div class="col-md-12 div-input">
                                 <label for="temporalidad_id">Temporalidad</label>
-                                <select class="form-control select2" id="temporalidad_id" name="temporalidad_id" required autocomplete="off">
+                                <select class="form-control select2 full-width" id="temporalidad_id" name="temporalidad_id" required autocomplete="off">
                                     <option value=""></option>
-                                    <option value="1">TMP</option>
+                                    @foreach ($temporalidades as $temporalidad)
+                                        <option {{ $registro->temporalidad_id == $temporalidad->id ? "selected" : "" }} value="{{ $temporalidad->id }}">{{ $temporalidad->nombre }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
+
+                        {{-- Si no --}}
+
+                        <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-año">
+                            <div class="col-md-8 div-input">
+                                <label for="año">Año</label>
+                                <input type="text" class="form-control" id="año" name="año" value="{{ $registro->año }}" required autocomplete="off">
+                            </div>
+                            <div class="col-md-4 div-input">
+                                <label for="estatus_año">Estatus</label>
+                                <select class="form-control select2 full-width" name="estatus_año" id="estatus_año">
+                                    <option value=""></option>
+                                    @foreach (config('valores.status_años_obras') as $status)
+                                        <option {{ $registro->estatus_año == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- Si el año es confirmado se muestra la epoca --}}
+                        <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-epoca">
+                            <div class="col-md-8 div-input">
+                                <label for="epoca_id">Época</label>
+                                <select class="form-control select2 full-width" name="epoca_id" id="epoca_id">
+                                    <option value=""></option>
+                                    @foreach ($epocas as $epoca)
+                                        <option {{ $registro->epoca_id == $epoca->id ? "selected" : "" }} value="{{ $epoca->id }}">{{ $epoca->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4 div-input">
+                                <label for="estatus_epoca">Estatus</label>
+                                <select class="form-control select2 full-width" name="estatus_epoca" id="estatus_epoca">
+                                    <option value=""></option>
+                                    @foreach (config('valores.status_años_obras') as $status)
+                                        <option {{ $registro->estatus_epoca == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-8 div-input">
                                 <label for="lugar_procedencia_actual">Lugar de procedencia actual</label>
@@ -79,6 +128,7 @@
                     <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 </div>
+            <input type="hidden" id="calcular-temporalidad" name="calcular-temporalidad">
             {!! Form::close() !!}
         </div>
     </div>

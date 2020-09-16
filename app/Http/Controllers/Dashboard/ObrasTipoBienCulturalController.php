@@ -50,6 +50,13 @@ class ObrasTipoBienCulturalController extends Controller
     public function store(Request $request)
     {
         if($request->ajax()){
+
+            if($request->has('calcular_temporalidad')){
+                $request->merge(['calcular_temporalidad' => "si"]);
+            } else{
+                $request->merge(['calcular_temporalidad' => "no"]);
+            }
+
             return BD::crear('ObrasTipoBienCultural', $request);
         }
 
@@ -65,6 +72,13 @@ class ObrasTipoBienCulturalController extends Controller
     public function update(Request $request, $id)
     {
         if($request->ajax()){
+
+            if($request->has('calcular_temporalidad')){
+                $request->merge(['calcular_temporalidad' => "si"]);
+            } else{
+                $request->merge(['calcular_temporalidad' => "no"]);
+            }
+            
             $data   = $request->all();
             return BD::actualiza($id, "ObrasTipoBienCultural", $data);
         }

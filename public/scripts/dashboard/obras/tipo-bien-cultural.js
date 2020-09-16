@@ -15,13 +15,13 @@ function crear(){
   _mostrarFormulario("/dashboard/obras-tipo-bien-cultural/create", //Url solicitud de datos
                       "#modal-1", //Div que contendra el modal
                       "#modal-crear", //Nombre modal
-                      "#name", //Elemento al que se le dara focus una vez cargado el modal
+                      "#nombre", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
 
                       }, //Funcion para el success
                       "#form-obras-tipo-bien-cultural", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
-                      "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                       function(){
                           _ocultarModal("#modal-crear", function(){
               							_recargarTabla("#dt-datos");
@@ -34,12 +34,12 @@ function editar(id)
     _mostrarFormulario("/dashboard/obras-tipo-bien-cultural/"+id+"/edit/", //Url solicitud de datos
                         "#modal-1", //Div que contendra el modal
                         "#modal-crear", //Nombre modal
-                        "#name", //Elemento al que se le dara focus una vez cargado el modal
+                        "#nombre", //Elemento al que se le dara focus una vez cargado el modal
                         function(){
                         }, //Funcion para el success
                         "#form-obras-tipo-bien-cultural", //ID del Formulario
                         "#carga-agregar", //Loading de guardar datos de formulario
-                        "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                        "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                         function(){
                             _ocultarModal("#modal-crear", function(){
                 							_recargarTabla("#dt-datos");
@@ -58,7 +58,7 @@ function eliminar(id)
                       }, //Funcion para el success
                       "#form-obras-tipo-bien-cultural", //ID del Formulario
                       "#carga-eliminar", //Loading de guardar datos de formulario
-                      "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                       function(){
             						_ocultarModal("#modal-eliminar", function(){
             							_recargarTabla("#dt-datos");

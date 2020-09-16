@@ -8559,3 +8559,12 @@ body.md-skin {
 .select2-container{
     z-index:100000;
 }
+
+.full-width{
+  width: 100% !important;
+}
+
+.full-width + span.select2-container{
+  width: 100% !important;
+}
+

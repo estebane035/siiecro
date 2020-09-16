@@ -4,9 +4,9 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Obras</h4>
-                <small class="font-bold">Eliminar área</small>
+                <small class="font-bold">Eliminar Obra</small>
             </div>
-            {!! Form::open(['route' => ['dashboard.areas.destroy', $registro->id], 'method' => 'DELETE', 'id' => 'form-areas', 'class' => 'form-horizontal']) !!}
+            {!! Form::open(['route' => ['dashboard.obras.destroy', $registro->id], 'method' => 'DELETE', 'id' => 'form-obras', 'class' => 'form-horizontal']) !!}
             <div class="modal-body">
             	<div class="row">
             		<p>¿Estas seguro que deseas eliminar la Obra <strong>{{ $registro->nombre }}</strong>?</p>
