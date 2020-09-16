@@ -15,11 +15,29 @@ function crear(){
   _mostrarFormulario("/dashboard/obras/create", //Url solicitud de datos
                     "#modal-1", //Div que contendra el modal
                     "#modal-crear", //Nombre modal
-                    "#name", //Elemento al que se le dara focus una vez cargado el modal
+                    "#nombre", //Elemento al que se le dara focus una vez cargado el modal
                     function(){
-                      $("#tipo_bien_cultural_id, #tipo_objeto_id, #temporalidad_id").select2({
+
+                      $("#tipo_bien_cultural_id, #tipo_objeto_id, #temporalidad_id, #epoca_id, #estatus_año, #estatus_epoca").select2({
                         placeholder: "Seleccione una opción"
                       });
+
+                      $("#año").datepicker({
+                        language:       'es',
+                        format:         'yyyy',
+                        minViewMode:    'years',
+                        startDate:      '1400',
+                        endDate:        '2040',
+                      });
+
+                      $('#tipo_bien_cultural_id').on('select2:select', function (e) {
+                        comportamientoTipoBienCultural(e.params.data.id);
+                      });
+
+                      $('#estatus_año').on('select2:select', function (e) {
+                        comportamientoStatusAño(e.params.data.id);
+                      });
+
                     }, //Funcion para el success
                     "#form-obras", //ID del Formulario
                     "#carga-agregar", //Loading de guardar datos de formulario
@@ -36,11 +54,21 @@ function editar(id)
     _mostrarFormulario("/dashboard/obras/"+id+"/edit/", //Url solicitud de datos
                     "#modal-1", //Div que contendra el modal
                     "#modal-crear", //Nombre modal
-                    "#name", //Elemento al que se le dara focus una vez cargado el modal
+                    "#nombre", //Elemento al que se le dara focus una vez cargado el modal
                     function(){
-                      $("#tipo_bien_cultural_id, #tipo_objeto_id, #temporalidad_id").select2({
+
+                      $("#tipo_bien_cultural_id, #tipo_objeto_id, #temporalidad_id, #epoca_id, #estatus_año, #estatus_epoca").select2({
                         placeholder: "Seleccione una opción"
                       });
+
+                      $("#año").datepicker({
+                        language:       'es',
+                        format:         'yyyy',
+                        minViewMode:    'years',
+                        startDate:      '1400',
+                        endDate:        '2040',
+                      });
+
                     }, //Funcion para el success
                     "#form-obras", //ID del Formulario
                     "#carga-agregar", //Loading de guardar datos de formulario
@@ -69,4 +97,39 @@ function eliminar(id)
                       _recargarTabla("#dt-datos");
                     });
                   });//Funcion en caso de guardar correctamente);
+}
+
+function comportamientoTipoBienCultural(id){
+  // Obtenemos el option del id seleccionado
+  var   option  =   $("#tipo-bien-cultural-" + id);
+
+  // Guardamos en un input si se calcula la temporalidad o no
+  // Se necesitara en el controlador
+  $("#calcular-temporalidad").val(option.attr('calcular-temporalidad'));
+
+  // Si el atributo calcular-temporalidad del option es si entonces mostramos el div de temporalidad y cultura
+  // Si no mostramos el div de año y autor
+  if(option.attr('calcular-temporalidad') == "si"){
+    $("#div-temporalidad").removeClass('hidden');
+    $("#div-cultura").removeClass('hidden');
+
+    $("#div-año").addClass('hidden');
+    $("#div-autor").addClass('hidden');
+  } else{
+    $("#div-año").removeClass('hidden');
+    $("#div-autor").removeClass('hidden');
+
+    $("#div-temporalidad").addClass('hidden');
+    $("#div-cultura").addClass('hidden');
+  }
+}
+
+function comportamientoStatusAño(id){
+  // Si el status es confirmado entonces mostramos el div de epoca
+  // Si no entonces lo ocultamos
+  if(id == "Confirmado"){
+    $("#div-epoca").removeClass('hidden');
+  }else{
+    $("#div-epoca").addClass('hidden');
+  }
 }

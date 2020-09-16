@@ -8,6 +8,7 @@ class ObrasTipoBienCultural extends Model
 {
     protected $table = "obras__tipo_bien_cultural";
     protected $fillable = [
-    	'nombre'
+    	'nombre',
+    	'calcular_temporalidad'
     ];
 }

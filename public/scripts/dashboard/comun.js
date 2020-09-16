@@ -205,6 +205,10 @@ function _mostrarFormulario(url,modal,nombreModal,elementoFocus,funcionCargaForm
             }
             funcionCargaForm();
             _formAjax(form,progress,notificacion,funcionExito);
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green'
+            });
         },
         error: function(xhr, ajaxOptions, thrownError){
             _errorEjecucion(xhr);

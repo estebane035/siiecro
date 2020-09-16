@@ -179,6 +179,7 @@
 
 <!-- Datepicker -->
   {!!Html::script('js/plugins/datapicker/bootstrap-datepicker.js')!!}
+  {!!Html::script('js/plugins/datapicker/bootstrap-datepicker.es.js')!!}
 
 <!-- Moment -->
 <!-- Date range use moment.js same as full calendar plugin -->

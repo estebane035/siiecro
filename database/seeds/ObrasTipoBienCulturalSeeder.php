@@ -12,25 +12,32 @@ class ObrasTipoBienCulturalSeeder extends Seeder
     public function run()
     {
         DB::table('obras__tipo_bien_cultural')->insert([
-            'nombre'      	=>  "Arqueológico",
+            'nombre'                    =>  "Arqueológico",
+            'calcular_temporalidad'     =>  'si'
         ]);
         DB::table('obras__tipo_bien_cultural')->insert([
-            'nombre'      	=>  "Documental",
+            'nombre'                    =>  "Documental",
+            'calcular_temporalidad'     =>  'no'
         ]);
         DB::table('obras__tipo_bien_cultural')->insert([
-            'nombre'      	=>  "Histórico",
+            'nombre'                    =>  "Histórico",
+            'calcular_temporalidad'     =>  'no'
         ]);
         DB::table('obras__tipo_bien_cultural')->insert([
-            'nombre'      	=>  "Artístico",
+            'nombre'                    =>  "Artístico",
+            'calcular_temporalidad'     =>  'no'
         ]);
         DB::table('obras__tipo_bien_cultural')->insert([
-            'nombre'      	=>  "Religioso",
+            'nombre'                    =>  "Religioso",
+            'calcular_temporalidad'     =>  'no'
         ]);
         DB::table('obras__tipo_bien_cultural')->insert([
-            'nombre'      	=>  "Industrial",
+            'nombre'                    =>  "Industrial",
+            'calcular_temporalidad'     =>  'no'
         ]);
         DB::table('obras__tipo_bien_cultural')->insert([
-            'nombre'      	=>  "Etnográfico",
+            'nombre'                    =>  "Etnográfico",
+            'calcular_temporalidad'     =>  'no'
         ]);
     }
 }

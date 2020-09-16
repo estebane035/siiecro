@@ -16,6 +16,7 @@ class CreateObrasTipoBienCulturalTable extends Migration
         Schema::create('obras__tipo_bien_cultural', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->enum('calcular_temporalidad', ['si', 'no'])->default('no');
             $table->timestamps();
         });
     }

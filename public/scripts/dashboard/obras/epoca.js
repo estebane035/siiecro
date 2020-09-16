@@ -21,7 +21,7 @@ function crear(){
                       }, //Funcion para el success
                       "#form-obras-epoca", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
-                      "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                       function(){
                           _ocultarModal("#modal-crear", function(){
               							_recargarTabla("#dt-datos");
@@ -39,7 +39,7 @@ function editar(id)
                         }, //Funcion para el success
                         "#form-obras-epoca", //ID del Formulario
                         "#carga-agregar", //Loading de guardar datos de formulario
-                        "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                        "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                         function(){
                             _ocultarModal("#modal-crear", function(){
                 							_recargarTabla("#dt-datos");
@@ -58,7 +58,7 @@ function eliminar(id)
                       }, //Funcion para el success
                       "#form-obras-epoca", //ID del Formulario
                       "#carga-eliminar", //Loading de guardar datos de formulario
-                      "#div-respuesta", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                       function(){
             						_ocultarModal("#modal-eliminar", function(){
             							_recargarTabla("#dt-datos");
