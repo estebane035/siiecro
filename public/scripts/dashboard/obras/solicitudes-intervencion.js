@@ -4,12 +4,13 @@ jQuery(document).ready(function($) {
       "#carga-dt", // ID elemento del progreso
       "/dashboard/obras/solicitudes-intervencion/carga", // URL datos
       [
-        { data: "nombre",           width: "30%"},
-        { data: "año",              width: "5%"},
-        { data: "epoca",            width: "20%",   name: "oe.nombre"},
-        { data: "temporalidad",     width: "20%",   name: "ot.nombre"},
-        { data: "tipo_objeto",      width: "10%",   name: "oto.nombre"},
-        { data: "acciones",         width: "15%",   searchable: false,  orderable: false},
+        { data: "nombre",               width: "30%"},
+        { data: "tipo_bien_cultural",   width: "15%",   name: "obc.nombre"},
+        { data: "tipo_objeto",          width: "10%",   name: "oto.nombre"},
+        { data: "año",                  width: "5%"},
+        { data: "epoca",                width: "15%",   name: "oe.nombre"},
+        { data: "temporalidad",         width: "15%",   name: "ot.nombre"},
+        { data: "acciones",             width: "10%",   searchable: false,  orderable: false},
       ], // Columnas
     );
 });
@@ -37,8 +38,8 @@ function crear(){
                         comportamientoTipoBienCultural(e.params.data.id);
                       });
 
-                      $('#estatus_año').on('select2:select', function (e) {
-                        comportamientoStatusAño(e.params.data.id);
+                      $('#estatus_epoca').on('select2:select', function (e) {
+                        comportamientoStatusEpoca(e.params.data.id);
                       });
 
                     }, //Funcion para el success
@@ -76,12 +77,12 @@ function editar(id)
                         comportamientoTipoBienCultural(e.params.data.id);
                       });
 
-                      $('#estatus_año').on('select2:select', function (e) {
-                        comportamientoStatusAño(e.params.data.id);
+                      $('#estatus_epoca').on('select2:select', function (e) {
+                        comportamientoStatusEpoca(e.params.data.id);
                       });
 
                       comportamientoTipoBienCultural($('#tipo_bien_cultural_id').val());
-                      comportamientoStatusAño($('#estatus_año').val());
+                      comportamientoStatusEpoca($('#estatus_epoca').val());
 
                     }, //Funcion para el success
                     "#form-obras", //ID del Formulario
@@ -160,15 +161,15 @@ function comportamientoTipoBienCultural(id){
   $("#calcular-temporalidad").val(option.attr('calcular-temporalidad'));
 
   // Si el atributo calcular-temporalidad del option es si entonces mostramos el div de temporalidad y cultura
-  // Si no mostramos el div de año y autor
+  // Si no mostramos el div de epoca y autor
   if(option.attr('calcular-temporalidad') == "si"){
     $("#div-temporalidad").removeClass('hidden');
     $("#div-cultura").removeClass('hidden');
 
-    $("#div-año").addClass('hidden');
+    $("#div-epoca").addClass('hidden');
     $("#div-autor").addClass('hidden');
   } else{
-    $("#div-año").removeClass('hidden');
+    $("#div-epoca").removeClass('hidden');
     $("#div-autor").removeClass('hidden');
 
     $("#div-temporalidad").addClass('hidden');
@@ -176,12 +177,12 @@ function comportamientoTipoBienCultural(id){
   }
 }
 
-function comportamientoStatusAño(id){
+function comportamientoStatusEpoca(id){
   // Si el status es confirmado entonces mostramos el div de epoca
   // Si no entonces lo ocultamos
   if(id == "Confirmado"){
-    $("#div-epoca").removeClass('hidden');
+    $("#div-año").removeClass('hidden');
   }else{
-    $("#div-epoca").addClass('hidden');
+    $("#div-año").addClass('hidden');
   }
 }

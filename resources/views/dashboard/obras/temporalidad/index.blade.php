@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['menu' => "temporalidad"])
 
 @section('top-body')
     <div class="col-sm-4">

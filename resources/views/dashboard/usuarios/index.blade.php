@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['menu' => "usuarios"])
 
 @section('top-body')
 	<div class="col-sm-4">

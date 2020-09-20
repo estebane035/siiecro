@@ -15,6 +15,9 @@ class CreateObrasTable extends Migration
     {
         Schema::create('obras', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('usuario_solicito_id')->unsigned();
+            $table->integer('usuario_aprobo_id')->unsigned()->nullable();
+            $table->integer('usuario_rechazo_id')->unsigned()->nullable();
 
             // Datos generales de identificacion
             $table->integer('tipo_objeto_id')->unsigned();
@@ -39,6 +42,9 @@ class CreateObrasTable extends Migration
 
             $table->timestamps();
 
+            $table->foreign('usuario_solicito_id')->references('id')->on('users');
+            $table->foreign('usuario_aprobo_id')->references('id')->on('users');
+            $table->foreign('usuario_rechazo_id')->references('id')->on('users');
             $table->foreign('tipo_objeto_id')->references('id')->on('obras__tipo_objeto');
             $table->foreign('tipo_bien_cultural_id')->references('id')->on('obras__tipo_bien_cultural');
             $table->foreign('epoca_id')->references('id')->on('obras__epoca');

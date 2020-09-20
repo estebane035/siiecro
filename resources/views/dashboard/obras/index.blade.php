@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['menu' => "obras"])
 
 @section('top-body')
     <div class="col-sm-4">
@@ -13,9 +13,6 @@
         </ol>
     </div>
     <div class="col-sm-8">
-        <div class="title-action">
-            <btn onclick="crear();" class="btn btn-primary">Crear nueva Obra</btn>
-        </div>
     </div>
 @endsection
 
@@ -35,10 +32,11 @@
                                 <tr>
                                     <th>Folio</th>
                                     <th>Nombre</th>
+                                    <th>Tipo bien cultural</th>
+                                    <th>Tipo de objeto</th>
                                     <th>Año</th>
                                     <th>Época</th>
                                     <th>Temporalidad</th>
-                                    <th>Tipo de objeto</th>
                                     <th>Área</th>
                                     <th>Acciones</th>
                                 </tr>

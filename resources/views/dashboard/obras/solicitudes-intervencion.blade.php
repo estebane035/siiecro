@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['menu' => "solicitudes-intervencion"])
 
 @section('top-body')
     <div class="col-sm-4">
@@ -17,7 +17,7 @@
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <btn onclick="crear();" class="btn btn-primary">Crear nueva solicitud</btn>
+            <btn onclick="crear();" class="btn btn-primary">Crear nueva solicitud de intervención</btn>
         </div>
     </div>
 @endsection
@@ -37,10 +37,11 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
+                                    <th>Tipo bien cultural</th>
+                                    <th>Tipo de objeto</th>
                                     <th>Año</th>
                                     <th>Época</th>
                                     <th>Temporalidad</th>
-                                    <th>Tipo de objeto</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

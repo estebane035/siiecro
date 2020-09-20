@@ -39,14 +39,17 @@ class ObrasController extends Controller
     public function cargarTabla(Request $request){
     	$registros 		= 	Obras::selectRaw("
                                                 obras.*,
+                                                obc.nombre as tipo_bien_cultural,
                                                 oe.nombre as epoca,
                                                 ot.nombre as temporalidad,
                                                 oto.nombre as tipo_objeto,
-                                                'Falta programar' as area
+                                                'a.nombre' as area
                                             ")
+                                    ->join('obras__tipo_bien_cultural as obc', 'obc.id', 'obras.tipo_bien_cultural_id')
+                                    ->join('obras__tipo_objeto as oto', 'oto.id', 'obras.tipo_objeto_id')
                                     ->leftJoin('obras__temporalidad as ot', 'ot.id', 'obras.temporalidad_id')
                                     ->leftJoin('obras__epoca as oe', 'oe.id', 'obras.epoca_id')
-                                    ->leftJoin('obras__tipo_objeto as oto', 'oto.id', 'obras.tipo_objeto_id')
+                                    // ->leftJoin('areas as a', 'a.id', 'obras.area_id')
                                     ->orWhereNotNull('fecha_aprobacion');
 
     	return DataTables::of($registros)
@@ -73,19 +76,21 @@ class ObrasController extends Controller
     public function cargarSolicitudesIntervencion(){
         $registros      =   Obras::selectRaw("
                                                 obras.*,
+                                                obc.nombre as tipo_bien_cultural,
                                                 oe.nombre as epoca,
                                                 ot.nombre as temporalidad,
                                                 oto.nombre as tipo_objeto
                                             ")
+                                    ->join('obras__tipo_bien_cultural as obc', 'obc.id', 'obras.tipo_bien_cultural_id')
+                                    ->join('obras__tipo_objeto as oto', 'oto.id', 'obras.tipo_objeto_id')
                                     ->leftJoin('obras__temporalidad as ot', 'ot.id', 'obras.temporalidad_id')
                                     ->leftJoin('obras__epoca as oe', 'oe.id', 'obras.epoca_id')
-                                    ->leftJoin('obras__tipo_objeto as oto', 'oto.id', 'obras.tipo_objeto_id')
                                     ->whereNull('obras.fecha_aprobacion');
 
         return DataTables::of($registros)
                         ->editColumn('año', function($registro){
                             if($registro->año){
-                                return Carbon::parse($registro->año)->format('Y');
+                                return $registro->año->format('Y');
                             }
 
                             return NULL;
@@ -95,13 +100,13 @@ class ObrasController extends Controller
                             $aprobar        =   '';
                             $rechazar       =   '';
 
-                            $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Editar"></i>';
+                            $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
 
                             if($registro->fecha_rechazo){
-                                $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"></i>';
+                                $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
                             } else{
-                                $aprobar    =   '<i onclick="aprobar('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Aprobar"></i>';
-                                $rechazar   =   '<i onclick="rechazar('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Rechazar"></i>';
+                                $aprobar    =   '<i onclick="aprobar('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar"></i>';
+                                $rechazar   =   '<i onclick="rechazar('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
                             }
 
                             return $editar.$aprobar.$rechazar.$eliminar;
@@ -135,18 +140,25 @@ class ObrasController extends Controller
             } else{
                 $request->merge([
                                     "cultura"           =>  NULL,
-                                    "temporalidad_id"   =>  NULL,
-                                    "año"               =>  $request->input("año")."-01-01"
+                                    "temporalidad_id"   =>  NULL
                                 ]);
 
-                // Si el estatus del año es aproximado no debe de tener epoca
-                if($request->input('estatus_año') == "Aproximado"){
+                // Si el estatus de la epoca es aproximado no debe de tener año
+                if($request->input('estatus_epoca') == "Aproximado"){
                     $request->merge([
-                                        "epoca_id"          =>  NULL,
-                                        "estatus_epoca"     =>  NULL
+                                        "año"           =>  NULL,
+                                        "estatus_año"   =>  NULL
+                                    ]);
+                } else{
+                    $request->merge([
+                                        "año"           =>  $request->input("año")."-01-01"
                                     ]);
                 }
             }
+
+            $request->merge([
+                                "usuario_solicito_id"   =>  Auth::id()
+                            ]);
 
             return BD::crear('Obras', $request);
         }
@@ -178,18 +190,25 @@ class ObrasController extends Controller
             } else{
                 $request->merge([
                                     "cultura"           =>  NULL,
-                                    "temporalidad_id"   =>  NULL,
-                                    "año"               =>  $request->input("año")."-01-01"
+                                    "temporalidad_id"   =>  NULL
                                 ]);
 
-                // Si el estatus del año es aproximado no debe de tener epoca
-                if($request->input('estatus_año') == "Aproximado"){
+                // Si el estatus de la epoca es aproximado no debe de tener año
+                if($request->input('estatus_epoca') == "Aproximado"){
                     $request->merge([
-                                        "epoca_id"          =>  NULL,
-                                        "estatus_epoca"     =>  NULL
+                                        "año"           =>  NULL,
+                                        "estatus_año"   =>  NULL
+                                    ]);
+                } else{
+                    $request->merge([
+                                        "año"           =>  $request->input("año")."-01-01"
                                     ]);
                 }
             }
+
+            $request->merge([
+                                "usuario_solicito_id"   =>  Auth::id()
+                            ]);
 
             $data               =   $request->all();
             return BD::actualiza($id, "Obras", $data);

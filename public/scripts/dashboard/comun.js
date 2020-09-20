@@ -31,7 +31,8 @@ function _cargarTabla(tabla, progreso, urlData, columnas, filas=10, sorting=0, t
         },
         drawCallback: function() {
           $('[data-toggle="popover"]').popover();
-          $('[data-toggle="tooltip"]').tooltip();
+          // $('[data-toggle="tooltip"]').tooltip();
+          _inicializarTooltips();
         },
         dom: 'lfrtip',
         processing: false,
@@ -214,4 +215,23 @@ function _mostrarFormulario(url,modal,nombreModal,elementoFocus,funcionCargaForm
             _errorEjecucion(xhr);
         }
     })
+}
+
+function _inicializarTooltips(){
+    // data-toggle="tooltip" data-placement="top" data-original-title="Editar" 
+
+    $('*[mi-tooltip]').each(function() {
+        var contenido   =   $(this).attr('mi-tooltip');
+        var placement   =   "top";
+
+        if($(this).attr('data-placement') != null){
+            placement   =   $(this).attr('data-placement');
+        }
+
+        $(this).attr('data-toogle', 'tooltip');
+        $(this).attr('data-html', 'true');
+        $(this).attr('data-placement', placement);
+        $(this).attr('data-original-title', contenido);
+        $(this).tooltip();
+    });
 }

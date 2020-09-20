@@ -23,14 +23,18 @@
                     ECRO
                 </div>
             </li>
-            <li>
+            <li class="{{ $menu == "dashboard" ? "active" : "" }}">
                 <a href="{{ route('dashboard.dashboard.index') }}"><i class="fa fa-bar-chart"></i> <span class="nav-label">Dashboard</span></a>
             </li>
-            <li>
+            <li class="{{ in_array($menu, ["obras", "solicitudes-intervencion", "tipo-objeto", "tipo-bien-cultural", "temporalidad", "epoca", "area"]) ? "active" : "" }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Obras</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="{{ route('dashboard.obras.solicitudes') }}">Solicitudes</a></li>
-                    <li><a href="{{ route('dashboard.obras.index') }}">Listado</a></li>
+                    <li class="{{ $menu == "solicitudes-intervencion" ? "active" : "" }}">
+                        <a href="{{ route('dashboard.obras.solicitudes') }}">Solicitudes</a>
+                    </li>
+                    <li class="{{ $menu == "obras" ? "active" : "" }}">
+                        <a href="{{ route('dashboard.obras.index') }}">Listado</a>
+                    </li>
                     <li>
                         <a href="#">Catálogos <span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level collapse" style="height: 0px;">
@@ -43,10 +47,10 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li class="{{ $menu == "usuarios" ? "active" : "" }}">
                 <a href="{{ route('dashboard.usuarios.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Usuarios</span></a>
             </li>
-            <li>
+            <li class="{{ $menu == "roles" ? "active" : "" }}">
                 <a href="{{ route('dashboard.roles.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Roles</span></a>
             </li>
         </ul>

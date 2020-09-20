@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard', ['menu' => "tipo-objeto"])
 
 @section('top-body')
     <div class="col-sm-4">

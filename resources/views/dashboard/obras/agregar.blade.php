@@ -71,27 +71,10 @@
 
                         {{-- Si no --}}
 
-                        <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-año">
-                            <div class="col-md-8 div-input">
-                                <label for="año">Año</label>
-                                <input type="text" class="form-control" id="año" name="año" value="{{ $registro->año }}" required autocomplete="off">
-                            </div>
-                            <div class="col-md-4 div-input">
-                                <label for="estatus_año">Estatus</label>
-                                <select class="form-control select2 full-width" name="estatus_año" id="estatus_año">
-                                    <option value=""></option>
-                                    @foreach (config('valores.status_años_obras') as $status)
-                                        <option {{ $registro->estatus_año == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        {{-- Si el año es confirmado se muestra la epoca --}}
                         <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-epoca">
                             <div class="col-md-8 div-input">
                                 <label for="epoca_id">Época</label>
-                                <select class="form-control select2 full-width" name="epoca_id" id="epoca_id">
+                                <select class="form-control select2 full-width" name="epoca_id" id="epoca_id" required autocomplete="off">
                                     <option value=""></option>
                                     @foreach ($epocas as $epoca)
                                         <option {{ $registro->epoca_id == $epoca->id ? "selected" : "" }} value="{{ $epoca->id }}">{{ $epoca->nombre }}</option>
@@ -104,6 +87,23 @@
                                     <option value=""></option>
                                     @foreach (config('valores.status_años_obras') as $status)
                                         <option {{ $registro->estatus_epoca == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- Si la epoca es confirmada se muestra el año --}}
+                        <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-año">
+                            <div class="col-md-8 div-input">
+                                <label for="año">Año</label>
+                                <input type="text" class="form-control" id="año" name="año" value="{{ $registro->año ? $registro->año->format('Y') : '' }}" required autocomplete="off">
+                            </div>
+                            <div class="col-md-4 div-input">
+                                <label for="estatus_año">Estatus</label>
+                                <select class="form-control select2 full-width" name="estatus_año" id="estatus_año">
+                                    <option value=""></option>
+                                    @foreach (config('valores.status_años_obras') as $status)
+                                        <option {{ $registro->estatus_año == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
