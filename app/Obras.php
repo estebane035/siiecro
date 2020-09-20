@@ -14,14 +14,19 @@ class Obras extends Model
         'nombre',
         'autor',
         'cultura',
+        'alto',
+        'largo',
+        'ancho',
         'lugar_procedencia_actual',
         'numero_inventario',
         'año',
         'estatus_año',
         'estatus_epoca',
+        'fecha_aprobacion',
+        'fecha_rechazo'
     ];
 
     public function getFolioAttribute(){
-    	return $this->id;
+    	return $this->id."-20/INT-STRPM";
     }
 }

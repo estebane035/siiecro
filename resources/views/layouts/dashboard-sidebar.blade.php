@@ -29,6 +29,7 @@
             <li>
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Obras</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
+                    <li><a href="{{ route('dashboard.obras.solicitudes') }}">Solicitudes</a></li>
                     <li><a href="{{ route('dashboard.obras.index') }}">Listado</a></li>
                     <li>
                         <a href="#">Catálogos <span class="fa arrow"></span></a>

@@ -93,7 +93,7 @@ class BD
             		$deshabilitado 			= 	"Change the relations in your system beofre delete this ".$modelo;
             	}
 
-                return Response::json(["mensaje" => "0|El registro no pudo ser eliminado porque <br/>hay información relacionada a el.<br/>".$deshabilitado, "id" => $registro->id, "error" => false], 200);
+                return Response::json(["mensaje" => "El registro no pudo ser eliminado porque <br/>hay información relacionada a el.<br/>".$deshabilitado, "id" => $registro->id, "error" => false], 200);
             }else{
             	$error 						= 	BD::descripcionDelError($error_code);
                 if($error!='No se encontró la descripción del error.'){

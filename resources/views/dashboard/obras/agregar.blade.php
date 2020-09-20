@@ -25,7 +25,7 @@
                                 <select class="form-control select2" id="tipo_bien_cultural_id" name="tipo_bien_cultural_id" required autocomplete="off">
                                     <option value=""></option>
                                     @foreach ($tiposBienCultural as $bienCultural)
-                                        <option {{ $bienCultural->id == $registro->id ? "selected" : "" }} id="tipo-bien-cultural-{{ $bienCultural->id }}" calcular-temporalidad="{{ $bienCultural->calcular_temporalidad }}" value="{{ $bienCultural->id }}">{{ $bienCultural->nombre }}</option>
+                                        <option {{ $bienCultural->id == $registro->tipo_bien_cultural_id ? "selected" : "" }} id="tipo-bien-cultural-{{ $bienCultural->id }}" calcular-temporalidad="{{ $bienCultural->calcular_temporalidad }}" value="{{ $bienCultural->id }}">{{ $bienCultural->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -34,7 +34,7 @@
                                 <select class="form-control select2" id="tipo_objeto_id" name="tipo_objeto_id" required autocomplete="off">
                                     <option value=""></option>
                                     @foreach ($tiposObjeto as $objeto)
-                                        <option {{ $objeto->id == $registro->id ? "selected" : "" }} value="{{ $objeto->id }}">{{ $objeto->nombre }}</option>
+                                        <option {{ $objeto->id == $registro->tipo_objeto_id ? "selected" : "" }} value="{{ $objeto->id }}">{{ $objeto->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -117,6 +117,21 @@
                             <div class="col-md-4 div-input">
                                 <label for="numero_inventario">No inventario</label>
                                 <input type="text" class="form-control" id="numero_inventario" name="numero_inventario" value="{{ $registro->numero_inventario }}" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 div-input">
+                                <label for="alto">Alto</label>
+                                <input type="number" class="form-control" id="alto" name="alto" value="{{ $registro->alto }}" required autocomplete="off">
+                            </div>
+                            <div class="col-md-4 div-input">
+                                <label for="largo">Largo</label>
+                                <input type="number" class="form-control" id="largo" name="largo" value="{{ $registro->largo }}" required autocomplete="off">
+                            </div>
+                            <div class="col-md-4 div-input">
+                                <label for="ancho">Ancho</label>
+                                <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $registro->ancho }}" required autocomplete="off">
                             </div>
                         </div>
                     </div>

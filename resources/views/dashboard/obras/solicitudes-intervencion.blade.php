@@ -2,19 +2,22 @@
 
 @section('top-body')
     <div class="col-sm-4">
-        <h2>Administración de Obras</h2>
+        <h2>Solicitudes de intervención</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('dashboard.dashboard.index') }}">Dashboard</a>
             </li>
+            <li>
+                <a href="{{ route('dashboard.obras.index') }}">Obras</a>
+            </li>
             <li class="active">
-                <strong>Obras</strong>
+                <strong>Solicitudes de intervención</strong>
             </li>
         </ol>
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <btn onclick="crear();" class="btn btn-primary">Crear nueva Obra</btn>
+            <btn onclick="crear();" class="btn btn-primary">Crear nueva solicitud</btn>
         </div>
     </div>
 @endsection
@@ -33,13 +36,11 @@
                         <table class="table table-striped" id="dt-datos">
                             <thead>
                                 <tr>
-                                    <th>Folio</th>
                                     <th>Nombre</th>
                                     <th>Año</th>
                                     <th>Época</th>
                                     <th>Temporalidad</th>
                                     <th>Tipo de objeto</th>
-                                    <th>Área</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -54,5 +55,5 @@
 @endsection
 
 @section('scripts')
-    {!! Html::script('scripts/dashboard/obras/obras.js') !!}
+    {!! Html::script('scripts/dashboard/obras/solicitudes-intervencion.js') !!}
 @endsection

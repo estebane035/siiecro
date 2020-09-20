@@ -2,15 +2,13 @@ jQuery(document).ready(function($) {
   _cargarTabla(
       "#dt-datos", // ID de la tabla
       "#carga-dt", // ID elemento del progreso
-      "/dashboard/obras/carga", // URL datos
+      "/dashboard/obras/solicitudes-intervencion/carga", // URL datos
       [
-        { data: "folio",            width: "10%"},
-        { data: "nombre",           width: "20%"},
+        { data: "nombre",           width: "30%"},
         { data: "año",              width: "5%"},
-        { data: "epoca",            width: "10%"},
-        { data: "temporalidad",     width: "10%"},
-        { data: "tipo_objeto",      width: "10%"},
-        { data: "area",             width: "20%"},
+        { data: "epoca",            width: "20%",   name: "oe.nombre"},
+        { data: "temporalidad",     width: "20%",   name: "ot.nombre"},
+        { data: "tipo_objeto",      width: "10%",   name: "oto.nombre"},
         { data: "acciones",         width: "15%",   searchable: false,  orderable: false},
       ], // Columnas
     );
@@ -74,6 +72,17 @@ function editar(id)
                         endDate:        '2040',
                       });
 
+                      $('#tipo_bien_cultural_id').on('select2:select', function (e) {
+                        comportamientoTipoBienCultural(e.params.data.id);
+                      });
+
+                      $('#estatus_año').on('select2:select', function (e) {
+                        comportamientoStatusAño(e.params.data.id);
+                      });
+
+                      comportamientoTipoBienCultural($('#tipo_bien_cultural_id').val());
+                      comportamientoStatusAño($('#estatus_año').val());
+
                     }, //Funcion para el success
                     "#form-obras", //ID del Formulario
                     "#carga-agregar", //Loading de guardar datos de formulario
@@ -83,6 +92,44 @@ function editar(id)
                           _recargarTabla("#dt-datos");
                         });
                     });//Funcion en caso de guardar correctamente);
+}
+
+function aprobar(id)
+{
+  _mostrarFormulario("/dashboard/obras/"+id+"/aprobar/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-aprobar", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
+
+                  }, //Funcion para el success
+                  "#form-obras", //ID del Formulario
+                  "#carga-aprobar", //Loading de guardar datos de formulario
+                  "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-aprobar", function(){
+                      _recargarTabla("#dt-datos");
+                    });
+                  });//Funcion en caso de guardar correctamente);
+}
+
+function rechazar(id)
+{
+  _mostrarFormulario("/dashboard/obras/"+id+"/rechazar/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-rechazar", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
+
+                  }, //Funcion para el success
+                  "#form-obras", //ID del Formulario
+                  "#carga-rechazar", //Loading de guardar datos de formulario
+                  "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-rechazar", function(){
+                      _recargarTabla("#dt-datos");
+                    });
+                  });//Funcion en caso de guardar correctamente);
 }
 
 function eliminar(id)

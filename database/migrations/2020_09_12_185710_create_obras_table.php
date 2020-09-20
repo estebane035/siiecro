@@ -21,6 +21,7 @@ class CreateObrasTable extends Migration
             $table->integer('tipo_bien_cultural_id')->unsigned();
             $table->integer('epoca_id')->unsigned()->nullable();
             $table->integer('temporalidad_id')->unsigned()->nullable();
+
             $table->string('nombre')->index();
             $table->string('autor')->index()->nullable();
             $table->string('cultura')->index()->nullable();
@@ -29,6 +30,12 @@ class CreateObrasTable extends Migration
             $table->date('año')->nullable();
             $table->enum('estatus_año', config('valores.status_años_obras'))->nullable();
             $table->enum('estatus_epoca', config('valores.status_años_obras'))->nullable();
+            $table->integer('alto')->unsigned();
+            $table->integer('largo')->unsigned();
+            $table->integer('ancho')->unsigned();
+
+            $table->datetime('fecha_aprobacion')->nullable();
+            $table->datetime('fecha_rechazo')->nullable();
 
             $table->timestamps();
 

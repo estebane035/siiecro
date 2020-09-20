@@ -46,9 +46,15 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 	#################################################################################
 
     ######## OBRAS ##################################################################
-		Route::get('obras/carga', 			'ObrasController@cargarTabla');
-		Route::get('obras/{id}/eliminar', 	'ObrasController@eliminar');
-		Route::resource('obras', 			'ObrasController');
+		Route::get('obras/carga', 								'ObrasController@cargarTabla');
+		Route::get('obras/solicitudes-intervencion', 			'ObrasController@solicitudesIntervencion')->name('obras.solicitudes');
+		Route::get('obras/solicitudes-intervencion/carga', 		'ObrasController@cargarSolicitudesIntervencion');
+		Route::get('obras/{id}/eliminar', 						'ObrasController@eliminar');
+		Route::get('obras/{id}/aprobar', 						'ObrasController@modalAprobar');
+		Route::put('obras/{id}/aprobar', 						'ObrasController@aprobar')->name('obras.aprobar');
+		Route::get('obras/{id}/rechazar', 						'ObrasController@modalRechazar');
+		Route::put('obras/{id}/rechazar', 						'ObrasController@rechazar')->name('obras.rechazar');
+		Route::resource('obras', 								'ObrasController');
 	#################################################################################
 
     ######## OBRAS TIPO BIEN CULTURAL ###############################################
