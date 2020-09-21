@@ -15,6 +15,7 @@
         "laravel/ui": "1.2",
         "laravelcollective/html": "^6.1",
         "nao-pon/flysystem-google-drive": "~1.1",
+        "nesbot/carbon": "^2.40",
         "spatie/laravel-backup": "^6.0.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

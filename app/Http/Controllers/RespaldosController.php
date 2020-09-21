@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\File;
-
+use Carbon\Carbon;
 
 class RespaldosController extends Controller
 {
@@ -54,15 +54,22 @@ class RespaldosController extends Controller
         }
     }
 
-    public function eliminarArchivosDeDrive()
+    public function eliminarArchivosDeDriveMayor30Dias()
     {
         // Obtiene todos los archivos de la carpeta de respaldos del drive
-        $archivos_en_drive   = Storage::disk('google')->files();
-        // Verifica si fueron encontrados los archivos de respaldos en drive para borrarlos uno por uno
-    	if (count($archivos_en_drive) > 0){
-            foreach($archivos_en_drive as $archivo){
-            	Storage::disk('google')->delete($archivo);
+        $archivos_en_drive   = Storage::disk('google')->getAdapter()->getService()->files->listFiles();
+           
+        foreach ($archivos_en_drive as $archivo) {
+            // verifica que sea un archivo comprimido .zip que son los que contienen el respaldo
+            if ($archivo->mimeType == 'application/zip') {
+                $fecha_archivo  = substr($archivo->name, 0, 10);
+                $antiguedad     = Carbon::now()->diffInDays($fecha_archivo);
+
+                if ($antiguedad >= 30) {
+                    // print_r('<br>ELIMINADO'.$archivo->name);
+                    Storage::disk('google')->delete($archivo->id);
+                }
             }
-    	}
+        }
     }
 }
