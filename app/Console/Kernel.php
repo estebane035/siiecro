@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
     }
 
     protected function tareasProgramadas(Schedule $schedule){
-        $schedule->call('App\Http\Controllers\RespaldosController@realizarTransferenciaClouds')->everyMinute();
-        $schedule->call('App\Http\Controllers\RespaldosController@eliminarArchivosDeDriveMayor30Dias')->everyMinute();
+        $schedule->call('App\Http\Controllers\RespaldosController@realizarTransferenciaClouds')->daily();
+        $schedule->call('App\Http\Controllers\RespaldosController@eliminarArchivosDeDriveMayor30Dias')->daily();
     }
 }

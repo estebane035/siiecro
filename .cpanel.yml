@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home4/ssbjaliscocom/siiecro_git/
+    - export DEPLOYPATH=/home4/ssbjaliscocom/siiecro-pruebas.ssbjalisco.com.mx/
     - /bin/cp -R * $DEPLOYPATH
