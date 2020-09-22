@@ -1,0 +1,67 @@
+jQuery(document).ready(function($) {
+  _cargarTabla(
+      "#dt-datos", // ID de la tabla
+      "#carga-dt", // ID elemento del progreso
+      "/dashboard/obras-responsables-ecro/carga", // URL datos
+      [
+        { data: "id",           width: "10%"},
+        { data: "nombre",       width: "75%"},
+        { data: "acciones",     width: "15%",   searchable: false,  orderable: false},
+      ], // Columnas
+    );
+});
+
+function crear(){
+  _mostrarFormulario("/dashboard/obras-responsables-ecro/create", //Url solicitud de datos
+                      "#modal-1", //Div que contendra el modal
+                      "#modal-crear", //Nombre modal
+                      "#nombre", //Elemento al que se le dara focus una vez cargado el modal
+                      function(){
+
+                      }, //Funcion para el success
+                      "#form-obras-responsables-ecro", //ID del Formulario
+                      "#carga-agregar", //Loading de guardar datos de formulario
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      function(){
+                          _ocultarModal("#modal-crear", function(){
+                            _recargarTabla("#dt-datos");
+                          });
+                      });//Funcion en caso de guardar correctamente);
+}
+
+function editar(id)
+{
+    _mostrarFormulario("/dashboard/obras-responsables-ecro/"+id+"/edit/", //Url solicitud de datos
+                        "#modal-1", //Div que contendra el modal
+                        "#modal-crear", //Nombre modal
+                        "#nombre", //Elemento al que se le dara focus una vez cargado el modal
+                        function(){
+                        }, //Funcion para el success
+                        "#form-obras-responsables-ecro", //ID del Formulario
+                        "#carga-agregar", //Loading de guardar datos de formulario
+                        "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                        function(){
+                            _ocultarModal("#modal-crear", function(){
+                              _recargarTabla("#dt-datos");
+                            });
+                        });//Funcion en caso de guardar correctamente);
+}
+
+function eliminar(id)
+{
+  _mostrarFormulario("/dashboard/obras-responsables-ecro/"+id+"/eliminar/", //Url solicitud de datos
+                      "#modal-1", //Div que contendra el modal
+                      "#modal-eliminar", //Nombre modal
+                      "", //Elemento al que se le dara focus una vez cargado el modal
+                      function(){
+
+                      }, //Funcion para el success
+                      "#form-obras-responsables-ecro", //ID del Formulario
+                      "#carga-eliminar", //Loading de guardar datos de formulario
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      function(){
+                        _ocultarModal("#modal-eliminar", function(){
+                          _recargarTabla("#dt-datos");
+                        });
+                      });//Funcion en caso de guardar correctamente);
+}
