@@ -20,6 +20,7 @@ return [
                  */
                 'include' => [
                     base_path(),
+                    base_path('/../siiecro.ssbjalisco.com.mx/'),
                 ],
 
                 /*
@@ -32,7 +33,6 @@ return [
                     base_path('node_modules'),
                     base_path('siiecro-respaldos'),
                     base_path('.git'),
-                    base_path('.env'),
                 ],
 
                 /*

@@ -80,6 +80,12 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('obras-temporalidad/{id}/eliminar', 			'ObrasTemporalidadController@eliminar');
 		Route::resource('obras-temporalidad', 					'ObrasTemporalidadController');
 	#################################################################################
+
+    ######## OBRAS RESPONSABLES ECRO ################################################
+		Route::get('obras-responsables-ecro/carga', 			'ObrasResponsablesEcroController@cargarTabla');
+		Route::get('obras-responsables-ecro/{id}/eliminar', 	'ObrasResponsablesEcroController@eliminar');
+		Route::resource('obras-responsables-ecro', 				'ObrasResponsablesEcroController');
+	#################################################################################
 });
 
 #########################################################################
