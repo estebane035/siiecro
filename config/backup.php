@@ -20,7 +20,7 @@ return [
                  */
                 'include' => [
                     base_path(),
-                    base_path('/../siiecro.ssbjalisco.com.mx/'),
+                    // base_path('/../siiecro.ssbjalisco.com.mx/'),
                 ],
 
                 /*
