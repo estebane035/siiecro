@@ -121,17 +121,21 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-3 div-input">
                                 <label for="alto">Alto</label>
                                 <input type="number" class="form-control" id="alto" name="alto" value="{{ $registro->alto }}" required autocomplete="off">
                             </div>
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-3 div-input">
                                 <label for="largo">Largo</label>
                                 <input type="number" class="form-control" id="largo" name="largo" value="{{ $registro->largo }}" required autocomplete="off">
                             </div>
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-3 div-input">
                                 <label for="ancho">Ancho</label>
                                 <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $registro->ancho }}" required autocomplete="off">
+                            </div>
+                            <div class="col-md-3 div-input">
+                                <label for="diametro">Diametro</label>
+                                <input type="number" class="form-control" id="diametro" name="diametro" value="{{ $registro->diametro }}" autocomplete="off">
                             </div>
                         </div>
                     </div>

@@ -21,6 +21,10 @@ return 	[
 			"status_años_obras" 		=> 	[
 												"Confirmado",
 												"Aproximado"
+											],
+			"obras_formas_ingreso" 		=> 	[
+												"INT",
+												"EXT"
 											]
 		];
 

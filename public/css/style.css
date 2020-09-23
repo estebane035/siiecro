@@ -8560,6 +8560,10 @@ body.md-skin {
     z-index:100000;
 }
 
+.datepicker-dropdown{
+    z-index:100001 !important;
+}
+
 .full-width{
   width: 100% !important;
 }
@@ -8568,3 +8572,36 @@ body.md-skin {
   width: 100% !important;
 }
 
+.icon-link{
+  color: #676a6c;
+  text-decoration: none;
+}
+
+.icon-link:hover{
+  color: #676a6c;
+  text-decoration: none;
+}
+
+.form-group-fileinput{
+  padding-top: 5px;
+}
+
+.fileinput-title{
+  display: block;
+  margin-top: 10px;
+  margin-bottom: : 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.fileinput{
+  margin-top: 10px;
+}
+
+.fileinput-preview{
+  max-height: 200px;
+}
+
+.no-resize{
+  resize: none;
+}

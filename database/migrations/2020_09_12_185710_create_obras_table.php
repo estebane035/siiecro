@@ -24,6 +24,7 @@ class CreateObrasTable extends Migration
             $table->integer('tipo_bien_cultural_id')->unsigned();
             $table->integer('epoca_id')->unsigned()->nullable();
             $table->integer('temporalidad_id')->unsigned()->nullable();
+            $table->integer('area_id')->unsigned()->nullable();
 
             $table->string('nombre')->index();
             $table->string('autor')->index()->nullable();
@@ -36,6 +37,17 @@ class CreateObrasTable extends Migration
             $table->integer('alto')->unsigned();
             $table->integer('largo')->unsigned();
             $table->integer('ancho')->unsigned();
+            $table->integer('diametro')->unsigned()->nullable();
+
+            $table->datetime('fecha_ingreso')->nullable();
+            $table->datetime('fecha_salida')->nullable();
+            $table->string('vista_frontal')->nullable();
+            $table->string('vista_posterior')->nullable();
+            $table->string('vista_lateral_derecha')->nullable();
+            $table->string('vista_lareral_izquierda')->nullable();
+            $table->text('caracteristicas_descriptivas')->nullable();
+            $table->string('lugar_procedencia_original')->nullable();
+            $table->enum('forma_ingreso', config('valores.obras_formas_ingreso'))->default(config('valores.obras_formas_ingreso')[0]);
 
             $table->datetime('fecha_aprobacion')->nullable();
             $table->datetime('fecha_rechazo')->nullable();
@@ -49,6 +61,7 @@ class CreateObrasTable extends Migration
             $table->foreign('tipo_bien_cultural_id')->references('id')->on('obras__tipo_bien_cultural');
             $table->foreign('epoca_id')->references('id')->on('obras__epoca');
             $table->foreign('temporalidad_id')->references('id')->on('obras__temporalidad');
+            $table->foreign('area_id')->references('id')->on('areas');
         });
     }
 

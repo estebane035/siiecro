@@ -12,6 +12,7 @@ use Response;
 use Hash;
 use Auth;
 
+use App\Areas;
 use App\Obras;
 use App\ObrasEpoca;
 use App\ObrasTemporalidad;
@@ -64,7 +65,7 @@ class ObrasController extends Controller
                             return NULL;
                         })
     					->addColumn('acciones', function($registro){
-                            $editar         =   '<a class="icon-link" href="'.route("dashboard.obras.show", $registro->id).'"><i class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Editar"></i></a>';
+                            $editar         =   '<a class="icon-link" href="'.route("dashboard.obras.show", $registro->id).'"><i class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Editar"></i></a>';
                             $eliminar   	=   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"></i>';
 
                             return $editar.$eliminar;
@@ -99,12 +100,12 @@ class ObrasController extends Controller
                             $eliminar       =   '';
                             $aprobar        =   '';
                             $rechazar       =   '';
-
-                            $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
+                            $editar         =   '';
 
                             if($registro->fecha_rechazo){
                                 $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
                             } else{
+                                $editar     =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
                                 $aprobar    =   '<i onclick="aprobar('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar"></i>';
                                 $rechazar   =   '<i onclick="rechazar('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
                             }
@@ -273,6 +274,7 @@ class ObrasController extends Controller
         $tiposObjeto            =   ObrasTipoObjeto::all();
         $epocas                 =   ObrasEpoca::all();
         $temporalidades         =   ObrasTemporalidad::all();
-        return view('dashboard.obras.detalle.detalle', ["obra" => $registro, "tiposBienCultural" => $tiposBienCultural, "tiposObjeto" => $tiposObjeto, "epocas" => $epocas, "temporalidades" => $temporalidades]);
+        $areas                  =   Areas::all();
+        return view('dashboard.obras.detalle.detalle', ["obra" => $registro, "tiposBienCultural" => $tiposBienCultural, "tiposObjeto" => $tiposObjeto, "epocas" => $epocas, "temporalidades" => $temporalidades, "areas" => $areas]);
     }
 }
