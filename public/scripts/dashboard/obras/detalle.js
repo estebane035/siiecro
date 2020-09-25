@@ -1,31 +1,39 @@
 jQuery(document).ready(function($) {
 	$("#tipo_bien_cultural_id, #tipo_objeto_id, #temporalidad_id, #epoca_id, #estatus_año, #estatus_epoca, #area_id, #_responsables, #forma_ingreso").select2({
         placeholder: "Seleccione una opción"
-    });
+  });
 
-    $("#año").datepicker({
-    	language:       'es',
-        format:         'yyyy',
-        minViewMode:    'years',
-        startDate:      '1400',
-        endDate:        '2040',
-    });
+  $("#año").datepicker({
+    language:       'es',
+    format:         'yyyy',
+    minViewMode:    'years',
+    startDate:      '1400',
+    endDate:        '2040',
+  });
 
-    $("#fecha_ingreso, #fecha_salida").datepicker({
-    	language:       'es',
-        format:         'yyyy-mm-dd',
-    });
+  $("#fecha_ingreso, #fecha_salida").datepicker({
+  	language:       'es',
+      format:         'yyyy-mm-dd',
+  });
 
-    $('#tipo_bien_cultural_id').on('select2:select', function (e) {
-        comportamientoTipoBienCultural(e.params.data.id);
-    });
+  $('#tipo_bien_cultural_id').on('select2:select', function (e) {
+      comportamientoTipoBienCultural(e.params.data.id);
+  });
 
-    $('#estatus_epoca').on('select2:select', function (e) {
-        comportamientoStatusEpoca(e.params.data.id);
-    });
+  $('#estatus_epoca').on('select2:select', function (e) {
+      comportamientoStatusEpoca(e.params.data.id);
+  });
 
-    comportamientoTipoBienCultural($('#tipo_bien_cultural_id').val());
-    comportamientoStatusEpoca($('#estatus_epoca').val());
+  comportamientoTipoBienCultural($('#tipo_bien_cultural_id').val());
+  comportamientoStatusEpoca($('#estatus_epoca').val());
+
+  _formAjax(
+              "#form-general", // Formulario
+              "", // Div progreso
+              "#div-notificacion-general", // Div notificacion
+              function(){
+              }
+            );
 });
 
 function comportamientoTipoBienCultural(id){

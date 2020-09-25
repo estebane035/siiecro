@@ -44,13 +44,13 @@ class ObrasController extends Controller
                                                 oe.nombre as epoca,
                                                 ot.nombre as temporalidad,
                                                 oto.nombre as tipo_objeto,
-                                                'a.nombre' as area
+                                                a.nombre as area
                                             ")
                                     ->join('obras__tipo_bien_cultural as obc', 'obc.id', 'obras.tipo_bien_cultural_id')
                                     ->join('obras__tipo_objeto as oto', 'oto.id', 'obras.tipo_objeto_id')
                                     ->leftJoin('obras__temporalidad as ot', 'ot.id', 'obras.temporalidad_id')
                                     ->leftJoin('obras__epoca as oe', 'oe.id', 'obras.epoca_id')
-                                    // ->leftJoin('areas as a', 'a.id', 'obras.area_id')
+                                    ->leftJoin('areas as a', 'a.id', 'obras.area_id')
                                     ->orWhereNotNull('fecha_aprobacion');
 
     	return DataTables::of($registros)

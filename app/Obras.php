@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Obras extends Model
 {
@@ -44,8 +45,50 @@ class Obras extends Model
     protected $dates = [
         'año',
         'fecha_aprobacion',
-        'fecha_rechazo'
+        'fecha_rechazo',
+        'fecha_ingreso',
+        'fecha_salida'
     ];
+
+    public function setAñoAttribute($value){
+        if($value){
+            $this->attributes['año']    =   Carbon::parse($value);
+        } else{
+            $this->attributes['año']    =   NULL;
+        }
+    }
+
+    public function setFechaAprobacionAttribute($value){
+        if($value){
+            $this->attributes['fecha_aprobacion']   =   Carbon::parse($value);
+        } else{
+            $this->attributes['fecha_aprobacion']   =   NULL;
+        }
+    }
+
+    public function setFechaRechazoAttribute($value){
+        if($value){
+            $this->attributes['fecha_rechazo']  =   Carbon::parse($value);
+        } else{
+            $this->attributes['fecha_rechazo']  =   NULL;
+        }
+    }
+
+    public function setFechaIngresoAttribute($value){
+        if($value){
+            $this->attributes['fecha_ingreso']  =   Carbon::parse($value);
+        } else{
+            $this->attributes['fecha_ingreso']  =   NULL;
+        }
+    }
+
+    public function setFechaSalidaAttribute($value){
+        if($value){
+            $this->attributes['fecha_salida']   =   Carbon::parse($value);
+        } else{
+            $this->attributes['fecha_salida']   =   NULL;
+        }
+    }
 
     public function usuario_aprobo() {
         return $this->hasOne('App\Users', 'id', 'usuario_aprobo_id');

@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
         { data: "temporalidad",         width: "15%",   name: "ot.nombre"},
         { data: "acciones",             width: "10%",   searchable: false,  orderable: false},
       ], // Columnas
-    );
+  );
 });
 
 function crear(){

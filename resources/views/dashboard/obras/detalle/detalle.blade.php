@@ -20,16 +20,18 @@
 @section('body')
     <div class="row">
         <div class="col-md-12">
+
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Información general</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="sk-spinner sk-spinner-double-bounce" id="carga-form-general">
-                        <div class="sk-double-bounce1"></div>
-                        <div class="sk-double-bounce2"></div>
+                {!! Form::open(['route' => ['dashboard.obras.update', $obra->id], 'method' => 'PUT', 'id' => 'form-general', 'class' => 'form-horizontal']) !!}
+                    <div class="ibox-title" style="min-height: 65px;">
+                        <h5>Información general</h5>
+                        <button type="submit" class="btn btn-primary pull-right">Guardar Cambios</button> 
                     </div>
-                    {!! Form::open(['route' => ['dashboard.obras.update', $obra->id], 'method' => 'PUT', 'id' => 'form-obras', 'class' => 'form-horizontal']) !!}
+                    <div class="ibox-content">
+                        <div class="sk-spinner sk-spinner-double-bounce" id="carga-form-general">
+                            <div class="sk-double-bounce1"></div>
+                            <div class="sk-double-bounce2"></div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">                                
                                 <div class="row">
@@ -186,7 +188,7 @@
                                 <div class="row">
                                     <div class="col-md-9 div-input">
                                         <label for="_responsables">Responsables ECRO</label>
-                                        <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" required autocomplete="off" multiple="">
+                                        <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="">
                                             <option value=""></option>
                                         </select>
                                     </div>
@@ -206,11 +208,11 @@
                                 <div class="row">
                                     <div class="col-md-6 div-input">
                                         <label for="fecha_ingreso">Fecha ingreso</label>
-                                        <input type="text" class="form-control" id="fecha_ingreso" name="fecha_ingreso" value="{{ $obra->fecha_ingreso }}" required autocomplete="off">
+                                        <input type="text" class="form-control" id="fecha_ingreso" name="fecha_ingreso" value="{{ $obra->fecha_ingreso ? $obra->fecha_ingreso->format('Y-m-d') : Carbon\Carbon::now()->format('Y-m-d') }}" required autocomplete="off">
                                     </div>
                                     <div class="col-md-6 div-input">
                                         <label for="fecha_salida">Fecha salida</label>
-                                        <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida }}" required autocomplete="off">
+                                        <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida }}" autocomplete="off">
                                     </div>
                                 </div>
 
@@ -311,8 +313,8 @@
 
                             </div>
                         </div>
-                    {!! Form::close() !!}
-                </div>
+                    </div>
+                {!! Form::close() !!}
             </div>
         </div>
         <div class="col-md-12 m-b-md">
