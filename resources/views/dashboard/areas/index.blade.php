@@ -35,7 +35,6 @@
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Siglas</th>
-                                    <th>Campo</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

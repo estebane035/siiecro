@@ -13,10 +13,9 @@ return 	[
 												"Servicio Social SIIECRO",
 												"Administrador"
 											],
-			"campos_areas" 				=> 	[
-												"Seminario Taller Restauración",
-												"Práctica Campo - Seminario Taller Restauración",
-												"Servicio Social - Seminario Taller Restauración",
+			"modalidades" 				=> 	[
+												"Práctica Campo",
+												"Servicio Social",
 											],
 			"status_años_obras" 		=> 	[
 												"Confirmado",

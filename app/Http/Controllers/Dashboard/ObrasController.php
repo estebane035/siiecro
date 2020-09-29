@@ -18,6 +18,7 @@ use App\ObrasEpoca;
 use App\ObrasTemporalidad;
 use App\ObrasTipoBienCultural;
 use App\ObrasTipoObjeto;
+use App\User;
 
 class ObrasController extends Controller
 {
@@ -269,12 +270,13 @@ class ObrasController extends Controller
     }
 
     public function show(Request $request, $id){
-        $registro               =   Obras::findOrFail($id);
-        $tiposBienCultural      =   ObrasTipoBienCultural::all();
-        $tiposObjeto            =   ObrasTipoObjeto::all();
-        $epocas                 =   ObrasEpoca::all();
-        $temporalidades         =   ObrasTemporalidad::all();
-        $areas                  =   Areas::all();
-        return view('dashboard.obras.detalle.detalle', ["obra" => $registro, "tiposBienCultural" => $tiposBienCultural, "tiposObjeto" => $tiposObjeto, "epocas" => $epocas, "temporalidades" => $temporalidades, "areas" => $areas]);
+        $registro                       =   Obras::findOrFail($id);
+        $tiposBienCultural              =   ObrasTipoBienCultural::all();
+        $tiposObjeto                    =   ObrasTipoObjeto::all();
+        $epocas                         =   ObrasEpoca::all();
+        $temporalidades                 =   ObrasTemporalidad::all();
+        $areas                          =   Areas::all();
+        $usuariosPuedenRecibirObras     =   User::where('puede_recibir_obras', 'si')->get();
+        return view('dashboard.obras.detalle.detalle', ["obra" => $registro, "tiposBienCultural" => $tiposBienCultural, "tiposObjeto" => $tiposObjeto, "epocas" => $epocas, "temporalidades" => $temporalidades, "areas" => $areas, "usuariosPuedenRecibirObras" => $usuariosPuedenRecibirObras]);
     }
 }

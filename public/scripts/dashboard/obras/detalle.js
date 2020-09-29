@@ -1,7 +1,9 @@
 jQuery(document).ready(function($) {
-	$("#tipo_bien_cultural_id, #tipo_objeto_id, #temporalidad_id, #epoca_id, #estatus_año, #estatus_epoca, #area_id, #_responsables, #forma_ingreso").select2({
+	$("#tipo_bien_cultural_id, #tipo_objeto_id, #temporalidad_id, #epoca_id, #estatus_año, #estatus_epoca, #area_id, #_responsables, #forma_ingreso, #usuario_recibio_id").select2({
         placeholder: "Seleccione una opción"
   });
+
+  $("#modalidad").select2();
 
   $("#año").datepicker({
     language:       'es',
