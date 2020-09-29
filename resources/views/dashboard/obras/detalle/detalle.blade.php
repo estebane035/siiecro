@@ -2,7 +2,7 @@
 
 @section('top-body')
     <div class="col-sm-12">
-        <h2>Detalle de obra <strong>{{ $obra->nombre }}</strong></h2>
+        <h2>Detalle de obra <strong>{{ $obra->folio }}</strong></h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('dashboard.dashboard.index') }}">Dashboard</a>
@@ -174,177 +174,189 @@
                 </ul>
                 <div class="tab-content">
                     <div id="tab-datos-identificacion" class="tab-pane active">
-                        <div class="panel-body">
-                            <div class="row">
+                        {!! Form::open(['route' => ['dashboard.obras.update', $obra->id], 'method' => 'PUT', 'id' => 'form-datos-identificacion', 'class' => 'form-horizontal']) !!}
+                            <div class="panel-body">
+                                <div class="row m-b-md">
+                                    <div class="col-md-8" id="div-respuesta-datos-identificacion"></div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-primary pull-right">Guardar Cambios</button> 
+                                    </div>    
+                                </div>
 
-                                <div class="col-md-6">
+                                <div class="row">
 
-                                    <div class="row">
-                                        <div class="col-md-12 div-input">
-                                            <label for="caracteristicas_descriptivas">Características descriptivas</label>
-                                            <textarea class="form-control no-resize" name="caracteristicas_descriptivas" id="caracteristicas_descriptivas" rows="6">{{ $obra->caracteristicas_descriptivas }}</textarea>
+                                    <div class="col-md-6">
+
+                                        <div class="row">
+                                            <div class="col-md-12 div-input">
+                                                <label for="caracteristicas_descriptivas">Características descriptivas</label>
+                                                <textarea class="form-control no-resize" name="caracteristicas_descriptivas" id="caracteristicas_descriptivas" rows="6">{{ $obra->caracteristicas_descriptivas }}</textarea>
+                                            </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-9 div-input">
+                                                <label for="_responsables">Responsables ECRO</label>
+                                                <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="">
+                                                    <option value=""></option>
+                                                    @foreach ($responsablesEcro as $responsable)
+                                                        <option value="{{ $responsable->id }}">{{ $responsable->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3 div-input">
+                                                <label for="forma_ingreso">Forma de ingreso</label>
+                                                <select class="form-control select2 full-width" id="forma_ingreso" name="forma_ingreso" required autocomplete="off">
+                                                    <option value=""></option>
+                                                    @foreach (config('valores.obras_formas_ingreso') as $forma)
+                                                        <option {{ $obra->forma_ingreso == $forma ? "selected" : "" }} value="{{ $forma }}">{{ $forma }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8 div-input">
+                                                <label for="area_id">Área</label>
+                                                <select class="form-control select2 full-width" id="area_id" name="area_id" required autocomplete="off">
+                                                    <option value=""></option>
+                                                    @foreach ($areas as $area)
+                                                        <option {{ $obra->area_id == $area->id ? "selected" : "" }} value="{{ $area->id }}">{{ $area->campo }} {{ $area->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 div-input">
+                                                <label for="area_id">Modalidad</label>
+                                                <select class="form-control select2 full-width" id="modalidad" name="modalidad" autocomplete="off">
+                                                    <option value="">Sin Modalidad</option>
+                                                    @foreach (config('valores.modalidades') as $modalidad)
+                                                        <option {{ $obra->modalidad == $modalidad ? "selected" : "" }} value="{{ $modalidad }}">{{ $modalidad }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 div-input">
+                                                <label for="fecha_ingreso">Fecha ingreso</label>
+                                                <input type="text" class="form-control" id="fecha_ingreso" name="fecha_ingreso" value="{{ $obra->fecha_ingreso ? $obra->fecha_ingreso->format('Y-m-d') : Carbon\Carbon::now()->format('Y-m-d') }}" required autocomplete="off">
+                                            </div>
+                                            <div class="col-md-6 div-input">
+                                                <label for="fecha_salida">Fecha salida</label>
+                                                <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida }}" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 div-input">
+                                                <label for="area_id">Recibió</label>
+                                                <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" required autocomplete="off">
+                                                    <option value=""></option>
+                                                    @foreach ($usuariosPuedenRecibirObras as $usuario)
+                                                        <option {{ $obra->usuario_recibio_id == $usuario->id ? "selected" : "" }} value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 div-input">
+                                                <label for="fecha_salida">Entregó</label>
+                                                <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" required>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-9 div-input">
-                                            <label for="_responsables">Responsables ECRO</label>
-                                            <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="">
-                                                <option value=""></option>
-                                            </select>
+
+                                    <div class="col-md-6">
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-fileinput form-group-default text-center">
+                                                    <span class="fileinput-title">Vista frontal</span>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail">
+                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
+                                                        </div>
+                                                        <div>
+                                                            <span class="btn btn-default btn-file">
+                                                                <span class="fileinput-new">Selecciona una imagen</span>
+                                                                <span class="fileinput-exists">Cambiar</span>
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                            </span>
+                                              
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-fileinput form-group-default text-center">
+                                                    <span class="fileinput-title">Vista posterior</span>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail">
+                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
+                                                        </div>
+                                                        <div>
+                                                            <span class="btn btn-default btn-file">
+                                                                <span class="fileinput-new">Selecciona una imagen</span>
+                                                                <span class="fileinput-exists">Cambiar</span>
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                            </span>
+                                              
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-3 div-input">
-                                            <label for="forma_ingreso">Forma de ingreso</label>
-                                            <select class="form-control select2 full-width" id="forma_ingreso" name="forma_ingreso" required autocomplete="off">
-                                                <option value=""></option>
-                                                @foreach (config('valores.obras_formas_ingreso') as $forma)
-                                                    <option {{ $obra->forma_ingreso == $forma ? "selected" : "" }} value="{{ $forma }}">{{ $forma }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-fileinput form-group-default text-center">
+                                                    <span class="fileinput-title">Vista lateral derecha</span>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail">
+                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
+                                                        </div>
+                                                        <div>
+                                                            <span class="btn btn-default btn-file">
+                                                                <span class="fileinput-new">Selecciona una imagen</span>
+                                                                <span class="fileinput-exists">Cambiar</span>
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                            </span>
+                                              
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-fileinput form-group-default text-center">
+                                                    <span class="fileinput-title">Vista lateral izquierda</span>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail">
+                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
+                                                        </div>
+                                                        <div>
+                                                            <span class="btn btn-default btn-file">
+                                                                <span class="fileinput-new">Selecciona una imagen</span>
+                                                                <span class="fileinput-exists">Cambiar</span>
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                            </span>
+                                              
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8 div-input">
-                                            <label for="area_id">Área</label>
-                                            <select class="form-control select2 full-width" id="area_id" name="area_id" required autocomplete="off">
-                                                <option value=""></option>
-                                                @foreach ($areas as $area)
-                                                    <option {{ $obra->area_id == $area->id ? "selected" : "" }} value="{{ $area->id }}">{{ $area->campo }} {{ $area->nombre }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4 div-input">
-                                            <label for="area_id">Modalidad</label>
-                                            <select class="form-control select2 full-width" id="modalidad" name="modalidad" required autocomplete="off">
-                                                <option value="">Sin Modalidad</option>
-                                                @foreach (config('valores.modalidades') as $modalidad)
-                                                    <option {{ $obra->modalidad == $modalidad ? "selected" : "" }} value="{{ $modalidad }}">{{ $modalidad }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 div-input">
-                                            <label for="fecha_ingreso">Fecha ingreso</label>
-                                            <input type="text" class="form-control" id="fecha_ingreso" name="fecha_ingreso" value="{{ $obra->fecha_ingreso ? $obra->fecha_ingreso->format('Y-m-d') : Carbon\Carbon::now()->format('Y-m-d') }}" required autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 div-input">
-                                            <label for="fecha_salida">Fecha salida</label>
-                                            <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida }}" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 div-input">
-                                            <label for="area_id">Recibió</label>
-                                            <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" required autocomplete="off">
-                                                <option value=""></option>
-                                                @foreach ($usuariosPuedenRecibirObras as $usuario)
-                                                    <option {{ $obra->usuario_recibio_id == $usuario->id ? "selected" : "" }} value="{{ $usuario->id }}">{{ $usuario->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 div-input">
-                                            <label for="fecha_salida">Entregó</label>
-                                            <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" required>
-                                        </div>
+
                                     </div>
 
                                 </div>
-
-                                <div class="col-md-6">
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-fileinput form-group-default text-center">
-                                                <span class="fileinput-title">Vista frontal</span>
-                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-new thumbnail">
-                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
-                                                    </div>
-                                                    <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
-                                                    </div>
-                                                    <div>
-                                                        <span class="btn btn-default btn-file">
-                                                            <span class="fileinput-new">Selecciona una imagen</span>
-                                                            <span class="fileinput-exists">Cambiar</span>
-                                                            <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
-                                                        </span>
-                                          
-                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-fileinput form-group-default text-center">
-                                                <span class="fileinput-title">Vista posterior</span>
-                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-new thumbnail">
-                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
-                                                    </div>
-                                                    <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
-                                                    </div>
-                                                    <div>
-                                                        <span class="btn btn-default btn-file">
-                                                            <span class="fileinput-new">Selecciona una imagen</span>
-                                                            <span class="fileinput-exists">Cambiar</span>
-                                                            <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
-                                                        </span>
-                                          
-                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-fileinput form-group-default text-center">
-                                                <span class="fileinput-title">Vista lateral derecha</span>
-                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-new thumbnail">
-                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
-                                                    </div>
-                                                    <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
-                                                    </div>
-                                                    <div>
-                                                        <span class="btn btn-default btn-file">
-                                                            <span class="fileinput-new">Selecciona una imagen</span>
-                                                            <span class="fileinput-exists">Cambiar</span>
-                                                            <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
-                                                        </span>
-                                          
-                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-fileinput form-group-default text-center">
-                                                <span class="fileinput-title">Vista lateral izquierda</span>
-                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-new thumbnail">
-                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
-                                                    </div>
-                                                    <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
-                                                    </div>
-                                                    <div>
-                                                        <span class="btn btn-default btn-file">
-                                                            <span class="fileinput-new">Selecciona una imagen</span>
-                                                            <span class="fileinput-exists">Cambiar</span>
-                                                            <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
-                                                        </span>
-                                          
-                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
                             </div>
-                        </div>
+                        {!! Form::close() !!}
                     </div>
                     <div id="tab-solicitudes-analisis" class="tab-pane">
                         <div class="panel-body">

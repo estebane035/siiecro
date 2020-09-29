@@ -233,6 +233,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'BD' => App\Clases\BD::class,
+        'Cadenas' => App\Clases\Cadenas::class,
 
     ],
 

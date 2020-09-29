@@ -36,6 +36,14 @@ jQuery(document).ready(function($) {
               function(){
               }
             );
+
+  _formAjax(
+              "#form-datos-identificacion", // Formulario
+              "", // Div progreso
+              "#div-respuesta-datos-identificacion", // Div notificacion
+              function(){
+              }
+            );
 });
 
 function comportamientoTipoBienCultural(id){

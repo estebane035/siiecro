@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Cadenas;
 
 class Obras extends Model
 {
@@ -11,6 +12,7 @@ class Obras extends Model
         'usuario_solicito_id',
         'usuario_aprobo_id',
         'usuario_rechazo_id',
+        'usuario_recibio_id',
         'epoca_id',
         'temporalidad_id',
         'tipo_objeto_id',
@@ -26,6 +28,8 @@ class Obras extends Model
         'diametro',
         'fecha_ingreso',
         'fecha_salida',
+        'modalidad',
+        'persona_entrego',
         'vista_frontal',
         'vista_posterior',
         'vista_lateral_derecha',
@@ -118,7 +122,31 @@ class Obras extends Model
         return $this->hasOne('App\ObrasTipoBienCultural', 'id', 'bien_cultural_id');
     }
 
+    public function area() {
+        return $this->hasOne('App\Areas', 'id', 'area_id');
+    }
+
     public function getFolioAttribute(){
-    	return $this->id."-20/INT-STRPM";
+        $folio          =   str_pad($this->id, 4, "0", STR_PAD_LEFT);
+
+        if($this->año){
+            $folio      .=  "-".$this->año->format('y')."/";
+        }else{
+            $folio      .=  "-00/";
+        }
+
+        $folio          .=  $this->forma_ingreso."-";
+
+        if($this->modalidad){
+            $folio      .=  Cadenas::obtenerSiglasDeCadena($this->modalidad)."-";
+        }
+
+        if($this->area){
+            $folio      .=  $this->area->siglas;
+        }
+
+
+        // return $this->id."-20/INT-STRPM";
+        return $folio;
     }
 }

@@ -41,7 +41,7 @@ class CreateObrasTable extends Migration
             $table->integer('diametro')->unsigned()->nullable();
 
             $table->datetime('fecha_ingreso')->nullable();
-            $table->datetime('persona_entrego')->nullable();
+            $table->string('persona_entrego')->nullable();
             $table->string('fecha_salida')->nullable();
             $table->string('modalidad')->nullable();
             $table->string('vista_frontal')->nullable();

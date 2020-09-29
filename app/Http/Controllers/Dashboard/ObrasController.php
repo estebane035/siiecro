@@ -277,6 +277,8 @@ class ObrasController extends Controller
         $temporalidades                 =   ObrasTemporalidad::all();
         $areas                          =   Areas::all();
         $usuariosPuedenRecibirObras     =   User::where('puede_recibir_obras', 'si')->get();
-        return view('dashboard.obras.detalle.detalle', ["obra" => $registro, "tiposBienCultural" => $tiposBienCultural, "tiposObjeto" => $tiposObjeto, "epocas" => $epocas, "temporalidades" => $temporalidades, "areas" => $areas, "usuariosPuedenRecibirObras" => $usuariosPuedenRecibirObras]);
+        $responsablesEcro               =   User::where('es_responsable_ecro', 'si')->get();
+        $titulo                         =   $registro->folio;
+        return view('dashboard.obras.detalle.detalle', ["titulo" => $titulo, "obra" => $registro, "tiposBienCultural" => $tiposBienCultural, "tiposObjeto" => $tiposObjeto, "epocas" => $epocas, "temporalidades" => $temporalidades, "areas" => $areas, "usuariosPuedenRecibirObras" => $usuariosPuedenRecibirObras, "responsablesEcro" => $responsablesEcro]);
     }
 }
