@@ -1630,6 +1630,7 @@ a.list-group-item.active:focus {
   position: relative;
 }
 /* DATATABLES */
+/*corrección para que no desborde contenidos*/
 table.dataTable tbody td {
     word-break: break-word;
     vertical-align: top;
