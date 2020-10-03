@@ -1630,6 +1630,11 @@ a.list-group-item.active:focus {
   position: relative;
 }
 /* DATATABLES */
+/*corrección para que no desborde contenidos*/
+table.dataTable tbody td {
+    word-break: break-word;
+    vertical-align: top;
+}
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc,
@@ -8556,8 +8561,8 @@ body.md-skin {
   display: inline-block !important;
 }
 
-.select2-container{
-    z-index:100000;
+.select2-container--open{
+    z-index:9999999 !important;
 }
 
 .datepicker-dropdown{

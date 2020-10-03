@@ -38,6 +38,7 @@ function _cargarTabla(tabla, progreso, urlData, columnas, filas=10, sorting=0, t
         processing: false,
         serverSide: true,
         order: [[sorting, typeSorting]],
+        autoWidth: false,
         columns: columnas,
         pageLength: filas,
         search:{regex: true},
