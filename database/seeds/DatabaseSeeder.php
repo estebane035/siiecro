@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ObrasEpocaSeeder::class);
         $this->call(ObrasTemporalidadSeeder::class);
         $this->call(ObrasResponsablesEcroSeeder::class);
+        $this->call(ObrasSolicitudesAnalisisTipoAnalisisSeeder::class);
     }
 }

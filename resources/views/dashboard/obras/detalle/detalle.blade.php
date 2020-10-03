@@ -320,19 +320,19 @@
         <div class="col-md-12 m-b-md">
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab-solicitudes-analisis"> 
+                            Solicitudes de Análisis
+                            &nbsp;
+                            <i onclick="crear()" class="fa fa-plus fa-lg text-center pointer" title="Agregar Solicitud de Análisis"></i>
+                        </a>
+                    </li>
                     <li class=""><a data-toggle="tab" href="#tab-2">Tab 2</a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="tab-solicitudes-analisis" class="tab-pane active">
                         <div class="panel-body">
-                            <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing</strong>
-
-                            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                existence in this spot, which was created for the bliss of souls like mine.</p>
-
-                            <p>I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                the present moment; and yet I feel that I never was a greater artist than now. When.</p>
+                            @include('dashboard.obras.detalle.solicitudes-analisis.index')
                         </div>
                     </div>
                     <div id="tab-2" class="tab-pane">
@@ -352,8 +352,10 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="id" value="{{ $obra->id }}">
 @endsection
 
 @section('scripts')
     {!! Html::script('scripts/dashboard/obras/detalle.js') !!}
+    {!! Html::script('scripts/dashboard/obras/solicitudes-analisis.js') !!}
 @endsection

@@ -8556,8 +8556,8 @@ body.md-skin {
   display: inline-block !important;
 }
 
-.select2-container{
-    z-index:100000;
+.select2-container--open{
+    z-index:9999999 !important;
 }
 
 .datepicker-dropdown{

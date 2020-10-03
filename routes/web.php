@@ -56,7 +56,23 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::put('obras/{id}/rechazar', 						'ObrasController@rechazar')->name('obras.rechazar');
 		Route::resource('obras', 								'ObrasController');
 	#################################################################################
-
+    
+    ######## OBRAS DETALLE SOLICITUD ANALISIS #######################################
+		Route::get('solicitudes-analisis/carga', 						'ObrasSolicitudesAnalisisController@cargarTabla');
+		Route::get('solicitudes-analisis/{id}/eliminar', 				'ObrasSolicitudesAnalisisController@eliminar');
+		
+		Route::get('solicitudes-analisis/ver-muestras/{id}', 			'ObrasSolicitudesAnalisisController@verMuestras');
+		Route::get('solicitudes-analisis/cargar-muestras/{id}', 		'ObrasSolicitudesAnalisisController@cargarMuestras');
+		Route::get('solicitudes-analisis/crear-muestra', 				'ObrasSolicitudesAnalisisController@crearMuestra');
+		Route::post('solicitudes-analisis/guardar-muestra', 			'ObrasSolicitudesAnalisisController@guardarMuestra')->name('solicitudes-analisis.guardar-muestra');
+		Route::get('solicitudes-analisis/editar-muestra/{id}', 			'ObrasSolicitudesAnalisisController@editarMuestra');
+		Route::put('solicitudes-analisis/actualizar-muestra/{id}', 		'ObrasSolicitudesAnalisisController@actualizarMuestra')->name('solicitudes-analisis.actualizar-muestra');
+		Route::get('solicitudes-analisis/aviso-eliminar-muestra/{id}', 	'ObrasSolicitudesAnalisisController@avisoEliminarMuestra');
+		Route::delete('solicitudes-analisis/destruir-muestra/{id}', 	'ObrasSolicitudesAnalisisController@destruirMuestra')->name('solicitudes-analisis.destruir-muestra');
+		
+		Route::resource('solicitudes-analisis', 						'ObrasSolicitudesAnalisisController');
+	#################################################################################
+    
     ######## OBRAS TIPO BIEN CULTURAL ###############################################
 		Route::get('obras-tipo-bien-cultural/carga', 			'ObrasTipoBienCulturalController@cargarTabla');
 		Route::get('obras-tipo-bien-cultural/{id}/eliminar', 	'ObrasTipoBienCulturalController@eliminar');
