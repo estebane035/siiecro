@@ -19,7 +19,11 @@ class User extends Authenticatable
         'name', 
         'email', 
         'password',
-        'rol_id'
+        'rol_id',
+        'area_id',
+        'es_responsable_ecro',
+        'es_responsable_intervencion',
+        'puede_recibir_obras'
     ];
 
     /**
@@ -43,5 +47,41 @@ class User extends Authenticatable
 
     public function rol() {
         return $this->hasOne('App\Roles', 'id', 'rol_id');
+    }
+
+    public function getEsResponsableEcroAttribute($value){
+        return ($value == "si");
+    }
+
+    public function getEsResponsableIntervencionAttribute($value){
+        return ($value == "si");
+    }
+
+    public function getPuedeRecibirObrasAttribute($value){
+        return ($value == "si");
+    }
+
+    public function getIconoEsResponsableEcroAttribute(){
+        if($this->es_responsable_ecro){
+            return '<i class="fa fa-id-badge fa-lg m-r-sm m-l-sm pointer inline-block" aria-hidden="true" mi-tooltip="Es responsable ECRO"></i>';
+        } else{
+            return '';
+        }
+    }
+
+    public function getIconoEsResponsableIntervencionAttribute(){
+        if($this->es_responsable_intervencion){
+            return '<i class="fa fa-pencil-square-o fa-lg m-r-sm m-l-sm pointer inline-block" aria-hidden="true" mi-tooltip="Es responsable intervención"></i>';
+        } else{
+            return '';
+        }
+    }
+
+    public function getIconoPuedeRecibirObrasAttribute(){
+        if($this->puede_recibir_obras){
+            return '<i class="fa fa-archive fa-lg m-r-sm m-l-sm pointer inline-block" aria-hidden="true" mi-tooltip="Puede recibir obras"></i>';
+        } else{
+            return '';
+        }
     }
 }

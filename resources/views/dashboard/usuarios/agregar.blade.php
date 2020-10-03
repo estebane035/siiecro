@@ -24,9 +24,18 @@
                             </div>
                             <div class="col-md-12 div-input">
                                 <label for="rol_id">Rol</label>
-                                <select class="form-control select2" name="rol_id" id="rol_id" autocomplete="off">
+                                <select class="form-control select2" name="rol_id" id="rol_id" autocomplete="off" required>
                                     @foreach ($roles as $rol)
                                         <option {{ $registro->rol_id == $rol->id ? "selected" : "" }} value="{{ $rol->id }}">{{ $rol->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-12 div-input">
+                                <label for="area_id">Área</label>
+                                <select class="form-control select2" name="area_id" id="area_id" autocomplete="off">
+                                    <option value="">Sin Área</option>
+                                    @foreach ($areas as $area)
+                                        <option {{ $registro->area_id == $area->id ? "selected" : "" }} value="{{ $area->id }}">{{ $area->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -37,6 +46,25 @@
                             <div class="col-md-6 div-input">
                                 <label for="repetir_contraseña">Repetir Contraseña</label>
                                 <input type="password" class="form-control" id="repetir_contraseña" name="repetir_contraseña" autocomplete="off" {{ $registro == "[]" ? "required" : "" }}>
+                            </div>
+                            <div class="col-md-6 div-input">
+                                <label for="es_responsable_ecro" class="pointer">Es responsable ECRO</label>
+                                <div class="i-checks pull-right">
+                                    <input type="checkbox" id="es_responsable_ecro" name="es_responsable_ecro"  {{ $registro->es_responsable_ecro ? 'checked=""' : '' }} >
+                                </div>
+                            </div>
+                            <div class="col-md-6 div-input">
+                                <label for="es_responsable_intervencion" class="pointer">Es responsable de intervención</label>
+                                <div class="i-checks pull-right">
+                                    <input type="checkbox" id="es_responsable_intervencion" name="es_responsable_intervencion"  {{ $registro->es_responsable_intervencion ? 'checked=""' : '' }} >
+                                </div>
+                            </div>
+                            <div class="col-md-6 div-input ">
+                                <label for="puede_recibir_obras" class="pointer">Puede recibir obras</label>
+                                <div class="i-checks pull-right">
+                                    <input type="checkbox" id="puede_recibir_obras" name="puede_recibir_obras"  {{ $registro->puede_recibir_obras ? 'checked=""' : '' }} >
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

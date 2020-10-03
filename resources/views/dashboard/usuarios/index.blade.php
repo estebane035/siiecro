@@ -36,6 +36,7 @@
                                     <th>Nombre</th>
                                     <th>Correo</th>
                                     <th>Rol</th>
+                                    <th>Área</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

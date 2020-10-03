@@ -15,7 +15,6 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('campo', config('valores.campos_areas'))->nullable();
             $table->string('nombre');
             $table->string('siglas');
             $table->timestamps();

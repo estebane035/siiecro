@@ -72,7 +72,6 @@
                 
                 <input type="hidden" id="solicitud_analisis_id" name="solicitud_analisis_id" value="">
 
-                {{-- <input type="text" id="solicitud_analisis_id" name="solicitud_analisis_id" value="{{ $registro != "[]" ? $registro->solicitud_analisis_id : ''}}"> --}}
             {!! Form::close() !!}
         </div>
     </div>

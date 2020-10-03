@@ -4,12 +4,12 @@ jQuery(document).ready(function($) {
 			"#carga-dt-solicitudes-analisis", // ID elemento del progreso
 			"/dashboard/solicitudes-analisis/carga", // URL datos
 			[
-				{ data: "id", 		            width: "10%"},
+				{ data: "id", 		            width: "5%"},
         { data: "tecnica",            width: "15%"},
         { data: "fecha_intervencion", width: "20%"},
-        { data: "responsable",        width: "20%"},
-        { data: "esquema",            width: "20%"},
-				{ data: "acciones",           width: "15%", 	searchable: false, 	orderable: false},
+        { data: "responsable",        width: "25%"},
+        { data: "esquema",            width: "25%"},
+				{ data: "acciones",           width: "10%", 	searchable: false, 	orderable: false},
 			], // Columnas
 		);
 });
@@ -92,8 +92,8 @@ function verMuestras(id)
                             "#carga-dt-solicitudes-analisis-muestras", // ID elemento del progreso
                             "/dashboard/solicitudes-analisis/cargar-muestras/"+id, // URL datos
                             [
-                              { data: "id",                     width: "10%"},
-                              { data: "nombre",                 width: "10%"},
+                              { data: "id",                     width: "5%"},
+                              { data: "nombre",                 width: "15%"},
                               { data: "no_muestra",             width: "10%"},
                               { data: "nomenclatura",           width: "10%"},
                               { data: "informacion_requerida",  width: "10%"},

@@ -22,16 +22,9 @@ class ObrasSolicitudesAnalisisController extends Controller
         $this->middleware('auth');
     }
     
-    // public function index(){
-    //     // $titulo         =   "Obras Época";
-        
-    //     return view("dashboard.obras.detalle.solicitudes-analisis.index", ["titulo" => $titulo]);
-    // }
-
     public function cargarTabla(Request $request)
     {
         $registros      =   ObrasSolicitudesAnalisis::all();
-        // dd($registros);
 
         return DataTables::of($registros)
                         ->addColumn('acciones', function($registro){
@@ -97,9 +90,6 @@ class ObrasSolicitudesAnalisisController extends Controller
 
     public function verMuestras($solicitud_analisis_id)
     {
-        // $registro   =   ObrasSolicitudesAnalisisMuestras::where('solicitud_analisis_id', '=', $solicitud_analisis_id)->get();
-        // dd($registro);
-
         return view('dashboard.obras.detalle.solicitudes-analisis.ver-muestras', ['solicitud_analisis_id' => $solicitud_analisis_id] );
     }
 
@@ -117,7 +107,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                         ')
                                                             ->join('obras__solicitudes_analisis_tipo_analisis as obras_tipo', 'obras_tipo.id','=', 'obras__solicitudes_analisis_muestras.tipo_analisis_id')
                                                             ->where('solicitud_analisis_id', '=', $solicitud_analisis_id)->get();
-// dd($registros);
+
         return DataTables::of($registros)
                         ->addColumn('acciones', function($registro){
                             $editar         =   '<i onclick="editarMuestra('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar muestra '.$registro->no_muestra.'"></i>';
@@ -140,9 +130,6 @@ class ObrasSolicitudesAnalisisController extends Controller
     public function guardarMuestra(Request $request)
     {
         if($request->ajax()){
-            // print_r('<pre>');
-            // print_r($request->input());
-            // exit;
             $request->merge([
                                 "usuario_creo_id"   =>  Auth::id()
                             ]);

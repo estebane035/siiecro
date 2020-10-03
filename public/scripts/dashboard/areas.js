@@ -4,9 +4,8 @@ jQuery(document).ready(function($) {
 			"#carga-dt", // ID elemento del progreso
 			"/dashboard/areas/carga", // URL datos
 			[
-				{ data: "nombre", 		width: "45%"},
-        { data: "siglas",     width: "20%"},
-        { data: "campo",      width: "20%"},
+				{ data: "nombre", 		width: "55%"},
+        { data: "siglas",     width: "30%"},
 				{ data: "acciones", 	width: "15%", 	searchable: false, 	orderable: false},
 			], // Columnas
 		);
@@ -76,18 +75,7 @@ function eliminar(id)
 
 function generarSiglas(){
   var nombre    =   $("#nombre").val();
-  var campo     =   $("#campo").val();
   var siglas    =   "";
-
-  if(campo != ""){
-    campo       =   campo.normalize();
-    partes      =   campo.split(" ");
-    partes.forEach(function(palabra){
-      if(palabra != ""){
-        siglas  +=  palabra.charAt(0);
-      }
-    })
-  }
 
   if(nombre != ""){
     nombre      =   nombre.normalize();

@@ -1630,6 +1630,10 @@ a.list-group-item.active:focus {
   position: relative;
 }
 /* DATATABLES */
+table.dataTable tbody td {
+    word-break: break-word;
+    vertical-align: top;
+}
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc,

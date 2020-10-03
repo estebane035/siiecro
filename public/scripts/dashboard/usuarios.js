@@ -4,10 +4,11 @@ jQuery(document).ready(function($) {
 			"#carga-dt", // ID elemento del progreso
 			"/dashboard/usuarios/carga", // URL datos
 			[
-				{ data: "name", 		width: "30%"},
-				{ data: "email", 		width: "30%"},
-				{ data: "rol", 			width: "25%"},
-				{ data: "acciones", 	width: "15%", 	searchable: false, 	orderable: false},
+				{ data: "name", 		  width: "30%"},
+				{ data: "email",      width: "30%"},
+        { data: "rol",        width: "15%"},
+        { data: "area",       width: "15%"},
+				{ data: "acciones", 	width: "10%", 	searchable: false, 	orderable: false},
 			], // Columnas
 		);
 });
