@@ -240,7 +240,7 @@
                                             </div>
                                             <div class="col-md-6 div-input">
                                                 <label for="fecha_salida">Fecha salida</label>
-                                                <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida }}" autocomplete="off">
+                                                <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida ? $obra->fecha_salida->format('Y-m-d') : "" }}" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="row">
