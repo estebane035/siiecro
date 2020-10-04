@@ -160,4 +160,15 @@ class Obras extends Model
             'usuario_id' // llave foranea de tercera tabla con segunda tabla
         );
     }
+
+    public function usuarios_asignados() {
+        return $this->hasManyThrough(
+            'App\User',
+            'App\ObrasUsuariosAsignados',
+            'obra_id', // Llave foranea de primer tabla con segunda tabla
+            'id', // Llave foranea de segunda tabla con tercera tabla
+            'id', // llave foranea de segunda tabla con primera tabla
+            'usuario_id' // llave foranea de tercera tabla con segunda tabla
+        );
+    }
 }
