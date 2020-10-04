@@ -182,7 +182,7 @@
                                         <button type="submit" class="btn btn-primary pull-right">Guardar Cambios</button> 
                                     </div>    
                                 </div>
-
+                                <hr>
                                 <div class="row">
 
                                     <div class="col-md-6">
@@ -199,7 +199,7 @@
                                                 <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="">
                                                     <option value=""></option>
                                                     @foreach ($responsablesEcro as $responsable)
-                                                        <option value="{{ $responsable->id }}">{{ $responsable->name }}</option>
+                                                        <option {{ $obra->responsables_asignados->where('id', $responsable->id)->first() ? "selected" : "" }} value="{{ $responsable->id }}">{{ $responsable->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -366,13 +366,7 @@
                     </div>
                     <div id="tab-usuarios-asignados" class="tab-pane">
                         <div class="panel-body">
-                            <strong>Donec quam felis</strong>
-
-                            <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
-
-                            <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+                            @include('dashboard.obras.detalle.usuarios-asignados.index')
                         </div>
                     </div>
                 </div>
@@ -388,4 +382,5 @@
 @section('scripts')
     {!! Html::script('scripts/dashboard/obras/detalle.js') !!}
     {!! Html::script('scripts/dashboard/obras/solicitudes-analisis.js') !!}
+    {!! Html::script('scripts/dashboard/obras/usuarios-asignados.js') !!}
 @endsection

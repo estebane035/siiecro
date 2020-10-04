@@ -15,6 +15,7 @@ use Auth;
 use App\Areas;
 use App\Obras;
 use App\ObrasEpoca;
+use App\ObrasResponsablesAsignados;
 use App\ObrasTemporalidad;
 use App\ObrasTipoBienCultural;
 use App\ObrasTipoObjeto;
@@ -41,11 +42,11 @@ class ObrasController extends Controller
     public function cargarTabla(Request $request){
     	$registros 		= 	Obras::selectRaw("
                                                 obras.*,
-                                                obc.nombre as tipo_bien_cultural,
-                                                oe.nombre as epoca,
-                                                ot.nombre as temporalidad,
-                                                oto.nombre as tipo_objeto,
-                                                a.nombre as area
+                                                obc.nombre  as tipo_bien_cultural,
+                                                oe.nombre   as epoca,
+                                                ot.nombre   as temporalidad,
+                                                oto.nombre  as tipo_objeto,
+                                                a.nombre    as nombre_area
                                             ")
                                     ->join('obras__tipo_bien_cultural as obc', 'obc.id', 'obras.tipo_bien_cultural_id')
                                     ->join('obras__tipo_objeto as oto', 'oto.id', 'obras.tipo_objeto_id')
@@ -213,7 +214,16 @@ class ObrasController extends Controller
                             ]);
 
             $data               =   $request->all();
-            return BD::actualiza($id, "Obras", $data);
+            $respuesta          =   BD::actualiza($id, "Obras", $data);
+
+            // Si se guardo bien entonces guardamos los responsables ECRO
+            if(!$respuesta->getData()->error){
+
+                // Re asignamos los responsables ECRO a la obra
+                ObrasResponsablesAsignados::reAsignarResponsables($id, $request->input('_responsables'));
+            }
+
+            return $respuesta;
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);

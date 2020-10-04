@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
         { data: "año",                  width: "5%"},
         { data: "epoca",                width: "10%",   name: "oe.nombre"},
         { data: "temporalidad",         width: "10%",   name: "ot.nombre"},
-        { data: "area",                 width: "20%",   name: "a.nombre"},
+        { data: "nombre_area",          width: "20%",   name: "a.nombre"},
         { data: "acciones",             width: "15%",   searchable: false,  orderable: false},
       ], // Columnas
     );

@@ -94,6 +94,30 @@ class Obras extends Model
         }
     }
 
+    public function getFolioAttribute(){
+        $folio          =   str_pad($this->id, 4, "0", STR_PAD_LEFT);
+
+        if($this->año){
+            $folio      .=  "-".$this->año->format('y')."/";
+        }else{
+            $folio      .=  "-00/";
+        }
+
+        $folio          .=  $this->forma_ingreso."-";
+
+        if($this->modalidad){
+            $folio      .=  Cadenas::obtenerSiglasDeCadena($this->modalidad)."-";
+        }
+
+        if($this->area){
+            $folio      .=  $this->area->siglas;
+        }
+
+
+        // return $this->id."-20/INT-STRPM";
+        return $folio;
+    }
+
     public function usuario_aprobo() {
         return $this->hasOne('App\Users', 'id', 'usuario_aprobo_id');
     }
@@ -126,27 +150,14 @@ class Obras extends Model
         return $this->hasOne('App\Areas', 'id', 'area_id');
     }
 
-    public function getFolioAttribute(){
-        $folio          =   str_pad($this->id, 4, "0", STR_PAD_LEFT);
-
-        if($this->año){
-            $folio      .=  "-".$this->año->format('y')."/";
-        }else{
-            $folio      .=  "-00/";
-        }
-
-        $folio          .=  $this->forma_ingreso."-";
-
-        if($this->modalidad){
-            $folio      .=  Cadenas::obtenerSiglasDeCadena($this->modalidad)."-";
-        }
-
-        if($this->area){
-            $folio      .=  $this->area->siglas;
-        }
-
-
-        // return $this->id."-20/INT-STRPM";
-        return $folio;
+    public function responsables_asignados() {
+        return $this->hasManyThrough(
+            'App\User',
+            'App\ObrasResponsablesAsignados',
+            'obra_id', // Llave foranea de primer tabla con segunda tabla
+            'id', // Llave foranea de segunda tabla con tercera tabla
+            'id', // llave foranea de segunda tabla con primera tabla
+            'usuario_id' // llave foranea de tercera tabla con segunda tabla
+        );
     }
 }

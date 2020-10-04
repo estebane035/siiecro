@@ -55,6 +55,14 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('obras/{id}/rechazar', 						'ObrasController@modalRechazar');
 		Route::put('obras/{id}/rechazar', 						'ObrasController@rechazar')->name('obras.rechazar');
 		Route::resource('obras', 								'ObrasController');
+
+		###### OBRAS USUARIOS ASIGNADOS #############################################
+			Route::get('obras/usuarios-asignados/carga/{obra_id}', 	'ObrasUsuariosAsignadosController@cargarTabla');
+			Route::get('obras/usuarios-asignados/{id}/eliminar', 	'ObrasUsuariosAsignadosController@eliminar');
+			Route::get('obras/usuarios-asignados/create/{obra_id}', 'ObrasUsuariosAsignadosController@create');
+			Route::resource('obras/usuarios-asignados', 			'ObrasUsuariosAsignadosController');
+		#############################################################################
+
 	#################################################################################
     
     ######## OBRAS DETALLE SOLICITUD ANALISIS #######################################
