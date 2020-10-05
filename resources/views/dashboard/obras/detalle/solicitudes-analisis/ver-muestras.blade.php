@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <i onclick="crearMuestra({{ $solicitud_analisis_id }})" class="fa fa-plus fa-lg pointer pull-left" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Crear nueva muestra"></i>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Muestras de la solicitud de análisis # {{ $solicitud_analisis_id }} </h4>
+                <h4 class="modal-title">Muestras de la solicitud de análisis</h4>
             </div>
             <div class="modal-body">
                 <div class="progress hidden" id="carga-dt-solicitudes-analisis-muestras">
@@ -13,7 +13,6 @@
                 <table class="table table-striped table-responsive table-condensed" id="dt-datos-solicitudes-analisis-muestras">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Tipo</th>
                             <th>No Muestra</th>
                             <th>Nomenclatura</th>

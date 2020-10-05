@@ -14,6 +14,8 @@ use Auth;
 use App\ObrasSolicitudesAnalisis;
 use App\ObrasSolicitudesAnalisisMuestras;
 use App\ObrasSolicitudesAnalisisTipoAnalisis;
+use App\ObrasUsuariosAsignados;
+// use App\User;
 
 class ObrasSolicitudesAnalisisController extends Controller
 {
@@ -24,7 +26,15 @@ class ObrasSolicitudesAnalisisController extends Controller
     
     public function cargarTabla(Request $request)
     {
-        $registros      =   ObrasSolicitudesAnalisis::all();
+        $registros      =   ObrasSolicitudesAnalisis::selectRaw('
+                                                                    obras__solicitudes_analisis.id,
+                                                                    obras__solicitudes_analisis.tecnica,
+                                                                    obras__solicitudes_analisis.fecha_intervencion,
+                                                                    users.name,
+                                                                    obras__solicitudes_analisis.esquema
+                                                                ')
+                                                    ->join('users', 'users.id','=', 'obras__solicitudes_analisis.obra_usuario_asignado_id')
+                                                    ->get();
 
         return DataTables::of($registros)
                         ->addColumn('acciones', function($registro){
@@ -41,14 +51,21 @@ class ObrasSolicitudesAnalisisController extends Controller
     public function create(Request $request)
     {
         $registro   =   new ObrasSolicitudesAnalisis;
-        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro]);
+        $responsables_intervencion = ObrasUsuariosAsignados::selectRaw('
+                                                                        users.id,
+                                                                        users.name
+                                                                        ')
+                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                            ->get();
+
+        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
     }
 
     public function store(Request $request)
     {
         if($request->ajax()){
             $request->merge([
-                                "usuario_id"   =>  Auth::id()
+                                "creo_usuario_id"   =>  Auth::id()
                             ]);
 
             return BD::crear('ObrasSolicitudesAnalisis', $request);
@@ -60,7 +77,14 @@ class ObrasSolicitudesAnalisisController extends Controller
     public function edit(Request $request, $id)
     {
         $registro   =   ObrasSolicitudesAnalisis::findOrFail($id);
-        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro]);
+        $responsables_intervencion = ObrasUsuariosAsignados::selectRaw('
+                                                                        users.id,
+                                                                        users.name
+                                                                        ')
+                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                            ->get();
+                                                            
+        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
     }
 
     public function update(Request $request, $id)

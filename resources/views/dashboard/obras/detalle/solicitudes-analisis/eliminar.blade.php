@@ -9,7 +9,7 @@
             {!! Form::open(['route' => ['dashboard.solicitudes-analisis.destroy', $registro->id], 'method' => 'DELETE', 'id' => 'form-obras-detalle-solicitudes-analisis', 'class' => 'form-horizontal']) !!}
             <div class="modal-body">
             	<div class="row">
-            		<p>¿Estas seguro que deseas eliminar la Solicitud de Análisis <strong>{{ $registro->id }}</strong>?</p>
+            		<p>¿Estas seguro que deseas eliminar la Solicitud de Análisis ?</p>
             	</div>
 
                 <div class="row m-t-md" id="div-notificacion">

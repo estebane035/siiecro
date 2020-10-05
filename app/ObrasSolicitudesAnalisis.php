@@ -10,10 +10,10 @@ class ObrasSolicitudesAnalisis extends Model
     protected $fillable = [
     	'id',
     	'obra_id',
-    	'usuario_id',
+        'creo_usuario_id',
+    	'obra_usuario_asignado_id',
     	'tecnica',
     	'fecha_intervencion',
-    	'responsable',
     	'esquema',
     ];
 }

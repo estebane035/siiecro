@@ -4,10 +4,10 @@ jQuery(document).ready(function($) {
 			"#carga-dt-solicitudes-analisis", // ID elemento del progreso
 			"/dashboard/solicitudes-analisis/carga", // URL datos
 			[
-				{ data: "id", 		            width: "5%"},
-        { data: "tecnica",            width: "15%"},
+        // aquí si le dejé el id por si se repite la técnica, que identifiquen cual registro eliminarán
+        { data: "tecnica",            width: "20%"},
         { data: "fecha_intervencion", width: "20%"},
-        { data: "responsable",        width: "25%"},
+        { data: "name",               width: "25%"},
         { data: "esquema",            width: "25%"},
 				{ data: "acciones",           width: "10%", 	searchable: false, 	orderable: false},
 			], // Columnas
@@ -22,6 +22,11 @@ function crear()
                       "#tecnica", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
                         $('#obra_id').val($('#id').val());
+                       
+                        $('#obra_usuario_asignado_id').select2({
+                          placeholder: "Seleccione una opción"
+                        });
+
                         $("#fecha_intervencion").datepicker({
                             language:       'es',
                             format:         'yyyy-mm-dd',
@@ -44,6 +49,10 @@ function editar(id)
                         "#modal-crear", //Nombre modal
                         "#tecnica", //Elemento al que se le dara focus una vez cargado el modal
                         function(){
+                          $('#obra_usuario_asignado_id').select2({
+                            placeholder: "Seleccione una opción"
+                          });
+                          
                           $("#fecha_intervencion").datepicker({
                             language:       'es',
                             format:         'yyyy-mm-dd',
@@ -92,8 +101,7 @@ function verMuestras(id)
                             "#carga-dt-solicitudes-analisis-muestras", // ID elemento del progreso
                             "/dashboard/solicitudes-analisis/cargar-muestras/"+id, // URL datos
                             [
-                              { data: "id",                     width: "5%"},
-                              { data: "nombre",                 width: "15%"},
+                              { data: "nombre",                 width: "20%"},
                               { data: "no_muestra",             width: "10%"},
                               { data: "nomenclatura",           width: "10%"},
                               { data: "informacion_requerida",  width: "10%"},

@@ -14,7 +14,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-6 div-input">
                                 <label for="tipo_analisis_id">Tipo de análisis</label>
                                 <select class="form-control select2" id="tipo_analisis_id" name="tipo_analisis_id" required autocomplete="off">
                                     <option value=""></option>
@@ -23,21 +23,17 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-6 div-input">
                                 <label for="no_muestra">No. Muestra</label>
                                 <input type="text" class="form-control" id="no_muestra" name="no_muestra" value="{{ $registro->no_muestra }}" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-6 div-input">
                                 <label for="nomenclatura">Nomenclatura</label>
                                 <input type="text" class="form-control" id="nomenclatura" name="nomenclatura" value="{{ $registro->nomenclatura }}" required autocomplete="off">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-6 div-input">
                                 <label for="informacion_requerida">Información Requerida</label>
                                 <input type="text" class="form-control" id="informacion_requerida" name="informacion_requerida" value="{{ $registro->informacion_requerida }}" required autocomplete="off">
                             </div>

@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Obras | Detalle | Solicitudes de Análisis</h4>
-                <small class="font-bold">{{ $registro == "[]" ? "Creando nueva Solicitud de Análisis" : "Editando solicitud " }} <strong>{{ $registro->id }}</strong></small>
+                <small class="font-bold">{{ $registro == "[]" ? "Creando nueva Solicitud de Análisis" : "Editando solicitud " }} <strong>{{ $registro->tecnica }}</strong></small>
             </div>
             @if ($registro == "[]")
                 {!! Form::open(['route' => ['dashboard.solicitudes-analisis.store'], 'method' => 'POST', 'id' => 'form-obras-detalle-solicitudes-analisis', 'class' => 'form-horizontal']) !!}
@@ -14,21 +14,24 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-8 div-input">
                                 <label for="tecnica">Técnica</label>
                                 <input type="text" class="form-control" id="tecnica" name="tecnica" value="{{ $registro->tecnica }}" required autocomplete="off">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-4 div-input">
                                 <label for="fecha_intervencion">Fecha de intervención</label>
                                 <input type="text" class="form-control" id="fecha_intervencion" name="fecha_intervencion" value="{{ $registro->fecha_intervencion }}" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 div-input">
-                                <label for="responsable">Responsable</label>
-                                <input type="text" class="form-control" id="responsable" name="responsable" value="{{ $registro->responsable }}" required autocomplete="off">
+                                <label for="obra_usuario_asignado_id">Responsable</label>
+                                <select class="form-control select2" id="obra_usuario_asignado_id" name="obra_usuario_asignado_id" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach ($responsables_intervencion as $responsable_intervencion)
+                                        <option {{ $responsable_intervencion->id == $registro->obra_usuario_asignado_id ? "selected" : "" }} value="{{ $responsable_intervencion->id }}">{{ $responsable_intervencion->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="row">

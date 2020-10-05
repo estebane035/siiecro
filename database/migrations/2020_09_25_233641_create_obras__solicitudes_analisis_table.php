@@ -16,17 +16,19 @@ class CreateObrasSolicitudesAnalisisTable extends Migration
         Schema::create('obras__solicitudes_analisis', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('obra_id')->unsigned();
-            $table->integer('usuario_id')->unsigned();
+            // campo creo_usuario_id para un tipo de bitacora de quien creó la solicitud de análisis
+            $table->integer('creo_usuario_id')->unsigned();
+            $table->integer('obra_usuario_asignado_id')->unsigned();
 
             // tengo dudas sobre si va aquí técnica
             $table->string('tecnica');
             $table->date('fecha_intervencion');
-            $table->string('responsable');
             $table->text('esquema');
             $table->timestamps();
 
             $table->foreign('obra_id')->references('id')->on('obras');
-            $table->foreign('usuario_id')->references('id')->on('users');            
+            $table->foreign('creo_usuario_id')->references('id')->on('users');
+            $table->foreign('obra_usuario_asignado_id')->references('usuario_id')->on('obras__usuarios_asignados');            
         });
     }
 
