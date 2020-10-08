@@ -16,6 +16,7 @@ class CreateObrasSolicitudesAnalisisTipoAnalisisTable extends Migration
         Schema::create('obras__solicitudes_analisis_tipo_analisis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('color_hexadecimal');
             $table->timestamps();
         });
     }

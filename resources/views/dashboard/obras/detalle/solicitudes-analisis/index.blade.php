@@ -15,7 +15,6 @@
                     <table class="table table-striped" id="dt-datos-solicitudes-analisis">
                         <thead>
                             <tr>
-                                <th>Técnica</th>
                                 <th>Fecha de Intervención</th>
                                 <th>Responsable</th>
                                 <th>Esquema</th>

@@ -24,7 +24,7 @@ class ObrasSolicitudesAnalisisController extends Controller
         $this->middleware('auth');
     }
     
-    public function cargarTabla(Request $request)
+    public function cargarTabla(Request $request, $obra_id)
     {
         $registros      =   ObrasSolicitudesAnalisis::selectRaw('
                                                                     obras__solicitudes_analisis.id,
@@ -34,6 +34,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                     obras__solicitudes_analisis.esquema
                                                                 ')
                                                     ->join('users', 'users.id','=', 'obras__solicitudes_analisis.obra_usuario_asignado_id')
+                                                    ->where('obras__solicitudes_analisis.obra_id', '=', $obra_id)
                                                     ->get();
 
         return DataTables::of($registros)
@@ -68,7 +69,9 @@ class ObrasSolicitudesAnalisisController extends Controller
                                 "creo_usuario_id"   =>  Auth::id()
                             ]);
 
-            return BD::crear('ObrasSolicitudesAnalisis', $request);
+            $respuesta = BD::crear('ObrasSolicitudesAnalisis', $request);
+
+            return $respuesta;
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
@@ -112,9 +115,11 @@ class ObrasSolicitudesAnalisisController extends Controller
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
     }
 
-    public function verMuestras($solicitud_analisis_id)
+    public function verMuestras($id)
     {
-        return view('dashboard.obras.detalle.solicitudes-analisis.ver-muestras', ['solicitud_analisis_id' => $solicitud_analisis_id] );
+        $registro = ObrasSolicitudesAnalisis::findOrFail($id);
+
+        return view('dashboard.obras.detalle.solicitudes-analisis.ver-muestras', ['registro' => $registro] );
     }
 
     public function cargarMuestras(Request $request, $solicitud_analisis_id)
@@ -122,6 +127,7 @@ class ObrasSolicitudesAnalisisController extends Controller
         $registros      =   ObrasSolicitudesAnalisisMuestras::selectRaw('
                                                                             obras__solicitudes_analisis_muestras.id,
                                                                             obras_tipo.nombre,
+                                                                            obras_tipo.color_hexadecimal,
                                                                             obras__solicitudes_analisis_muestras.no_muestra,
                                                                             obras__solicitudes_analisis_muestras.nomenclatura,
                                                                             obras__solicitudes_analisis_muestras.informacion_requerida,
@@ -133,13 +139,18 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                             ->where('solicitud_analisis_id', '=', $solicitud_analisis_id)->get();
 
         return DataTables::of($registros)
+                        ->editColumn('nombre', function($registro){
+                            $color_nombre = '<span style="color: '.$registro->color_hexadecimal.';"><strong>'.$registro->nombre.'</strong></span>';
+
+                            return $color_nombre;
+                        })
                         ->addColumn('acciones', function($registro){
                             $editar         =   '<i onclick="editarMuestra('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar muestra '.$registro->no_muestra.'"></i>';
                             $eliminar       =   '<i onclick="eliminarMuestra('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar muestra '.$registro->no_muestra.'"></i>';
 
                             return $editar.$eliminar;
                         })
-                        ->rawColumns(['acciones'])
+                        ->rawColumns(['nombre','acciones'])
                         ->make('true');
     }
 

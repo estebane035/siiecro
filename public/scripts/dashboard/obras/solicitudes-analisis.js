@@ -2,13 +2,11 @@ jQuery(document).ready(function($) {
 	_cargarTabla(
 			"#dt-datos-solicitudes-analisis", // ID de la tabla
 			"#carga-dt-solicitudes-analisis", // ID elemento del progreso
-			"/dashboard/solicitudes-analisis/carga", // URL datos
+			"/dashboard/solicitudes-analisis/carga/"+ $('#id').val(), // URL datos
 			[
-        // aquí si le dejé el id por si se repite la técnica, que identifiquen cual registro eliminarán
-        { data: "tecnica",            width: "20%"},
         { data: "fecha_intervencion", width: "20%"},
-        { data: "name",               width: "25%"},
-        { data: "esquema",            width: "25%"},
+        { data: "name",               width: "30%"},
+        { data: "esquema",            width: "40%"},
 				{ data: "acciones",           width: "10%", 	searchable: false, 	orderable: false},
 			], // Columnas
 		);
@@ -35,9 +33,10 @@ function crear()
                       "#form-obras-detalle-solicitudes-analisis", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
                       "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
-                      function(){
+                      function(respuesta){
                           _ocultarModal("#modal-crear", function(){
               							_recargarTabla("#dt-datos-solicitudes-analisis");
+                            verMuestras(respuesta.id);
               						});
                       });//Funcion en caso de guardar correctamente);
 }
