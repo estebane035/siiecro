@@ -19,7 +19,7 @@
                                 <select class="form-control select2" id="tipo_analisis_id" name="tipo_analisis_id" required autocomplete="off">
                                     <option value=""></option>
                                     @foreach ($tipos_analisis as $tipo_analisis)
-                                        <option {{ $tipo_analisis->id == $registro->tipo_analisis_id ? "selected" : "" }} value="{{ $tipo_analisis->id }}"><p style="color: {{ $tipo_analisis->color_hexadecimal }};">{{ $tipo_analisis->nombre }}</p></option>
+                                        <option {{ $tipo_analisis->id == $registro->tipo_analisis_id ? "selected" : "" }} value="{{ $tipo_analisis->id }}">{{ $tipo_analisis->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>

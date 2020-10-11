@@ -57,6 +57,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                         users.name
                                                                         ')
                                                             ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                            ->where('users.es_responsable_intervencion', '=', 'si')
                                                             ->get();
 
         return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
@@ -85,6 +86,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                         users.name
                                                                         ')
                                                             ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                            ->where('users.es_responsable_intervencion', '=', 'si')
                                                             ->get();
                                                             
         return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
@@ -140,7 +142,7 @@ class ObrasSolicitudesAnalisisController extends Controller
 
         return DataTables::of($registros)
                         ->editColumn('nombre', function($registro){
-                            $color_nombre = '<span style="color: '.$registro->color_hexadecimal.';"><strong>'.$registro->nombre.'</strong></span>';
+                            $color_nombre = '<span class="small" style="color: '.$registro->color_hexadecimal.';"><strong>'.$registro->nombre.'</strong></span>';
 
                             return $color_nombre;
                         })

@@ -100,14 +100,14 @@ function verMuestras(id)
                             "#carga-dt-solicitudes-analisis-muestras", // ID elemento del progreso
                             "/dashboard/solicitudes-analisis/cargar-muestras/"+id, // URL datos
                             [
-                              { data: "nombre",                 width: "20%"},
+                              { data: "nombre",                 width: "30%"},
                               { data: "no_muestra",             width: "10%"},
                               { data: "nomenclatura",           width: "10%"},
                               { data: "informacion_requerida",  width: "10%"},
-                              { data: "motivo",                 width: "15%"},
+                              { data: "motivo",                 width: "10%"},
                               { data: "descripcion_muestra",    width: "15%"},
                               { data: "ubicacion",              width: "10%"},
-                              { data: "acciones",               width: "10%",   searchable: false,  orderable: false},
+                              { data: "acciones",               width: "5%",   searchable: false,  orderable: false},
                             ], // Columnas
                           );
                         }, //Funcion para el success
