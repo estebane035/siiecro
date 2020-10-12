@@ -24,6 +24,11 @@ return 	[
 			"obras_formas_ingreso" 		=> 	[
 												"INT",
 												"EXT"
+											],
+			"status_solicitud_analisis" => 	[
+												"En revision",
+												"Aprobada",
+												"Rechazada"
 											]
 		];
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use DataTables;
 use BD;
@@ -24,12 +25,14 @@ class ObrasSolicitudesAnalisisController extends Controller
         $this->middleware('auth');
     }
     
+###### SOLICITUDES ANALISIS ##################################################################################
     public function cargarTabla(Request $request, $obra_id)
     {
         $registros      =   ObrasSolicitudesAnalisis::selectRaw('
                                                                     obras__solicitudes_analisis.id,
                                                                     obras__solicitudes_analisis.tecnica,
                                                                     obras__solicitudes_analisis.fecha_intervencion,
+                                                                    obras__solicitudes_analisis.estatus,
                                                                     users.name,
                                                                     obras__solicitudes_analisis.esquema
                                                                 ')
@@ -38,14 +41,60 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                     ->get();
 
         return DataTables::of($registros)
-                        ->addColumn('acciones', function($registro){
-                            $muestra        =   '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver todas las muestras"></i>';
-                            $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar solicitud de analisis"></i>';
-                            $eliminar       =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar solicitud de analisis"></i>';
+                        ->editColumn('fecha_intervencion', function($registro){
+                            $label_estatus  = '';
+                            $fecha          = '';
 
-                            return $muestra.$editar.$eliminar;
+                            switch ($registro->estatus) {
+                                case 'En revision':{
+                                    $label_estatus = 'badge badge-warning';
+                                    break;
+                                }
+                                case 'Aprobada':{
+                                    $label_estatus = 'badge badge-primary';
+                                    break;
+                                }
+                                case 'Rechazada':{
+                                    $label_estatus = 'badge badge-danger';
+                                    break;
+                                }
+                            }
+
+                            return $fecha = '<span class="'.$label_estatus.'" title="'.$registro->estatus.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
                         })
-                        ->rawColumns(['acciones'])
+                        ->addColumn('acciones', function($registro){
+                            $muestra        = '';
+                            $editar         = '';
+                            $eliminar       = '';
+                            $aprobar        = '';
+                            $rechazar       = '';
+                            $revision       = '';
+
+                            if ($registro->estatus == 'Rechazada') {
+                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver todas las muestras"></i>';
+                                // $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar solicitud de analisis"></i>';
+                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar solicitud de analisis"></i>';
+                                $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision"></i>';
+                            }
+                            elseif ($registro->estatus == 'Aprobada') {
+                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver todas las muestras"></i>';
+                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar solicitud de analisis"></i>';
+                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar solicitud de analisis"></i>';
+                                // $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Aprobar"></i>';
+                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
+                            }
+                            else{
+                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver todas las muestras"></i>';
+                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar solicitud de analisis"></i>';
+                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar solicitud de analisis"></i>';
+                                $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar"></i>';
+                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
+                                // $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision"></i>';
+                            }
+
+                            return $muestra.$aprobar.$rechazar.$revision.$editar.$eliminar;
+                        })
+                        ->rawColumns(['fecha_intervencion','acciones'])
                         ->make('true');
     }
 
@@ -116,6 +165,69 @@ class ObrasSolicitudesAnalisisController extends Controller
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
     }
+
+    public function modalAprobarSolicitudAnalisis(Request $request, $id){
+        $registro   = ObrasSolicitudesAnalisis::findOrFail($id);
+        return view('dashboard.obras.detalle.solicitudes-analisis.aprobar-solicitud-analisis', ["registro" => $registro]);
+    }
+
+    public function aprobarSolicitudAnalisis(Request $request, $id){
+        if($request->ajax()){
+            $solicitud_analisis                     = ObrasSolicitudesAnalisis::findOrFail($id);
+
+            $solicitud_analisis->usuario_aprobo_id  = Auth::id();
+            $solicitud_analisis->estatus            = 'Aprobada';
+            $solicitud_analisis->fecha_aprobacion   = Carbon::now();
+            $solicitud_analisis->save();
+
+            return Response::json(["mensaje" => "Solicitud aprobada exitosamente.", "id" => $solicitud_analisis->id, "error" => false], 200);
+        }
+
+        return Response::json(["mensaje" => "Petición incorrecta"], 500);
+    }
+
+    public function modalRechazarSolicitudAnalisis(Request $request, $id){
+        $registro   = ObrasSolicitudesAnalisis::findOrFail($id);
+        return view('dashboard.obras.detalle.solicitudes-analisis.rechazar-solicitud-analisis', ["registro" => $registro]);
+    }
+
+    public function rechazarSolicitudAnalisis(Request $request, $id){
+        if($request->ajax()){
+            $solicitud_analisis                     = ObrasSolicitudesAnalisis::findOrFail($id);
+
+            $solicitud_analisis->usuario_rechazo_id = Auth::id();
+            $solicitud_analisis->estatus            = 'Rechazada';
+            $solicitud_analisis->fecha_rechazo      = Carbon::now();
+            $solicitud_analisis->save();
+
+            return Response::json(["mensaje" => "Solicitud rechazada exitosamente.", "id" => $solicitud_analisis->id, "error" => false], 200);
+        }
+
+        return Response::json(["mensaje" => "Petición incorrecta"], 500);
+    }
+
+    public function modalEnRevisionSolicitudAnalisis(Request $request, $id){
+        $registro   = ObrasSolicitudesAnalisis::findOrFail($id);
+        return view('dashboard.obras.detalle.solicitudes-analisis.poner-en-revision-solicitud-analisis', ["registro" => $registro]);
+    }
+
+    public function enRevisionSolicitudAnalisis(Request $request, $id){
+        if($request->ajax()){
+            $solicitud_analisis                     = ObrasSolicitudesAnalisis::findOrFail($id);
+
+            $solicitud_analisis->usuario_reviso_id  = Auth::id();
+            $solicitud_analisis->estatus            = 'En revision';
+            $solicitud_analisis->fecha_revision     = Carbon::now();
+            $solicitud_analisis->save();
+
+            return Response::json(["mensaje" => "Solicitud puesta en revisión exitosamente.", "id" => $solicitud_analisis->id, "error" => false], 200);
+        }
+
+        return Response::json(["mensaje" => "Petición incorrecta"], 500);
+    }
+##############################################################################################################
+
+###### MUESTRAS DE LAS SOLICITUDES ANALISIS ##################################################################
 
     public function verMuestras($id)
     {
@@ -209,4 +321,6 @@ class ObrasSolicitudesAnalisisController extends Controller
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
     }
+##############################################################################################################
+
 }

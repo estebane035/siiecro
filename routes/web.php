@@ -66,17 +66,23 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 	#################################################################################
     
     ######## OBRAS DETALLE SOLICITUD ANALISIS #######################################
-		Route::get('solicitudes-analisis/carga/{id}', 					'ObrasSolicitudesAnalisisController@cargarTabla');
-		Route::get('solicitudes-analisis/{id}/eliminar', 				'ObrasSolicitudesAnalisisController@eliminar');
+		Route::get('solicitudes-analisis/carga/{id}', 									'ObrasSolicitudesAnalisisController@cargarTabla');
+		Route::get('solicitudes-analisis/{id}/eliminar', 								'ObrasSolicitudesAnalisisController@eliminar');
+		Route::get('solicitudes-analisis/{id}/aprobar-solicitud-analisis', 				'ObrasSolicitudesAnalisisController@modalAprobarSolicitudAnalisis');
+		Route::put('solicitudes-analisis/{id}/aprobar-solicitud-analisis', 				'ObrasSolicitudesAnalisisController@aprobarSolicitudAnalisis')->name('obras.aprobar-solicitud-analisis');
+		Route::get('solicitudes-analisis/{id}/rechazar-solicitud-analisis', 			'ObrasSolicitudesAnalisisController@modalRechazarSolicitudAnalisis');
+		Route::put('solicitudes-analisis/{id}/rechazar-solicitud-analisis', 			'ObrasSolicitudesAnalisisController@rechazarSolicitudAnalisis')->name('obras.rechazar-solicitud-analisis');
+		Route::get('solicitudes-analisis/{id}/poner-en-revision-solicitud-analisis', 	'ObrasSolicitudesAnalisisController@modalEnRevisionSolicitudAnalisis');
+		Route::put('solicitudes-analisis/{id}/poner-en-revision-solicitud-analisis', 	'ObrasSolicitudesAnalisisController@enRevisionSolicitudAnalisis')->name('obras.poner-en-revision-solicitud-analisis');
 		
-		Route::get('solicitudes-analisis/ver-muestras/{id}', 			'ObrasSolicitudesAnalisisController@verMuestras');
-		Route::get('solicitudes-analisis/cargar-muestras/{id}', 		'ObrasSolicitudesAnalisisController@cargarMuestras');
-		Route::get('solicitudes-analisis/crear-muestra', 				'ObrasSolicitudesAnalisisController@crearMuestra');
-		Route::post('solicitudes-analisis/guardar-muestra', 			'ObrasSolicitudesAnalisisController@guardarMuestra')->name('solicitudes-analisis.guardar-muestra');
-		Route::get('solicitudes-analisis/editar-muestra/{id}', 			'ObrasSolicitudesAnalisisController@editarMuestra');
-		Route::put('solicitudes-analisis/actualizar-muestra/{id}', 		'ObrasSolicitudesAnalisisController@actualizarMuestra')->name('solicitudes-analisis.actualizar-muestra');
-		Route::get('solicitudes-analisis/aviso-eliminar-muestra/{id}', 	'ObrasSolicitudesAnalisisController@avisoEliminarMuestra');
-		Route::delete('solicitudes-analisis/destruir-muestra/{id}', 	'ObrasSolicitudesAnalisisController@destruirMuestra')->name('solicitudes-analisis.destruir-muestra');
+		Route::get('solicitudes-analisis/ver-muestras/{id}', 							'ObrasSolicitudesAnalisisController@verMuestras');
+		Route::get('solicitudes-analisis/cargar-muestras/{id}', 						'ObrasSolicitudesAnalisisController@cargarMuestras');
+		Route::get('solicitudes-analisis/crear-muestra', 								'ObrasSolicitudesAnalisisController@crearMuestra');
+		Route::post('solicitudes-analisis/guardar-muestra', 							'ObrasSolicitudesAnalisisController@guardarMuestra')->name('solicitudes-analisis.guardar-muestra');
+		Route::get('solicitudes-analisis/editar-muestra/{id}', 							'ObrasSolicitudesAnalisisController@editarMuestra');
+		Route::put('solicitudes-analisis/actualizar-muestra/{id}', 						'ObrasSolicitudesAnalisisController@actualizarMuestra')->name('solicitudes-analisis.actualizar-muestra');
+		Route::get('solicitudes-analisis/aviso-eliminar-muestra/{id}', 					'ObrasSolicitudesAnalisisController@avisoEliminarMuestra');
+		Route::delete('solicitudes-analisis/destruir-muestra/{id}', 					'ObrasSolicitudesAnalisisController@destruirMuestra')->name('solicitudes-analisis.destruir-muestra');
 		
 		Route::resource('solicitudes-analisis', 						'ObrasSolicitudesAnalisisController');
 	#################################################################################

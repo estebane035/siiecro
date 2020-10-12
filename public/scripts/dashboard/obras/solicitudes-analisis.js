@@ -86,7 +86,66 @@ function eliminar(id)
                       });//Funcion en caso de guardar correctamente);
 }
 
-// MUESTRAS 
+// CAMBIOS DE ESTATUS EN LAS SOLICTUDES
+function aprobarSolicitudAnalisis(id)
+{
+  _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/aprobar-solicitud-analisis/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-aprobar-solicitud-analisis", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
+
+                  }, //Funcion para el success
+                  "#form-solicitud-analisis", //ID del Formulario
+                  "", //Loading de guardar datos de formulario
+                  "#div-notificacion-solicitud-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-aprobar-solicitud-analisis", function(){
+                      _recargarTabla("#dt-datos-solicitudes-analisis");
+                    });
+                  });//Funcion en caso de guardar correctamente);
+}
+
+function rechazarSolicitudAnalisis(id)
+{
+  _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/rechazar-solicitud-analisis/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-rechazar-solicitud-analisis", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
+
+                  }, //Funcion para el success
+                  "#form-solicitud-analisis", //ID del Formulario
+                  "", //Loading de guardar datos de formulario
+                  "#div-notificacion-solicitud-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-rechazar-solicitud-analisis", function(){
+                      _recargarTabla("#dt-datos-solicitudes-analisis");
+                    });
+                  });//Funcion en caso de guardar correctamente);
+}
+
+function ponerEnRevisionSolicitudAnalisis(id)
+{
+  _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/poner-en-revision-solicitud-analisis/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-poner-en-revision-solicitud-analisis", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
+
+                  }, //Funcion para el success
+                  "#form-solicitud-analisis", //ID del Formulario
+                  "", //Loading de guardar datos de formulario
+                  "#div-notificacion-solicitud-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-poner-en-revision-solicitud-analisis", function(){
+                      _recargarTabla("#dt-datos-solicitudes-analisis");
+                    });
+                  });//Funcion en caso de guardar correctamente);
+}
+
+
+// MUESTRAS DE LAS SOLICITUDES
 
 function verMuestras(id)
 {
