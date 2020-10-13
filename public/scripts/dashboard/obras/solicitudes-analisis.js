@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
 
 function crear()
 {
-  _mostrarFormulario("/dashboard/solicitudes-analisis/create", //Url solicitud de datos
+  _mostrarFormulario("/dashboard/solicitudes-analisis/create/"+ $('#id').val(), //Url solicitud de datos
                       "#modal-1", //Div que contendra el modal
                       "#modal-crear", //Nombre modal
                       "#tecnica", //Elemento al que se le dara focus una vez cargado el modal

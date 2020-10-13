@@ -67,6 +67,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
     
     ######## OBRAS DETALLE SOLICITUD ANALISIS #######################################
 		Route::get('solicitudes-analisis/carga/{id}', 									'ObrasSolicitudesAnalisisController@cargarTabla');
+		Route::get('solicitudes-analisis/create/{id}', 									'ObrasSolicitudesAnalisisController@create')->name('solicitudes-analisis.create');
 		Route::get('solicitudes-analisis/{id}/eliminar', 								'ObrasSolicitudesAnalisisController@eliminar');
 		Route::get('solicitudes-analisis/{id}/aprobar-solicitud-analisis', 				'ObrasSolicitudesAnalisisController@modalAprobarSolicitudAnalisis');
 		Route::put('solicitudes-analisis/{id}/aprobar-solicitud-analisis', 				'ObrasSolicitudesAnalisisController@aprobarSolicitudAnalisis')->name('obras.aprobar-solicitud-analisis');
