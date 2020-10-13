@@ -14,11 +14,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $registro->nombre }}" required autocomplete="off">
                             </div>
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="descripcion">Descripción</label>
                                 <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ $registro->descripcion }}" required autocomplete="off">
                             </div>

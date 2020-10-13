@@ -100,7 +100,8 @@ function _errorEjecucion(xhr, notificacion = null, formulario = null){
         _notificationDiv(notificacion,'alerta',string);
 
         if(formulario){
-            $(formulario).find('input, textarea, button, select').attr('disabled',false);
+            $(formulario).find('input:not([deshabilitado="si"]), textarea:not([deshabilitado="si"]), button:not([deshabilitado="si"]), select:not([deshabilitado="si"])').attr('disabled',false);
+            $(formulario).find('input[deshabilitado="si"], textarea[deshabilitado="si"], button[deshabilitado="si"], select[deshabilitado="si"]').removeAttr('deshabilitado');
         }
 
         return false;
@@ -116,12 +117,14 @@ function _errorEjecucion(xhr, notificacion = null, formulario = null){
          _notificationDiv(notificacion,'alerta',string);
           
         if(formulario){
-            $(formulario).find('input, textarea, button, select').attr('disabled',false);
+            $(formulario).find('input:not([deshabilitado="si"]), textarea:not([deshabilitado="si"]), button:not([deshabilitado="si"]), select:not([deshabilitado="si"])').attr('disabled',false);
+            $(formulario).find('input[deshabilitado="si"], textarea[deshabilitado="si"], button[deshabilitado="si"], select[deshabilitado="si"]').removeAttr('deshabilitado');
         }
     } catch (e) {
 
         if(formulario){
-            $(formulario).find('input, textarea, button, select').attr('disabled',false);
+            $(formulario).find('input:not([deshabilitado="si"]), textarea:not([deshabilitado="si"]), button:not([deshabilitado="si"]), select:not([deshabilitado="si"])').attr('disabled',false);
+            $(formulario).find('input[deshabilitado="si"], textarea[deshabilitado="si"], button[deshabilitado="si"], select[deshabilitado="si"]').removeAttr('deshabilitado');
         }
 
         $('#modal-error-contenido').html(xhr.responseText);
@@ -159,6 +162,8 @@ function _formAjax(formulario,progress,notificacion,funcionExito){
                     //Desactiva formulario
                     $(notificacion).html('');
                     $(progress).removeClass('hidden');
+
+                    $(formulario).find('input[disabled], textarea[disabled], button[disabled], select[disabled]').attr('deshabilitado', "si");
                     $(formulario).find('input, textarea, button, select').attr('disabled',true);
 
                     // Si existe un boton de submit le ponemos el loading
@@ -168,7 +173,8 @@ function _formAjax(formulario,progress,notificacion,funcionExito){
                     };
                 },
                 success: function(respuesta){
-                    $(formulario).find('input, textarea, button, select').attr('disabled',false);
+                    $(formulario).find('input:not([deshabilitado="si"]), textarea:not([deshabilitado="si"]), button:not([deshabilitado="si"]), select:not([deshabilitado="si"])').attr('disabled',false);
+                    $(formulario).find('input[deshabilitado="si"], textarea[deshabilitado="si"], button[deshabilitado="si"], select[deshabilitado="si"]').removeAttr('deshabilitado');
                     $(progress).addClass('hidden');
 
                     var btnSubmit   = $(formulario).find('button[type=submit]')[0];

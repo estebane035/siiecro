@@ -8610,3 +8610,11 @@ body.md-skin {
 .no-resize{
   resize: none;
 }
+
+.div-input.required:after{
+  content: " *";
+  position: absolute;
+  top: 0;
+  right: 20px;
+  color: red;
+}

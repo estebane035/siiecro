@@ -14,11 +14,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-8 div-input">
+                            <div class="col-md-8 div-input required">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $registro->nombre }}" onchange="generarSiglas();" required autocomplete="off">
                             </div>
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-4 div-input required">
                                 <label for="siglas">Siglas</label>
                                 <input type="text" class="form-control" id="siglas" name="siglas" value="{{ $registro->siglas }}" required autocomplete="off">
                             </div>

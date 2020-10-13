@@ -4,8 +4,9 @@ jQuery(document).ready(function($) {
     "#carga-dt-usuarios-asignados", // ID elemento del progreso
     "/dashboard/obras/usuarios-asignados/carga/" + $("#id").val(), // URL datos
     [
-      { data: "nombre",     name:"u.name",  width: "85%"},
-      { data: "acciones",                   width: "15%",   searchable: false,  orderable: false},
+      { data: "name",       name:"users.name",  width: "50%"},
+      { data: "rol",        name:"r.nombre",    width: "35%"},
+      { data: "acciones",                       width: "15%",   searchable: false,  orderable: false},
     ], // Columnas
   );
 });

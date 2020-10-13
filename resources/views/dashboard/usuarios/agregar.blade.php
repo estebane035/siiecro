@@ -14,15 +14,15 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-6 div-input">
+                            <div class="col-md-6 div-input required">
                                 <label for="name">Nombre</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $registro->name }}" autocomplete="off" required>
                             </div>
-                            <div class="col-md-6 div-input">
+                            <div class="col-md-6 div-input required">
                                 <label for="email">Correo</label>
                                 <input type="email" class="form-control" id="email" name="email" value="{{ $registro->email }}" autocomplete="off" required>
                             </div>
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="rol_id">Rol</label>
                                 <select class="form-control select2" name="rol_id" id="rol_id" autocomplete="off" required>
                                     @foreach ($roles as $rol)

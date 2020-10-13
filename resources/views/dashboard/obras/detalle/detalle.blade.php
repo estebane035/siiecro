@@ -25,7 +25,15 @@
                 {!! Form::open(['route' => ['dashboard.obras.update', $obra->id], 'method' => 'PUT', 'id' => 'form-general', 'class' => 'form-horizontal']) !!}
                     <div class="ibox-title" style="min-height: 65px;">
                         <h5>Datos generales de identificación</h5>
-                        <button type="submit" class="btn btn-primary pull-right">Guardar Cambios</button> 
+
+                        <div id="btn-group-habilitar-edicion">
+                            <button onclick="toggleEdicionDatosGenerales(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
+                        </div>
+                        <div id="btn-group-editar" class="hidden">
+                            <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
+                            <button onclick="toggleEdicionDatosGenerales(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
+                        </div>
+                        
                     </div>
                     <div class="ibox-content">
                         <div class="sk-spinner sk-spinner-double-bounce" id="carga-form-general">
@@ -35,14 +43,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-6 div-input">
+                                    <div class="col-md-6 div-input required">
                                         <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $obra->nombre }}" required autocomplete="off">
+                                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $obra->nombre }}" required autocomplete="off" disabled no-editar>
                                     </div>
 
-                                    <div class="col-md-3 div-input">
+                                    <div class="col-md-3 div-input required">
                                         <label for="tipo_bien_cultural_id">Tipo de bien cultural</label>
-                                        <select class="form-control select2" id="tipo_bien_cultural_id" name="tipo_bien_cultural_id" required autocomplete="off">
+                                        <select class="form-control select2" id="tipo_bien_cultural_id" name="tipo_bien_cultural_id" required autocomplete="off" disabled>
                                             <option value=""></option>
                                             @foreach ($tiposBienCultural as $bienCultural)
                                                 <option {{ $bienCultural->id == $obra->tipo_bien_cultural_id ? "selected" : "" }} id="tipo-bien-cultural-{{ $bienCultural->id }}" calcular-temporalidad="{{ $bienCultural->calcular_temporalidad }}" value="{{ $bienCultural->id }}">{{ $bienCultural->nombre }}</option>
@@ -50,9 +58,9 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-3 div-input">
+                                    <div class="col-md-3 div-input required">
                                         <label for="tipo_objeto_id">Tipo de objeto</label>
-                                        <select class="form-control select2" id="tipo_objeto_id" name="tipo_objeto_id" required autocomplete="off">
+                                        <select class="form-control select2" id="tipo_objeto_id" name="tipo_objeto_id" required autocomplete="off" disabled>
                                             <option value=""></option>
                                             @foreach ($tiposObjeto as $objeto)
                                                 <option {{ $objeto->id == $obra->tipo_objeto_id ? "selected" : "" }} value="{{ $objeto->id }}">{{ $objeto->nombre }}</option>
@@ -64,14 +72,14 @@
                             
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-6 div-input" id="div-cultura">
+                                    <div class="col-md-6 div-input required" id="div-cultura">
                                         <label for="cultura">Cultura</label>
-                                        <input type="text" class="form-control" id="cultura" name="cultura" value="{{ $obra->cultura }}" required autocomplete="off">
+                                        <input type="text" class="form-control" id="cultura" name="cultura" value="{{ $obra->cultura }}" required autocomplete="off" disabled>
                                     </div>
 
-                                    <div class="col-md-6 div-input" id="div-temporalidad">
+                                    <div class="col-md-6 div-input required" id="div-temporalidad">
                                         <label for="temporalidad_id">Temporalidad</label>
-                                        <select class="form-control select2 full-width" id="temporalidad_id" name="temporalidad_id" required autocomplete="off">
+                                        <select class="form-control select2 full-width" id="temporalidad_id" name="temporalidad_id" required autocomplete="off" disabled>
                                             <option value=""></option>
                                             @foreach ($temporalidades as $temporalidad)
                                                 <option {{ $obra->temporalidad_id == $temporalidad->id ? "selected" : "" }} value="{{ $temporalidad->id }}">{{ $temporalidad->nombre }}</option>
@@ -82,17 +90,17 @@
                             </div>
                             
 
-                            <div class="col-md-12 div-input" id="div-autor">
+                            <div class="col-md-12 div-input required" id="div-autor">
                                 <label for="autor">Autor</label>
-                                <input type="text" class="form-control" id="autor" name="autor" value="{{ $obra->autor }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="autor" name="autor" value="{{ $obra->autor }}" required autocomplete="off" disabled>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="row">
                                     <div id="div-epoca">
-                                        <div class="col-md-4 div-input">
+                                        <div class="col-md-4 div-input required">
                                             <label for="epoca_id">Época</label>
-                                            <select class="form-control select2 full-width" name="epoca_id" id="epoca_id" required autocomplete="off">
+                                            <select class="form-control select2 full-width" name="epoca_id" id="epoca_id" required autocomplete="off" disabled>
                                                 <option value=""></option>
                                                 @foreach ($epocas as $epoca)
                                                     <option {{ $obra->epoca_id == $epoca->id ? "selected" : "" }} value="{{ $epoca->id }}">{{ $epoca->nombre }}</option>
@@ -101,7 +109,7 @@
                                         </div>
                                         <div class="col-md-2 div-input">
                                             <label for="estatus_epoca">Estatus</label>
-                                            <select class="form-control select2 full-width" name="estatus_epoca" id="estatus_epoca">
+                                            <select class="form-control select2 full-width" name="estatus_epoca" id="estatus_epoca" disabled>
                                                 <option value=""></option>
                                                 @foreach (config('valores.status_años_obras') as $status)
                                                     <option {{ $obra->estatus_epoca == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
@@ -113,11 +121,11 @@
                                     <div id="div-año">
                                         <div class="col-md-4 div-input">
                                             <label for="año">Año</label>
-                                            <input type="text" class="form-control" id="año" name="año" value="{{ $obra->año ? $obra->año->format('Y') : '' }}" required autocomplete="off">
+                                            <input type="text" class="form-control" id="año" name="año" value="{{ $obra->año ? $obra->año->format('Y') : '' }}" required autocomplete="off" disabled>
                                         </div>
                                         <div class="col-md-2 div-input">
                                             <label for="estatus_año">Estatus</label>
-                                            <select class="form-control select2 full-width" name="estatus_año" id="estatus_año">
+                                            <select class="form-control select2 full-width" name="estatus_año" id="estatus_año" disabled>
                                                 <option value=""></option>
                                                 @foreach (config('valores.status_años_obras') as $status)
                                                     <option {{ $obra->estatus_año == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
@@ -128,34 +136,34 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-5 div-input">
+                            <div class="col-md-5 div-input required">
                                 <label for="lugar_procedencia_actual">Lugar de procedencia actual</label>
-                                <input type="text" class="form-control" id="lugar_procedencia_actual" name="lugar_procedencia_actual" value="{{ $obra->lugar_procedencia_actual }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="lugar_procedencia_actual" name="lugar_procedencia_actual" value="{{ $obra->lugar_procedencia_actual }}" required autocomplete="off" disabled>
                             </div>
-                            <div class="col-md-5 div-input">
+                            <div class="col-md-5 div-input required">
                                 <label for="lugar_procedencia_original">Lugar de procedencia original</label>
-                                <input type="text" class="form-control" id="lugar_procedencia_original" name="lugar_procedencia_original" value="{{ $obra->lugar_procedencia_original }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="lugar_procedencia_original" name="lugar_procedencia_original" value="{{ $obra->lugar_procedencia_original }}" required autocomplete="off" disabled>
                             </div>
-                            <div class="col-md-2 div-input">
+                            <div class="col-md-2 div-input required">
                                 <label for="numero_inventario">No inventario</label>
-                                <input type="text" class="form-control" id="numero_inventario" name="numero_inventario" value="{{ $obra->numero_inventario }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="numero_inventario" name="numero_inventario" value="{{ $obra->numero_inventario }}" required autocomplete="off" disabled>
                             </div>
 
-                            <div class="col-md-3 div-input">
+                            <div class="col-md-3 div-input required">
                                 <label for="alto">Alto</label>
-                                <input type="number" class="form-control" id="alto" name="alto" value="{{ $obra->alto }}" required autocomplete="off">
+                                <input type="number" class="form-control" id="alto" name="alto" value="{{ $obra->alto }}" required autocomplete="off" disabled>
                             </div>
                             <div class="col-md-3 div-input">
                                 <label for="largo">Largo</label>
-                                <input type="number" class="form-control" id="largo" name="largo" value="{{ $obra->largo }}" required autocomplete="off">
+                                <input type="number" class="form-control" id="largo" name="largo" value="{{ $obra->largo }}" autocomplete="off" disabled>
                             </div>
                             <div class="col-md-3 div-input">
+                                <label for="profundidad">Profundidad</label>
+                                <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ $obra->profundidad }}" autocomplete="off" disabled>
+                            </div>
+                            <div class="col-md-3 div-input required">
                                 <label for="ancho">Ancho</label>
-                                <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $obra->ancho }}" required autocomplete="off">
-                            </div>
-                            <div class="col-md-3 div-input">
-                                <label for="diametro">Diametro</label>
-                                <input type="number" class="form-control" id="diametro" name="diametro" value="{{ $obra->diametro }}" autocomplete="off">
+                                <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $obra->ancho }}" required autocomplete="off" disabled>
                             </div>
 
                         </div>
@@ -179,7 +187,13 @@
                                 <div class="row m-b-md">
                                     <div class="col-md-8" id="div-respuesta-datos-identificacion"></div>
                                     <div class="col-md-4">
-                                        <button type="submit" class="btn btn-primary pull-right">Guardar Cambios</button> 
+                                        <div id="btn-group-habilitar-edicion-datos-identificacion">
+                                            <button onclick="toggleEdicionDatosIdentificacion(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
+                                        </div>
+                                        <div id="btn-group-editar-datos-identificacion" class="hidden">
+                                            <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
+                                            <button onclick="toggleEdicionDatosIdentificacion(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
+                                        </div>
                                     </div>    
                                 </div>
                                 <hr>
@@ -190,22 +204,22 @@
                                         <div class="row">
                                             <div class="col-md-12 div-input">
                                                 <label for="caracteristicas_descriptivas">Características descriptivas</label>
-                                                <textarea class="form-control no-resize" name="caracteristicas_descriptivas" id="caracteristicas_descriptivas" rows="6">{{ $obra->caracteristicas_descriptivas }}</textarea>
+                                                <textarea class="form-control no-resize" name="caracteristicas_descriptivas" id="caracteristicas_descriptivas" rows="6" autocomplete="off" disabled>{{ $obra->caracteristicas_descriptivas }}</textarea>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-9 div-input">
                                                 <label for="_responsables">Responsables ECRO</label>
-                                                <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="">
+                                                <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="" disabled>
                                                     <option value=""></option>
                                                     @foreach ($responsablesEcro as $responsable)
                                                         <option {{ $obra->responsables_asignados->where('id', $responsable->id)->first() ? "selected" : "" }} value="{{ $responsable->id }}">{{ $responsable->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-3 div-input">
+                                            <div class="col-md-3 div-input required">
                                                 <label for="forma_ingreso">Forma de ingreso</label>
-                                                <select class="form-control select2 full-width" id="forma_ingreso" name="forma_ingreso" required autocomplete="off">
+                                                <select class="form-control select2 full-width" id="forma_ingreso" name="forma_ingreso" required autocomplete="off" disabled>
                                                     <option value=""></option>
                                                     @foreach (config('valores.obras_formas_ingreso') as $forma)
                                                         <option {{ $obra->forma_ingreso == $forma ? "selected" : "" }} value="{{ $forma }}">{{ $forma }}</option>
@@ -214,9 +228,9 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-8 div-input">
+                                            <div class="col-md-8 div-input required">
                                                 <label for="area_id">Área</label>
-                                                <select class="form-control select2 full-width" id="area_id" name="area_id" required autocomplete="off">
+                                                <select class="form-control select2 full-width" id="area_id" name="area_id" required autocomplete="off" disabled>
                                                     <option value=""></option>
                                                     @foreach ($areas as $area)
                                                         <option {{ $obra->area_id == $area->id ? "selected" : "" }} value="{{ $area->id }}">{{ $area->campo }} {{ $area->nombre }}</option>
@@ -225,7 +239,7 @@
                                             </div>
                                             <div class="col-md-4 div-input">
                                                 <label for="area_id">Modalidad</label>
-                                                <select class="form-control select2 full-width" id="modalidad" name="modalidad" autocomplete="off">
+                                                <select class="form-control select2 full-width" id="modalidad" name="modalidad" autocomplete="off" disabled>
                                                     <option value="">Sin Modalidad</option>
                                                     @foreach (config('valores.modalidades') as $modalidad)
                                                         <option {{ $obra->modalidad == $modalidad ? "selected" : "" }} value="{{ $modalidad }}">{{ $modalidad }}</option>
@@ -234,28 +248,28 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6 div-input">
+                                            <div class="col-md-6 div-input required">
                                                 <label for="fecha_ingreso">Fecha ingreso</label>
-                                                <input type="text" class="form-control" id="fecha_ingreso" name="fecha_ingreso" value="{{ $obra->fecha_ingreso ? $obra->fecha_ingreso->format('Y-m-d') : Carbon\Carbon::now()->format('Y-m-d') }}" required autocomplete="off">
+                                                <input type="text" class="form-control" id="fecha_ingreso" name="fecha_ingreso" value="{{ $obra->fecha_ingreso ? $obra->fecha_ingreso->format('Y-m-d') : Carbon\Carbon::now()->format('Y-m-d') }}" required autocomplete="off" disabled>
                                             </div>
                                             <div class="col-md-6 div-input">
                                                 <label for="fecha_salida">Fecha salida</label>
-                                                <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida ? $obra->fecha_salida->format('Y-m-d') : "" }}" autocomplete="off">
+                                                <input type="text" class="form-control" id="fecha_salida" name="fecha_salida" value="{{ $obra->fecha_salida ? $obra->fecha_salida->format('Y-m-d') : "" }}" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6 div-input">
+                                            <div class="col-md-6 div-input required">
                                                 <label for="area_id">Recibió</label>
-                                                <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" required autocomplete="off">
+                                                <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" required autocomplete="off" disabled>
                                                     <option value=""></option>
                                                     @foreach ($usuariosPuedenRecibirObras as $usuario)
                                                         <option {{ $obra->usuario_recibio_id == $usuario->id ? "selected" : "" }} value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 div-input">
+                                            <div class="col-md-6 div-input required">
                                                 <label for="fecha_salida">Entregó</label>
-                                                <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" required>
+                                                <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" required disabled>
                                             </div>
                                         </div>
 
@@ -277,7 +291,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
@@ -298,7 +312,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
@@ -321,7 +335,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
@@ -342,7 +356,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false">
+                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>

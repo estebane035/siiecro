@@ -14,7 +14,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-4 div-input required">
                                 <label for="tipo_analisis_id">Tipo de análisis</label>
                                 <select class="form-control select2" id="tipo_analisis_id" name="tipo_analisis_id" required autocomplete="off">
                                     <option value=""></option>
@@ -23,35 +23,35 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-4 div-input required">
                                 <label for="no_muestra">No. Muestra</label>
                                 <input type="text" class="form-control" id="no_muestra" name="no_muestra" value="{{ $registro->no_muestra }}" required autocomplete="off">
                             </div>
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-4 div-input required">
                                 <label for="nomenclatura">Nomenclatura</label>
                                 <input type="text" class="form-control" id="nomenclatura" name="nomenclatura" value="{{ $registro->nomenclatura }}" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="informacion_requerida">Información Requerida</label>
                                 <input type="text" class="form-control" id="informacion_requerida" name="informacion_requerida" value="{{ $registro->informacion_requerida }}" placeholder="¿Qué quieres determinar?" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="motivo">Motivo</label>
                                 <input type="text" class="form-control" id="motivo" name="motivo" value="{{ $registro->motivo }}" placeholder="¿Para qué quieres determinar esa información?" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="descripcion_muestra">Descripción de la muestra</label>
                                 <input type="text" class="form-control" id="descripcion_muestra" name="descripcion_muestra" value="{{ $registro->descripcion_muestra }}" placeholder="Descripción de las características macroscópicas de la muestra." required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="ubicacion">Ubicación</label>
                                 <input type="text" class="form-control" id="ubicacion" name="ubicacion" value="{{ $registro->ubicacion }}" placeholder="Ubicación de toma de muestra, con coordenadas o sectores." required autocomplete="off">
                             </div>

@@ -14,13 +14,13 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $registro->nombre }}" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 div-input">
+                            <div class="col-md-6 div-input required">
                                 <label for="tipo_bien_cultural_id">Tipo de bien cultural</label>
                                 <select class="form-control select2" id="tipo_bien_cultural_id" name="tipo_bien_cultural_id" required autocomplete="off">
                                     <option value=""></option>
@@ -29,7 +29,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6 div-input">
+                            <div class="col-md-6 div-input required">
                                 <label for="tipo_objeto_id">Tipo de objeto</label>
                                 <select class="form-control select2" id="tipo_objeto_id" name="tipo_objeto_id" required autocomplete="off">
                                     <option value=""></option>
@@ -42,14 +42,14 @@
 
                         {{-- Si el tipo de bien cultural es calcular temporalidad entonces se muestra la cultura, si no el autor --}}
                         <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-cultura">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="cultura">Cultura</label>
                                 <input type="text" class="form-control" id="cultura" name="cultura" value="{{ $registro->cultura }}" required autocomplete="off">
                             </div>
                         </div>
 
                         <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-autor">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="autor">Autor</label>
                                 <input type="text" class="form-control" id="autor" name="autor" value="{{ $registro->autor }}" required autocomplete="off">
                             </div>
@@ -58,7 +58,7 @@
                         {{-- Si el tipo de bien cultural es calcular temporalidad --}}
 
                         <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-temporalidad">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="temporalidad_id">Temporalidad</label>
                                 <select class="form-control select2 full-width" id="temporalidad_id" name="temporalidad_id" required autocomplete="off">
                                     <option value=""></option>
@@ -72,7 +72,7 @@
                         {{-- Si no --}}
 
                         <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-epoca">
-                            <div class="col-md-8 div-input">
+                            <div class="col-md-8 div-input required">
                                 <label for="epoca_id">Época</label>
                                 <select class="form-control select2 full-width" name="epoca_id" id="epoca_id" required autocomplete="off">
                                     <option value=""></option>
@@ -94,7 +94,7 @@
 
                         {{-- Si la epoca es confirmada se muestra el año --}}
                         <div class="row {{ $registro == "[]" ? "hidden" : "" }}" id="div-año">
-                            <div class="col-md-8 div-input">
+                            <div class="col-md-8 div-input required">
                                 <label for="año">Año</label>
                                 <input type="text" class="form-control" id="año" name="año" value="{{ $registro->año ? $registro->año->format('Y') : '' }}" required autocomplete="off">
                             </div>
@@ -110,32 +110,32 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8 div-input">
+                            <div class="col-md-8 div-input required">
                                 <label for="lugar_procedencia_actual">Lugar de procedencia actual</label>
                                 <input type="text" class="form-control" id="lugar_procedencia_actual" name="lugar_procedencia_actual" value="{{ $registro->lugar_procedencia_actual }}" required autocomplete="off">
                             </div>
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-4 div-input required">
                                 <label for="numero_inventario">No inventario</label>
                                 <input type="text" class="form-control" id="numero_inventario" name="numero_inventario" value="{{ $registro->numero_inventario }}" required autocomplete="off">
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3 div-input">
+                            <div class="col-md-3 div-input required">
                                 <label for="alto">Alto</label>
                                 <input type="number" class="form-control" id="alto" name="alto" value="{{ $registro->alto }}" required autocomplete="off">
                             </div>
                             <div class="col-md-3 div-input">
                                 <label for="largo">Largo</label>
-                                <input type="number" class="form-control" id="largo" name="largo" value="{{ $registro->largo }}" required autocomplete="off">
+                                <input type="number" class="form-control" id="largo" name="largo" value="{{ $registro->largo }}" autocomplete="off">
                             </div>
                             <div class="col-md-3 div-input">
+                                <label for="profundidad">Profundidad</label>
+                                <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ $registro->profundidad }}" autocomplete="off">
+                            </div>
+                            <div class="col-md-3 div-input required">
                                 <label for="ancho">Ancho</label>
                                 <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $registro->ancho }}" required autocomplete="off">
-                            </div>
-                            <div class="col-md-3 div-input">
-                                <label for="diametro">Diametro</label>
-                                <input type="number" class="form-control" id="diametro" name="diametro" value="{{ $registro->diametro }}" autocomplete="off">
                             </div>
                         </div>
                     </div>

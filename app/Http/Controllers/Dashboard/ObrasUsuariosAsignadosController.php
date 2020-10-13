@@ -22,21 +22,26 @@ class ObrasUsuariosAsignadosController extends Controller
     }
 
     public function cargarTabla(Request $request, $obra_id)
-    {
-        $registros      =   ObrasUsuariosAsignados::selectRaw('
-        														obras__usuarios_asignados.*,
-        														u.name as nombre
-        													')
-        											->join('users as u', 'u.id', 'obras__usuarios_asignados.usuario_id')
-        											->where('obras__usuarios_asignados.obra_id', $obra_id);
+    {   
+        $registros      =   User::selectRaw('
+                                                users.*,
+                                                oua.id      as obra_usuario_asignado_id,
+                                                r.nombre    as rol
+                                            ')
+                                ->join('roles as r', 'r.id', 'users.rol_id')
+                                ->join('obras__usuarios_asignados as oua', 'oua.usuario_id', 'users.id')
+                                ->where('oua.obra_id', $obra_id);
 
         return DataTables::of($registros)
+                        ->editColumn('name', function($registro){
+                            return $registro->name.$registro->icono_es_responsable_intervencion;
+                        })
                         ->addColumn('acciones', function($registro){
-                            $eliminar       =   '<i onclick="eliminarUsuarioAsignado('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"></i>';
+                            $eliminar       =   '<i onclick="eliminarUsuarioAsignado('.$registro->obra_usuario_asignado_id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"></i>';
 
                             return $eliminar;
                         })
-                        ->rawColumns(['acciones'])
+                        ->rawColumns(['acciones', 'name'])
                         ->make('true');
     }
 

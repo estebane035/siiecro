@@ -14,17 +14,17 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-8 div-input">
+                            <div class="col-md-8 div-input required">
                                 <label for="tecnica">Técnica</label>
                                 <input type="text" class="form-control" id="tecnica" name="tecnica" value="{{ $registro->tecnica }}" required autocomplete="off">
                             </div>
-                            <div class="col-md-4 div-input">
+                            <div class="col-md-4 div-input required">
                                 <label for="fecha_intervencion">Fecha de intervención</label>
                                 <input type="text" class="form-control" id="fecha_intervencion" name="fecha_intervencion" value="{{ $registro->fecha_intervencion }}" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="obra_usuario_asignado_id">Responsable</label>
                                 <select class="form-control select2" id="obra_usuario_asignado_id" name="obra_usuario_asignado_id" required autocomplete="off">
                                     <option value=""></option>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="esquema">Esquema</label>
                                 <input type="text" class="form-control" id="esquema" name="esquema" value="{{ $registro->esquema }}" required autocomplete="off">
                             </div>

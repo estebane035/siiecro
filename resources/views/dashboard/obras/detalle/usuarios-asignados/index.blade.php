@@ -17,6 +17,7 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Rol</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>

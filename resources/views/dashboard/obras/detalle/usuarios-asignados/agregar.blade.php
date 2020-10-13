@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12 div-input">
+                            <div class="col-md-12 div-input required">
                                 <label for="usuario_id">Usuario</label>
                                 <select class="form-control select2" id="_usuario_id" name="usuario_id" required autocomplete="off">
                                     @foreach ($usuariosParaAsignar as $usuario)

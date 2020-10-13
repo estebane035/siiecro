@@ -80,3 +80,31 @@ function comportamientoStatusEpoca(id){
     $("#div-año").addClass('hidden');
   }
 }
+
+function toggleEdicionDatosGenerales(estatus){
+  // True: Habilitar edicion
+  // False: Deshabilitar edicion
+  if(estatus){
+    $("#form-general").find('input:not([no-editar]), textarea:not([no-editar]), select:not([no-editar])').attr('disabled', false);
+    $("#btn-group-habilitar-edicion").addClass('hidden');
+    $("#btn-group-editar").removeClass('hidden');
+  } else{
+    $("#form-general").find('input:not([no-editar]), textarea:not([no-editar]), select:not([no-editar])').attr('disabled', true);
+    $("#btn-group-habilitar-edicion").removeClass('hidden');
+    $("#btn-group-editar").addClass('hidden');
+  }
+}
+
+function toggleEdicionDatosIdentificacion(estatus){
+  // True: Habilitar edicion
+  // False: Deshabilitar edicion
+  if(estatus){
+    $("#form-datos-identificacion").find('input:not([no-editar]), textarea:not([no-editar]), select:not([no-editar])').attr('disabled', false);
+    $("#btn-group-habilitar-edicion-datos-identificacion").addClass('hidden');
+    $("#btn-group-editar-datos-identificacion").removeClass('hidden');
+  } else{
+    $("#form-datos-identificacion").find('input:not([no-editar]), textarea:not([no-editar]), select:not([no-editar])').attr('disabled', true);
+    $("#btn-group-habilitar-edicion-datos-identificacion").removeClass('hidden');
+    $("#btn-group-editar-datos-identificacion").addClass('hidden');
+  }
+}
