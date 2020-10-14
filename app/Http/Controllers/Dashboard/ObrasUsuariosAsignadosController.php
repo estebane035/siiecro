@@ -37,7 +37,7 @@ class ObrasUsuariosAsignadosController extends Controller
                             return $registro->name.$registro->icono_es_responsable_intervencion;
                         })
                         ->addColumn('acciones', function($registro){
-                            $eliminar       =   '<i onclick="eliminarUsuarioAsignado('.$registro->obra_usuario_asignado_id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"></i>';
+                            $eliminar       =   '<i onclick="eliminarUsuarioAsignado('.$registro->obra_usuario_asignado_id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
 
                             return $eliminar;
                         })

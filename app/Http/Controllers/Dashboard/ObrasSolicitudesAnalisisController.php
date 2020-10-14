@@ -60,7 +60,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                 }
                             }
 
-                            return $fecha = '<span class="'.$label_estatus.'" title="'.$registro->estatus.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
+                            return $fecha = '<span class="'.$label_estatus.'" mi-tooltip="'.$registro->estatus.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
                         })
                         ->addColumn('acciones', function($registro){
                             $muestra        = '';
@@ -71,25 +71,25 @@ class ObrasSolicitudesAnalisisController extends Controller
                             $revision       = '';
 
                             if ($registro->estatus == 'Rechazada') {
-                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver todas las muestras"></i>';
-                                // $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar solicitud de analisis"></i>';
-                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar solicitud de analisis"></i>';
-                                $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision"></i>';
+                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
+                                // $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
+                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
+                                $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision solicitud de analisis"></i>';
                             }
                             elseif ($registro->estatus == 'Aprobada') {
-                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver todas las muestras"></i>';
-                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar solicitud de analisis"></i>';
-                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar solicitud de analisis"></i>';
-                                // $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Aprobar"></i>';
-                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
+                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
+                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
+                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
+                                // $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Aprobar solicitud de analisis"></i>';
+                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar solicitud de analisis"></i>';
                             }
                             else{
-                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver todas las muestras"></i>';
-                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar solicitud de analisis"></i>';
-                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar solicitud de analisis"></i>';
-                                $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar"></i>';
-                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
-                                // $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision"></i>';
+                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
+                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
+                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
+                                $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar solicitud de analisis"></i>';
+                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar solicitud de analisis"></i>';
+                                // $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision solicitud de analisis"></i>';
                             }
 
                             return $muestra.$aprobar.$rechazar.$revision.$editar.$eliminar;
@@ -98,15 +98,17 @@ class ObrasSolicitudesAnalisisController extends Controller
                         ->make('true');
     }
 
-    public function create(Request $request)
+    public function create(Request $request, $id)
     {
-        $registro   =   new ObrasSolicitudesAnalisis;
-        $responsables_intervencion = ObrasUsuariosAsignados::selectRaw('
+        $registro                   = new ObrasSolicitudesAnalisis;
+        
+        $responsables_intervencion  = ObrasUsuariosAsignados::selectRaw('
                                                                         users.id,
                                                                         users.name
                                                                         ')
                                                             ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
                                                             ->where('users.es_responsable_intervencion', '=', 'si')
+                                                            ->where('obras__usuarios_asignados.obra_id', '=', $id)
                                                             ->get();
 
         return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
@@ -129,13 +131,14 @@ class ObrasSolicitudesAnalisisController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $registro   =   ObrasSolicitudesAnalisis::findOrFail($id);
-        $responsables_intervencion = ObrasUsuariosAsignados::selectRaw('
+        $registro                   = ObrasSolicitudesAnalisis::findOrFail($id);
+        $responsables_intervencion  = ObrasUsuariosAsignados::selectRaw('
                                                                         users.id,
                                                                         users.name
                                                                         ')
                                                             ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
                                                             ->where('users.es_responsable_intervencion', '=', 'si')
+                                                            ->where('obras__usuarios_asignados.id', '=', $id)
                                                             ->get();
                                                             
         return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
@@ -259,8 +262,8 @@ class ObrasSolicitudesAnalisisController extends Controller
                             return $color_nombre;
                         })
                         ->addColumn('acciones', function($registro){
-                            $editar         =   '<i onclick="editarMuestra('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar muestra '.$registro->no_muestra.'"></i>';
-                            $eliminar       =   '<i onclick="eliminarMuestra('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar muestra '.$registro->no_muestra.'"></i>';
+                            $editar         =   '<i onclick="editarMuestra('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar muestra '.$registro->no_muestra.'"></i>';
+                            $eliminar       =   '<i onclick="eliminarMuestra('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar muestra '.$registro->no_muestra.'"></i>';
 
                             return $editar.$eliminar;
                         })
