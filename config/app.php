@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -234,7 +235,8 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'BD' => App\Clases\BD::class,
         'Cadenas' => App\Clases\Cadenas::class,
-
+        'Archivos' => App\Clases\Archivos::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

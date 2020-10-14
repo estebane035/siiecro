@@ -11,6 +11,7 @@ use BD;
 use Response;
 use Hash;
 use Auth;
+use Archivos;
 
 use App\Areas;
 use App\Obras;
@@ -221,6 +222,11 @@ class ObrasController extends Controller
 
                 // Re asignamos los responsables ECRO a la obra
                 ObrasResponsablesAsignados::reAsignarResponsables($id, $request->input('_responsables'));
+
+                // if($request->file('vista_frontal')){
+                //     Archivos::subirImagen($request->file('vista_frontal'), "1.jpg", "img/obras", 800);
+                // }
+
             }
 
             return $respuesta;

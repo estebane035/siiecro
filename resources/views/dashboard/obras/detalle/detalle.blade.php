@@ -291,7 +291,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
+                                                                <input type="file" name="vista_frontal" id="vista_frontal" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
@@ -312,7 +312,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
+                                                                <input type="file" name="vista_posterior" id="vista_posterior" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
@@ -335,7 +335,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
+                                                                <input type="file" name="vista_lateral_derecha" id="vista_lateral_derecha" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
@@ -356,7 +356,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="avatar" id="avatar" value="" class="" aria-invalid="false" disabled>
+                                                                <input type="file" name="vista_lateral_izquierda" id="vista_lateral_izquierda" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
