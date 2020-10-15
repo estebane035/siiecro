@@ -182,14 +182,21 @@ class Obras extends Model
     }
 
     public function subirImagenVistaFrontal($file){
-        $extension                          =   "jpg";
+        $extension                          =   $file->extension();
+
+        // Eliminamos posibles imagenes anteriores
+        Archivos::eliminarArchivo("img/obras/".$this->vista_frontal_grande);
+        Archivos::eliminarArchivo("img/obras/".$this->vista_frontal_chica);
+
 
         $resultadoImagenGrande              =   Archivos::subirImagen($file, $this->id."_frontal_grande.".$extension, "img/obras", 1200);
         $resultadoImagenChica               =   Archivos::subirImagen($file, $this->id."_frontal_chica.".$extension, "img/obras", 400);
 
         // Si alguna de las imagenes no se subio eliminamos las dos, debido que no podemos dejar una si y otra no
         if($resultadoImagenChica != "" || $resultadoImagenGrande != ""){
-            // Eliminar imagen
+            // Eliminar imagenes
+            Archivos::eliminarArchivo("img/obras/".$this->vista_frontal_grande);
+            Archivos::eliminarArchivo("img/obras/".$this->vista_frontal_chica);
 
             $this->vista_frontal_grande     =   "";
             $this->vista_frontal_chica      =   "";

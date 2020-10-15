@@ -9,6 +9,7 @@ use Respuesta;
 use Response;
 use Image;
 use File;
+use Storage;
 
 class Archivos
 {
@@ -33,5 +34,9 @@ class Archivos
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    public static function eliminarArchivo($archivo){
+        File::delete($archivo);
     }
 }

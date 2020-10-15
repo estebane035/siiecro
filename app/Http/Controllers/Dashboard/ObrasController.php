@@ -223,7 +223,6 @@ class ObrasController extends Controller
 
                 // Re asignamos los responsables ECRO a la obra
                 ObrasResponsablesAsignados::reAsignarResponsables($id, $request->input('_responsables'));
-
                 if($request->file('vista_frontal')){
                     $obra->subirImagenVistaFrontal($request->file('vista_frontal'));
                 }
