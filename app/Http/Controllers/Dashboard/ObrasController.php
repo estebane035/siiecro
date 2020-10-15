@@ -219,13 +219,26 @@ class ObrasController extends Controller
 
             // Si se guardo bien entonces guardamos los responsables ECRO
             if(!$respuesta->getData()->error){
+                $obra           =   Obras::find($id);
 
                 // Re asignamos los responsables ECRO a la obra
                 ObrasResponsablesAsignados::reAsignarResponsables($id, $request->input('_responsables'));
 
-                // if($request->file('vista_frontal')){
-                //     Archivos::subirImagen($request->file('vista_frontal'), "1.jpg", "img/obras", 800);
-                // }
+                if($request->file('vista_frontal')){
+                    $obra->subirImagenVistaFrontal($request->file('vista_frontal'));
+                }
+
+                if($request->file('vista_posterior')){
+                    $obra->subirImagenVistaPosterior($request->file('vista_posterior'));
+                }
+
+                if($request->file('vista_lateral_izquierda')){
+                    $obra->subirImagenVistaLateralIzquierda($request->file('vista_lateral_izquierda'));
+                }
+
+                if($request->file('vista_lateral_derecha')){
+                    $obra->subirImagenVistaLateralDerecha($request->file('vista_lateral_derecha'));
+                }
 
             }
 

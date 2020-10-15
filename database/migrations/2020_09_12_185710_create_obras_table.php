@@ -44,10 +44,14 @@ class CreateObrasTable extends Migration
             $table->string('persona_entrego')->nullable();
             $table->string('fecha_salida')->nullable();
             $table->string('modalidad')->nullable();
-            $table->string('vista_frontal')->nullable();
-            $table->string('vista_posterior')->nullable();
-            $table->string('vista_lateral_derecha')->nullable();
-            $table->string('vista_lareral_izquierda')->nullable();
+            $table->string('vista_frontal_grande')->nullable();
+            $table->string('vista_frontal_chica')->nullable();
+            $table->string('vista_posterior_grande')->nullable();
+            $table->string('vista_posterior_chica')->nullable();
+            $table->string('vista_lateral_derecha_grande')->nullable();
+            $table->string('vista_lateral_derecha_chica')->nullable();
+            $table->string('vista_lateral_izquierda_grande')->nullable();
+            $table->string('vista_lateral_izquierda_chica')->nullable();
             $table->text('caracteristicas_descriptivas')->nullable();
             $table->string('lugar_procedencia_original')->nullable();
             $table->enum('forma_ingreso', config('valores.obras_formas_ingreso'))->default(config('valores.obras_formas_ingreso')[0]);

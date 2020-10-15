@@ -122,19 +122,19 @@
 
                         <div class="row">
                             <div class="col-md-3 div-input required">
-                                <label for="alto">Alto</label>
+                                <label for="alto">Alto (cm)</label>
                                 <input type="number" class="form-control" id="alto" name="alto" value="{{ $registro->alto }}" required autocomplete="off">
                             </div>
                             <div class="col-md-3 div-input">
-                                <label for="largo">Largo</label>
+                                <label for="largo">Largo (cm)</label>
                                 <input type="number" class="form-control" id="largo" name="largo" value="{{ $registro->largo }}" autocomplete="off">
                             </div>
                             <div class="col-md-3 div-input">
-                                <label for="profundidad">Profundidad</label>
+                                <label for="profundidad">Profundidad (cm)</label>
                                 <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ $registro->profundidad }}" autocomplete="off">
                             </div>
                             <div class="col-md-3 div-input required">
-                                <label for="ancho">Ancho</label>
+                                <label for="ancho">Ancho (cm)</label>
                                 <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $registro->ancho }}" required autocomplete="off">
                             </div>
                         </div>

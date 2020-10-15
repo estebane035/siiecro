@@ -150,19 +150,19 @@
                             </div>
 
                             <div class="col-md-3 div-input required">
-                                <label for="alto">Alto</label>
+                                <label for="alto">Alto (cm)</label>
                                 <input type="number" class="form-control" id="alto" name="alto" value="{{ $obra->alto }}" required autocomplete="off" disabled>
                             </div>
                             <div class="col-md-3 div-input">
-                                <label for="largo">Largo</label>
+                                <label for="largo">Largo (cm)</label>
                                 <input type="number" class="form-control" id="largo" name="largo" value="{{ $obra->largo }}" autocomplete="off" disabled>
                             </div>
                             <div class="col-md-3 div-input">
-                                <label for="profundidad">Profundidad</label>
+                                <label for="profundidad">Profundidad (cm)</label>
                                 <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ $obra->profundidad }}" autocomplete="off" disabled>
                             </div>
                             <div class="col-md-3 div-input required">
-                                <label for="ancho">Ancho</label>
+                                <label for="ancho">Ancho (cm)</label>
                                 <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $obra->ancho }}" required autocomplete="off" disabled>
                             </div>
 
@@ -283,7 +283,11 @@
                                                     <span class="fileinput-title">Vista frontal</span>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail">
-                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @if($obra->tieneImagenFrontal())
+                                                                <img src="{{ asset('img/obras/'.$obra->vista_frontal_chica) }}" style="max-height: 190px;"/>
+                                                            @else
+                                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @endif
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
                                                         </div>
@@ -304,7 +308,11 @@
                                                     <span class="fileinput-title">Vista posterior</span>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail">
-                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @if($obra->tieneImagenPosterior())
+                                                                <img src="{{ asset('img/obras/'.$obra->vista_posterior_chica) }}" style="max-height: 190px;"/>
+                                                            @else
+                                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @endif
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
                                                         </div>
@@ -324,10 +332,14 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group form-group-fileinput form-group-default text-center">
-                                                    <span class="fileinput-title">Vista lateral derecha</span>
+                                                    <span class="fileinput-title">Vista lateral izquierda</span>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail">
-                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @if($obra->tieneImagenLateralIzquierda())
+                                                                <img src="{{ asset('img/obras/'.$obra->vista_lateral_izquierda_chica) }}" style="max-height: 190px;"/>
+                                                            @else
+                                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @endif
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
                                                         </div>
@@ -335,7 +347,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="vista_lateral_derecha" id="vista_lateral_derecha" value="" class="" aria-invalid="false" disabled>
+                                                                <input type="file" name="vista_lateral_izquierda" id="vista_lateral_izquierda" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
@@ -345,10 +357,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group form-group-fileinput form-group-default text-center">
-                                                    <span class="fileinput-title">Vista lateral izquierda</span>
+                                                    <span class="fileinput-title">Vista lateral derecha</span>
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail">
-                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @if($obra->tieneImagenLateralDerecha())
+                                                                <img src="{{ asset('img/obras/'.$obra->vista_lateral_derecha_chica) }}" style="max-height: 190px;"/>
+                                                            @else
+                                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=sin+imagen" />
+                                                            @endif
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" id="contenedor_imagen">
                                                         </div>
@@ -356,7 +372,7 @@
                                                             <span class="btn btn-default btn-file">
                                                                 <span class="fileinput-new">Selecciona una imagen</span>
                                                                 <span class="fileinput-exists">Cambiar</span>
-                                                                <input type="file" name="vista_lateral_izquierda" id="vista_lateral_izquierda" value="" class="" aria-invalid="false" disabled>
+                                                                <input type="file" name="vista_lateral_derecha" id="vista_lateral_derecha" value="" class="" aria-invalid="false" disabled>
                                                             </span>
                                               
                                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Limpiar</a>
