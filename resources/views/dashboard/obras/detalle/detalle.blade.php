@@ -155,17 +155,17 @@
                                 <label for="alto">Alto (cm)</label>
                                 <input type="number" class="form-control" id="alto" name="alto" value="{{ $obra->alto }}" required autocomplete="off" disabled>
                             </div>
-                            <div class="col-md-3 div-input">
-                                <label for="largo">Largo (cm)</label>
-                                <input type="number" class="form-control" id="largo" name="largo" value="{{ $obra->largo }}" autocomplete="off" disabled>
+                            <div class="col-md-3 div-input required">
+                                <label for="ancho">Ancho (cm)</label>
+                                <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $obra->ancho }}" required autocomplete="off" disabled>
                             </div>
                             <div class="col-md-3 div-input">
                                 <label for="profundidad">Profundidad (cm)</label>
                                 <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ $obra->profundidad }}" autocomplete="off" disabled>
                             </div>
-                            <div class="col-md-3 div-input required">
-                                <label for="ancho">Ancho (cm)</label>
-                                <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $obra->ancho }}" required autocomplete="off" disabled>
+                            <div class="col-md-3 div-input">
+                                <label for="diametro">Diámetro (cm)</label>
+                                <input type="number" class="form-control" id="diametro" name="diametro" value="{{ $obra->diametro }}" autocomplete="off" disabled>
                             </div>
 
                         </div>

@@ -36,7 +36,7 @@ class CreateObrasTable extends Migration
             $table->enum('estatus_año', config('valores.status_años_obras'))->nullable();
             $table->enum('estatus_epoca', config('valores.status_años_obras'))->nullable();
             $table->integer('alto')->unsigned();
-            $table->integer('largo')->unsigned()->nullable();
+            $table->integer('diametro')->unsigned()->nullable();
             $table->integer('profundidad')->unsigned()->nullable();
             $table->integer('ancho')->unsigned();
 
