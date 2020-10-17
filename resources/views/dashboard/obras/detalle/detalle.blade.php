@@ -2,7 +2,8 @@
 
 @section('top-body')
     <div class="col-sm-12">
-        <h2>Detalle de obra <strong>{{ $obra->folio }}</strong></h2>
+        {{-- span id folio_obra obra se usa para obtener el folio y pasarlo al listado de muestras de las solicitudes de analisis con jquery --}}
+        <h2>Detalle de obra <strong><span id="folio_obra">{{ $obra->folio }}</span></strong></h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('dashboard.dashboard.index') }}">Dashboard</a>
@@ -11,7 +12,8 @@
                 <a href="{{ route('dashboard.obras.index') }}">Obras</a>
             </li>
             <li class="active">
-                <strong>{{ $obra->nombre }}</strong>
+                {{-- span id nombre_obra obra se usa para obtener el nombre y pasarlo al listado de muestras de las solicitudes de analisis con jquery --}}
+                <strong><span id="nombre_obra">{{ $obra->nombre }}</span></strong>
             </li>
         </ol>
     </div>

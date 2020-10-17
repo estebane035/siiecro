@@ -5,6 +5,8 @@
                 <i onclick="crearMuestra({{ $registro->id }})" class="fa fa-plus fa-lg pointer pull-left" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Crear nueva muestra"></i>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Solicitud de análisis</h4>
+
+                <h1>Obra <strong><span id="nombre_obra_solicitud"></span></strong> - Folio <strong><span id="folio_obra_solicitud"></span></strong></h1>
             </div>
             <div class="modal-body">
                 <div class="form-group">
