@@ -32,7 +32,7 @@
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
             </form>
-            <p class="m-t"> <small>&copy; ECRO 2020</small> </p>
+            <p class="m-t"> <small>&copy; ECRO {{ date('Y') }} - {{ date('Y',strtotime('4 year')) }}</small> </p>
         </div>
     </div>
 

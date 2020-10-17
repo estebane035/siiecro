@@ -116,7 +116,7 @@
                     10GB of <strong>250GB</strong> Free.
                 </div>
                 <div>
-                    <strong>Copyright</strong> Example Company &copy; 2014-2017
+                    <strong>Copyright</strong> ECRO &copy; {{ date('Y') }} - {{ date('Y',strtotime('4 year')) }}
                 </div>
             </div>
         </div>
