@@ -34,6 +34,7 @@ jQuery(document).ready(function($) {
               "", // Div progreso
               "#div-notificacion-general", // Div notificacion
               function(){
+                location.reload();
               }
             );
 
@@ -42,6 +43,7 @@ jQuery(document).ready(function($) {
               "", // Div progreso
               "#div-respuesta-datos-identificacion", // Div notificacion
               function(){
+                // location.reload();
               }
             );
 });
