@@ -210,9 +210,9 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-9 div-input">
+                                            <div class="col-md-9 div-input required">
                                                 <label for="_responsables">Responsables ECRO</label>
-                                                <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="" disabled>
+                                                <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" required autocomplete="off" multiple="" disabled>
                                                     <option value=""></option>
                                                     @foreach ($responsablesEcro as $responsable)
                                                         <option {{ $obra->responsables_asignados->where('id', $responsable->id)->first() ? "selected" : "" }} value="{{ $responsable->id }}">{{ $responsable->name }}</option>
@@ -260,18 +260,18 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6 div-input required">
+                                            <div class="col-md-6 div-input">
                                                 <label for="area_id">Recibió</label>
-                                                <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" required autocomplete="off" disabled>
+                                                <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" autocomplete="off" disabled>
                                                     <option value=""></option>
                                                     @foreach ($usuariosPuedenRecibirObras as $usuario)
                                                         <option {{ $obra->usuario_recibio_id == $usuario->id ? "selected" : "" }} value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 div-input required">
+                                            <div class="col-md-6 div-input">
                                                 <label for="fecha_salida">Entregó</label>
-                                                <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" required disabled>
+                                                <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" disabled>
                                             </div>
                                         </div>
 
