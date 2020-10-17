@@ -140,11 +140,11 @@
 
                             <div class="col-md-5 div-input required">
                                 <label for="lugar_procedencia_actual">Lugar de procedencia actual</label>
-                                <input type="text" class="form-control" id="lugar_procedencia_actual" name="lugar_procedencia_actual" value="{{ $obra->lugar_procedencia_actual }}" required autocomplete="off" disabled>
+                                <input type="text" class="form-control" id="lugar_procedencia_actual" name="lugar_procedencia_actual" value="{{ $obra->lugar_procedencia_actual }}" required autocomplete="off" disabled placeholder="Ubicación o custodio" mi-tooltip="Ubicación o custodio.">
                             </div>
                             <div class="col-md-5 div-input required">
                                 <label for="lugar_procedencia_original">Lugar de procedencia original</label>
-                                <input type="text" class="form-control" id="lugar_procedencia_original" name="lugar_procedencia_original" value="{{ $obra->lugar_procedencia_original }}" required autocomplete="off" disabled>
+                                <input type="text" class="form-control" id="lugar_procedencia_original" name="lugar_procedencia_original" value="{{ $obra->lugar_procedencia_original }}" required autocomplete="off" disabled placeholder="Lugar de donde proviene la obra/creación." mi-tooltip="Lugar de donde proviene la obra/creación.">
                             </div>
                             <div class="col-md-2 div-input required">
                                 <label for="numero_inventario">No inventario</label>
