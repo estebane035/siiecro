@@ -180,6 +180,9 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab-datos-identificacion"> Datos de identificación</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-resultado-analisis">Resultado de análisis</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-informes">Informes</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
                 </ul>
                 <div class="tab-content">
@@ -396,6 +399,25 @@
                             @include('dashboard.obras.detalle.solicitudes-analisis.index')
                         </div>
                     </div>
+
+                    <div id="tab-resultado-analisis" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.resultado-analisis.index')
+                        </div>
+                    </div>
+                    
+                    <div id="tab-registro-fotografico" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.registro-fotografico.index')
+                        </div>
+                    </div>
+                    
+                    <div id="tab-informes" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.informes.index')
+                        </div>
+                    </div>
+                    
                     <div id="tab-usuarios-asignados" class="tab-pane">
                         <div class="panel-body">
                             @include('dashboard.obras.detalle.usuarios-asignados.index')

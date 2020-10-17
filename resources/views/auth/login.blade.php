@@ -5,7 +5,7 @@
     <div class="middle-box text-center loginscreen ">
         <div>
             <div class="animated fadeInDown">
-                <img width="250px" src="img/logo.jpeg">
+                <img width="250px" src="{{ asset('/img/sii-ecro.png') }}">
             </div>
             <br>
             <p>Bienvenidos a la Plataforma de obra intervenida en la ECRO</p>
