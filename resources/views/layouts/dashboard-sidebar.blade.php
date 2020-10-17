@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <img src="{{ asset('/img/logo.png') }}" class="img-responsive">
+                <img src="{{ asset('/img/sii-ecro.png') }}" class="img-responsive">
                 <div class="dropdown profile-element m-t-md">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> 

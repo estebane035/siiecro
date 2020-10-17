@@ -87,7 +87,6 @@
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
                         <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                        <img src="{{ asset('/img/logo.jpeg') }}" height="50px" style="margin-top: 5px; margin-left: 5px;">
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
@@ -111,13 +110,16 @@
                 @yield('body')
             </div>
 
-            <div class="footer">
-                <div class="pull-right">
-                    10GB of <strong>250GB</strong> Free.
-                </div>
-                <div>
-                    <strong>Copyright</strong> ECRO &copy; {{ date('Y') }} - {{ date('Y',strtotime('4 year')) }}
-                </div>
+            <div class="footer text-center">
+              <div class="pull-left">
+                <img src="{{ asset('/img/ecro.png') }}" class="img-responsive" style="width: 80px">
+              </div>
+
+              <strong>Copyright</strong> ECRO &copy; {{ date('Y') }} - {{ date('Y',strtotime('4 year')) }}
+              
+              <div class="pull-right">
+                <img src="{{ asset('/img/sii-ecro.png') }}" class="img-responsive" style="width: 80px">
+              </div>
             </div>
         </div>
     </div>
