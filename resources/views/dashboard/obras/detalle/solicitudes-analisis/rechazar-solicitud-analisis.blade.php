@@ -9,8 +9,16 @@
             {!! Form::open(['route' => ['dashboard.obras.rechazar-solicitud-analisis', $registro->id], 'method' => 'PUT', 'id' => 'form-solicitud-analisis', 'class' => 'form-horizontal']) !!}
             <div class="modal-body">
             	<div class="row">
-            		<p>¿Estas seguro que deseas rechazar la solicitud de análisis con fecha de intervención <strong>{{ $registro->fecha_intervencion }}</strong>?</p>
+                    <div class="col-md-12">
+            		  <p>¿Estas seguro que deseas rechazar la solicitud de análisis con fecha de intervención <strong>{{ $registro->fecha_intervencion }}</strong>?</p>
+                    </div>
             	</div>
+                <div class="row">
+                    <div class="col-md-12 div-input required">
+                        <label for="motivo_de_rechazo">Detalles del rechazo</label>
+                        <textarea class="form-control no-resize" name="motivo_de_rechazo" id="motivo_de_rechazo" rows="6" required autocomplete="off">{{ $registro->motivo_de_rechazo }}</textarea>
+                    </div>
+                </div>
 
                 <div class="row m-t-md" id="div-notificacion-solicitud-analisis">
                 </div>

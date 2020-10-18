@@ -33,6 +33,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                     obras__solicitudes_analisis.tecnica,
                                                                     obras__solicitudes_analisis.fecha_intervencion,
                                                                     obras__solicitudes_analisis.estatus,
+                                                                    obras__solicitudes_analisis.motivo_de_rechazo,
                                                                     users.name,
                                                                     obras__solicitudes_analisis.esquema
                                                                 ')
@@ -60,7 +61,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                 }
                             }
 
-                            return $fecha = '<span class="'.$label_estatus.'" mi-tooltip="'.$registro->estatus.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
+                            return $fecha = '<span class="'.$label_estatus.'" mi-tooltip="'.$registro->estatus.' - '.$registro->motivo_de_rechazo.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
                         })
                         ->addColumn('acciones', function($registro){
                             $muestra        = '';
@@ -180,6 +181,7 @@ class ObrasSolicitudesAnalisisController extends Controller
 
             $solicitud_analisis->usuario_aprobo_id  = Auth::id();
             $solicitud_analisis->estatus            = 'Aprobada';
+            $solicitud_analisis->motivo_de_rechazo  = $request->motivo_de_rechazo;
             $solicitud_analisis->fecha_aprobacion   = Carbon::now();
             $solicitud_analisis->save();
 
@@ -200,6 +202,7 @@ class ObrasSolicitudesAnalisisController extends Controller
 
             $solicitud_analisis->usuario_rechazo_id = Auth::id();
             $solicitud_analisis->estatus            = 'Rechazada';
+            $solicitud_analisis->motivo_de_rechazo  = $request->motivo_de_rechazo;
             $solicitud_analisis->fecha_rechazo      = Carbon::now();
             $solicitud_analisis->save();
 
