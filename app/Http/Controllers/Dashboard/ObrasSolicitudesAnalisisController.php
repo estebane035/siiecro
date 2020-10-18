@@ -11,10 +11,13 @@ use BD;
 use Response;
 use Hash;
 use Auth;
+use Archivos;
+use DB;
 
 use App\ObrasSolicitudesAnalisis;
 use App\ObrasSolicitudesAnalisisMuestras;
 use App\ObrasSolicitudesAnalisisTipoAnalisis;
+use App\ObrasSolicitudesAnalisisImagenesEsquema;
 use App\ObrasUsuariosAsignados;
 // use App\User;
 
@@ -33,8 +36,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                     obras__solicitudes_analisis.tecnica,
                                                                     obras__solicitudes_analisis.fecha_intervencion,
                                                                     obras__solicitudes_analisis.estatus,
-                                                                    users.name,
-                                                                    obras__solicitudes_analisis.esquema
+                                                                    users.name
                                                                 ')
                                                     ->join('users', 'users.id','=', 'obras__solicitudes_analisis.obra_usuario_asignado_id')
                                                     ->where('obras__solicitudes_analisis.obra_id', '=', $obra_id)
@@ -228,6 +230,64 @@ class ObrasSolicitudesAnalisisController extends Controller
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
     }
+
+    ##### ESQUEMA ###########################################################################################
+
+        public function verEsquema(Request $request, $solicitud_analisis_id){
+            if($request->ajax()){
+                $registro   =   ObrasSolicitudesAnalisis::findOrFail($solicitud_analisis_id);
+                return view('dashboard.obras.detalle.solicitudes-analisis.esquema.ver', ["imagenes_esquema" => $registro->imagenes_esquema]);
+            }
+            
+            return "";
+        }
+
+        public function subirImagenEsquema(Request $request, $solicitud_analisis_id){
+            if($request->ajax()){
+                DB::beginTransaction();
+
+                $imagenEsquema                          =   new ObrasSolicitudesAnalisisImagenesEsquema;
+                $imagenEsquema->solicitud_analisis_id   =   $solicitud_analisis_id;
+                $imagenEsquema->imagen                  =   "temp";
+                $imagenEsquema->save();
+
+                $extension                              =   $request->file('file')->extension();
+                $nombre                                 =   $imagenEsquema->id.".".$extension;
+
+                if(Archivos::subirImagen($request->file('file'), $nombre, "img/obras/solicitudes-analisis-esquema/", 600) == ""){
+                    $imagenEsquema->imagen              =   $nombre;
+                    $imagenEsquema->save();
+
+                    DB::commit();
+                    return Response::json(["mensaje" => "Imagen subida correctamente", "id" => $imagenEsquema->id, "error" => false], 200);
+                }else{
+                    DB::rollback();
+                    return Response::json(["mensaje" => "Error subiendo imagen"], 500);
+                }
+            }
+
+            return Response::json(["mensaje" => "Petición incorrecta"], 500);
+        }
+
+        public function alertaEliminarEsquema(Request $request, $imagen_esquema_id){
+            $imagen     =   ObrasSolicitudesAnalisisImagenesEsquema::findOrFail($imagen_esquema_id);
+            return view('dashboard.obras.detalle.solicitudes-analisis.esquema.eliminar', ["registro" => $imagen]);
+        }
+
+        public function eliminaresquema(Request $request, $imagen_esquema_id){
+            if($request->ajax()){
+                $registro   =   ObrasSolicitudesAnalisisImagenesEsquema::find($imagen_esquema_id);
+                $response   =   BD::elimina($imagen_esquema_id, "ObrasSolicitudesAnalisisImagenesEsquema");
+
+                if($response->status() == 200){
+                    Archivos::eliminarArchivo('img/obras/solicitudes-analisis-esquema/'.$registro->imagen);
+                }
+
+                return $response;
+            }
+            return Response::json(["mensaje" => "Petición incorrecta"], 500);
+        }
+    #########################################################################################################
 ##############################################################################################################
 
 ###### MUESTRAS DE LAS SOLICITUDES ANALISIS ##################################################################

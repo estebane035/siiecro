@@ -75,6 +75,10 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::put('solicitudes-analisis/{id}/rechazar-solicitud-analisis', 			'ObrasSolicitudesAnalisisController@rechazarSolicitudAnalisis')->name('obras.rechazar-solicitud-analisis');
 		Route::get('solicitudes-analisis/{id}/poner-en-revision-solicitud-analisis', 	'ObrasSolicitudesAnalisisController@modalEnRevisionSolicitudAnalisis');
 		Route::put('solicitudes-analisis/{id}/poner-en-revision-solicitud-analisis', 	'ObrasSolicitudesAnalisisController@enRevisionSolicitudAnalisis')->name('obras.poner-en-revision-solicitud-analisis');
+		Route::post('solicitudes-analisis/{id}/subir-esquema', 							'ObrasSolicitudesAnalisisController@subirImagenEsquema');
+		Route::get('solicitudes-analisis/{id}/eliminar-esquema', 						'ObrasSolicitudesAnalisisController@alertaEliminarEsquema');
+		Route::delete('solicitudes-analisis/{id}/eliminar-esquema', 					'ObrasSolicitudesAnalisisController@eliminaresquema')->name('obras.eliminar-esquema-solicitud-analisis');
+		Route::get('solicitudes-analisis/{id}/ver-esquema', 							'ObrasSolicitudesAnalisisController@verEsquema');
 		
 		Route::get('solicitudes-analisis/ver-muestras/{id}', 							'ObrasSolicitudesAnalisisController@verMuestras');
 		Route::get('solicitudes-analisis/cargar-muestras/{id}', 						'ObrasSolicitudesAnalisisController@cargarMuestras');

@@ -4,10 +4,9 @@ jQuery(document).ready(function($) {
 			"#carga-dt-solicitudes-analisis", // ID elemento del progreso
 			"/dashboard/solicitudes-analisis/carga/"+ $('#id').val(), // URL datos
 			[
-        { data: "fecha_intervencion", width: "20%"},
-        { data: "name",               width: "30%"},
-        { data: "esquema",            width: "40%"},
-				{ data: "acciones",           width: "10%", 	searchable: false, 	orderable: false},
+            { data: "fecha_intervencion", width: "30%"},
+            { data: "name",               width: "55%"},
+			   { data: "acciones",           width: "15%", 	searchable: false, 	orderable: false},
 			], // Columnas
 		);
 });
@@ -26,9 +25,9 @@ function crear()
                         });
 
                         $("#fecha_intervencion").datepicker({
-                            language:       'es',
-                            format:         'yyyy-mm-dd',
-                          });
+                           language:       'es',
+                           format:         'yyyy-mm-dd',
+                        });
                       }, //Funcion para el success
                       "#form-obras-detalle-solicitudes-analisis", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
@@ -43,19 +42,48 @@ function crear()
 
 function editar(id)
 {
-    _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/edit/", //Url solicitud de datos
+    _mostrarFormulario("/dashboard/solicitudes-analisis/" + id + "/edit/", //Url solicitud de datos
                         "#modal-1", //Div que contendra el modal
                         "#modal-crear", //Nombre modal
                         "#tecnica", //Elemento al que se le dara focus una vez cargado el modal
                         function(){
-                          $('#obra_usuario_asignado_id').select2({
-                            placeholder: "Seleccione una opción"
-                          });
+                           $('#obra_usuario_asignado_id').select2({
+                              placeholder: "Seleccione una opción"
+                           });
                           
-                          $("#fecha_intervencion").datepicker({
-                            language:       'es',
-                            format:         'yyyy-mm-dd',
-                          });
+                           $("#fecha_intervencion").datepicker({
+                              language:       'es',
+                              format:         'yyyy-mm-dd',
+                           });
+
+                           $("#dropzone-solicitud-analisis").dropzone({ 
+                              url: "/dashboard/solicitudes-analisis/" + id + "/subir-esquema",
+                              uploadMultiple: false,
+                              parallelUploads: 1,
+                              maxFiles: 10,
+                              addRemoveLinks: false,
+                              acceptedFiles: 'image/*',
+                              sending: function(file, xhr, formData) {
+                                 formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                              },
+                              error: function(file, message) {
+                                 $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(message.mensaje);
+                              },
+                              success: function(file, message){
+                                 var drop    =  this;
+                                 setTimeout(function() {
+                                   drop.removeFile(file);
+                                   recargarImagenesEsquema(id);
+                                 }, 1000);
+                              }
+                           });
+
+                           $('#carrusel-imagenes-esquema').owlCarousel({
+                               loop:      false,
+                               margin:    10,
+                               nav:       false,
+                               center:    false
+                           });
                         }, //Funcion para el success
                         "#form-obras-detalle-solicitudes-analisis", //ID del Formulario
                         "#carga-agregar", //Loading de guardar datos de formulario
@@ -241,4 +269,42 @@ function eliminarMuestra(id)
                           _recargarTabla("#dt-datos-solicitudes-analisis-muestras");
                         });
                       });//Funcion en caso de guardar correctamente);
+}
+
+function eliminarImagenEsquemaSolicitudAnalisis(id, solicitud_analisis_id){
+  _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/eliminar-esquema/", //Url solicitud de datos
+                      "#modal-2", //Div que contendra el modal
+                      "#modal-eliminar-imagen", //Nombre modal
+                      "", //Elemento al que se le dara focus una vez cargado el modal
+                      function(){
+
+                      }, //Funcion para el success
+                      "#form-eliminar-imagen", //ID del Formulario
+                      "#carga-eliminar-imagen", //Loading de guardar datos de formulario
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      function(){
+                        _ocultarModal("#modal-eliminar-imagen", function(){
+                          recargarImagenesEsquema(solicitud_analisis_id);
+                        });
+                      });//Funcion en caso de guardar correctamente);
+}
+
+function recargarImagenesEsquema(solicitud_analisis_id){
+  $.ajax({
+    url: '/dashboard/solicitudes-analisis/' + solicitud_analisis_id + '/ver-esquema',
+    type: 'GET',
+    success: function(respuesta){
+      $("#contenedor-imagnes-esquema").html(respuesta);
+      $('#carrusel-imagenes-esquema').owlCarousel({
+        loop:      false,
+        margin:    10,
+        nav:       false,
+        center:    false
+      });
+    },
+    error: function(){
+      _toast("error", "Hubo un error al obtener las imagenes, intenta de nuevo mas tarde");
+    }
+  });
+  
 }

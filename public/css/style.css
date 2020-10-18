@@ -8618,3 +8618,15 @@ body.md-skin {
   right: 20px;
   color: red;
 }
+
+.texto-rojo {
+  color: red !important;
+}
+
+.icono-img {
+  right: 10px;
+  bottom: 10px;
+  font-weight: bolder;
+  position: absolute;
+  cursor: pointer;
+}

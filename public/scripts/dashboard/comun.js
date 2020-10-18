@@ -217,6 +217,7 @@ function _mostrarFormulario(url,modal,nombreModal,elementoFocus,funcionCargaForm
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green'
             });
+            _inicializarTooltips();
         },
         error: function(xhr, ajaxOptions, thrownError){
             _errorEjecucion(xhr);
