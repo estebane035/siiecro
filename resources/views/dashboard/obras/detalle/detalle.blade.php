@@ -178,15 +178,19 @@
         <div class="col-md-12 m-b-md">
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-datos-identificacion"> Datos de identificación</a></li>
+                    {{-- este es el tab que hay que mover a un grupo de tabs arriba como lo pide Geovanna --}}
+                    {{-- por lo pronto lo deje para que no te mueva tanto lo que has hecho cuando tu lo muevas al lugar que nos pide --}}
+                    {{-- borrar comentarios de arriba :V --}}
+                    <li class=""><a data-toggle="tab" href="#tab-datos-identificacion"> Datos de identificación</a></li>
+                    <li class="active"><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-restauracion-conservacion">Restauración/Conservación</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-resultado-analisis">Resultado de análisis</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-informes">Informes</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div id="tab-datos-identificacion" class="tab-pane active">
+                    <div id="tab-datos-identificacion" class="tab-pane">
                         {!! Form::open(['route' => ['dashboard.obras.update', $obra->id], 'method' => 'PUT', 'id' => 'form-datos-identificacion', 'class' => 'form-horizontal']) !!}
                             <div class="panel-body">
                                 <div class="row m-b-md">
@@ -394,6 +398,24 @@
                         {!! Form::close() !!}
                     </div>
                     
+                    <div id="tab-usuarios-asignados" class="tab-pane active">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.usuarios-asignados.index')
+                        </div>
+                    </div>
+
+                    <div id="tab-restauracion-conservacion" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.restauracion-conservacion.index')
+                        </div>
+                    </div>
+
+                    <div id="tab-registro-fotografico" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.registro-fotografico.index')
+                        </div>
+                    </div>
+
                     <div id="tab-solicitudes-analisis" class="tab-pane">
                         <div class="panel-body">
                             @include('dashboard.obras.detalle.solicitudes-analisis.index')
@@ -404,13 +426,7 @@
                         <div class="panel-body">
                             @include('dashboard.obras.detalle.resultado-analisis.index')
                         </div>
-                    </div>
-                    
-                    <div id="tab-registro-fotografico" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.registro-fotografico.index')
-                        </div>
-                    </div>
+                    </div>                    
                     
                     <div id="tab-informes" class="tab-pane">
                         <div class="panel-body">
@@ -418,11 +434,6 @@
                         </div>
                     </div>
                     
-                    <div id="tab-usuarios-asignados" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.usuarios-asignados.index')
-                        </div>
-                    </div>
                 </div>
 
 
