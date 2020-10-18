@@ -24,6 +24,7 @@ class CreateObrasSolicitudesAnalisisTable extends Migration
             $table->integer('obra_usuario_asignado_id')->unsigned();
 
             // tengo dudas sobre si va aquí técnica
+            $table->text('motivo_de_rechazo')->default('Sin observaciones iniciales')->nullable();
             $table->string('tecnica');
             $table->date('fecha_intervencion');
             $table->enum('estatus', config('valores.status_solicitud_analisis'))->default('En revision');

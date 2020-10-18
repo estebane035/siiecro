@@ -24,7 +24,7 @@ class Obras extends Model
         'autor',
         'cultura',
         'alto',
-        'largo',
+        'diametro',
         'profundidad',
         'ancho',
         'fecha_ingreso',

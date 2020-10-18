@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <img src="{{ asset('/img/logo.png') }}" class="img-responsive">
+                <img src="{{ asset('/img/sii-ecro.png') }}" class="img-responsive">
                 <div class="dropdown profile-element m-t-md">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> 
@@ -24,7 +24,7 @@
                 </div>
             </li>
             <li class="{{ $menu == "dashboard" ? "active" : "" }}">
-                <a href="{{ route('dashboard.dashboard.index') }}"><i class="fa fa-bar-chart"></i> <span class="nav-label">Dashboard</span></a>
+                <a href="{{ route('dashboard.dashboard.index') }}"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboard</span></a>
             </li>
             <li class="{{ in_array($menu, ["obras", "solicitudes-intervencion", "tipo-objeto", "tipo-bien-cultural", "temporalidad", "epoca"]) ? "active" : "" }}">
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Obras</span> <span class="fa arrow"></span></a>

@@ -5,7 +5,7 @@
     <div class="middle-box text-center loginscreen ">
         <div>
             <div class="animated fadeInDown">
-                <img width="250px" src="img/logo.jpeg">
+                <img width="250px" src="{{ asset('/img/sii-ecro.png') }}">
             </div>
             <br>
             <p>Bienvenidos a la Plataforma de obra intervenida en la ECRO</p>
@@ -32,7 +32,7 @@
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
             </form>
-            <p class="m-t"> <small>&copy; ECRO 2020</small> </p>
+            <p class="m-t"> <small>&copy; ECRO {{ date('Y') }} - {{ date('Y',strtotime('4 year')) }}</small> </p>
         </div>
     </div>
 

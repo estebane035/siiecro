@@ -15,6 +15,7 @@ class ObrasSolicitudesAnalisis extends Model
         'usuario_rechazo_id',
         'usuario_reviso_id',
     	'obra_usuario_asignado_id',
+        'motivo_de_rechazo',
     	'tecnica',
     	'fecha_intervencion',
         'estatus',

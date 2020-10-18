@@ -2,7 +2,8 @@
 
 @section('top-body')
     <div class="col-sm-12">
-        <h2>Detalle de obra <strong>{{ $obra->folio }}</strong></h2>
+        {{-- span id folio_obra obra se usa para obtener el folio y pasarlo al listado de muestras de las solicitudes de analisis con jquery --}}
+        <h2>Detalle de obra <strong><span id="folio_obra">{{ $obra->folio }}</span></strong></h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('dashboard.dashboard.index') }}">Dashboard</a>
@@ -11,7 +12,8 @@
                 <a href="{{ route('dashboard.obras.index') }}">Obras</a>
             </li>
             <li class="active">
-                <strong>{{ $obra->nombre }}</strong>
+                {{-- span id nombre_obra obra se usa para obtener el nombre y pasarlo al listado de muestras de las solicitudes de analisis con jquery --}}
+                <strong><span id="nombre_obra">{{ $obra->nombre }}</span></strong>
             </li>
         </ol>
     </div>
@@ -138,11 +140,11 @@
 
                             <div class="col-md-5 div-input required">
                                 <label for="lugar_procedencia_actual">Lugar de procedencia actual</label>
-                                <input type="text" class="form-control" id="lugar_procedencia_actual" name="lugar_procedencia_actual" value="{{ $obra->lugar_procedencia_actual }}" required autocomplete="off" disabled>
+                                <input type="text" class="form-control" id="lugar_procedencia_actual" name="lugar_procedencia_actual" value="{{ $obra->lugar_procedencia_actual }}" required autocomplete="off" disabled placeholder="Ubicación o custodio" mi-tooltip="Ubicación o custodio.">
                             </div>
                             <div class="col-md-5 div-input required">
                                 <label for="lugar_procedencia_original">Lugar de procedencia original</label>
-                                <input type="text" class="form-control" id="lugar_procedencia_original" name="lugar_procedencia_original" value="{{ $obra->lugar_procedencia_original }}" required autocomplete="off" disabled>
+                                <input type="text" class="form-control" id="lugar_procedencia_original" name="lugar_procedencia_original" value="{{ $obra->lugar_procedencia_original }}" required autocomplete="off" disabled placeholder="Lugar de donde proviene la obra/creación." mi-tooltip="Lugar de donde proviene la obra/creación.">
                             </div>
                             <div class="col-md-2 div-input required">
                                 <label for="numero_inventario">No inventario</label>
@@ -153,17 +155,17 @@
                                 <label for="alto">Alto (cm)</label>
                                 <input type="number" class="form-control" id="alto" name="alto" value="{{ $obra->alto }}" required autocomplete="off" disabled>
                             </div>
-                            <div class="col-md-3 div-input">
-                                <label for="largo">Largo (cm)</label>
-                                <input type="number" class="form-control" id="largo" name="largo" value="{{ $obra->largo }}" autocomplete="off" disabled>
+                            <div class="col-md-3 div-input required">
+                                <label for="ancho">Ancho (cm)</label>
+                                <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $obra->ancho }}" required autocomplete="off" disabled>
                             </div>
                             <div class="col-md-3 div-input">
                                 <label for="profundidad">Profundidad (cm)</label>
                                 <input type="number" class="form-control" id="profundidad" name="profundidad" value="{{ $obra->profundidad }}" autocomplete="off" disabled>
                             </div>
-                            <div class="col-md-3 div-input required">
-                                <label for="ancho">Ancho (cm)</label>
-                                <input type="number" class="form-control" id="ancho" name="ancho" value="{{ $obra->ancho }}" required autocomplete="off" disabled>
+                            <div class="col-md-3 div-input">
+                                <label for="diametro">Diámetro (cm)</label>
+                                <input type="number" class="form-control" id="diametro" name="diametro" value="{{ $obra->diametro }}" autocomplete="off" disabled>
                             </div>
 
                         </div>
@@ -176,12 +178,19 @@
         <div class="col-md-12 m-b-md">
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-datos-identificacion"> Datos de identificación</a></li>
+                    {{-- este es el tab que hay que mover a un grupo de tabs arriba como lo pide Geovanna --}}
+                    {{-- por lo pronto lo deje para que no te mueva tanto lo que has hecho cuando tu lo muevas al lugar que nos pide --}}
+                    {{-- borrar comentarios de arriba :V --}}
+                    <li class=""><a data-toggle="tab" href="#tab-datos-identificacion"> Datos de identificación</a></li>
+                    <li class="active"><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-restauracion-conservacion">Restauración/Conservación</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-resultado-analisis">Resultado de análisis</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-informes">Informes</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div id="tab-datos-identificacion" class="tab-pane active">
+                    <div id="tab-datos-identificacion" class="tab-pane">
                         {!! Form::open(['route' => ['dashboard.obras.update', $obra->id], 'method' => 'PUT', 'id' => 'form-datos-identificacion', 'class' => 'form-horizontal']) !!}
                             <div class="panel-body">
                                 <div class="row m-b-md">
@@ -208,9 +217,9 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-9 div-input">
+                                            <div class="col-md-9 div-input required">
                                                 <label for="_responsables">Responsables ECRO</label>
-                                                <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" autocomplete="off" multiple="" disabled>
+                                                <select class="form-control select2 full-width" id="_responsables" name="_responsables[]" required autocomplete="off" multiple="" disabled>
                                                     <option value=""></option>
                                                     @foreach ($responsablesEcro as $responsable)
                                                         <option {{ $obra->responsables_asignados->where('id', $responsable->id)->first() ? "selected" : "" }} value="{{ $responsable->id }}">{{ $responsable->name }}</option>
@@ -258,18 +267,18 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6 div-input required">
+                                            <div class="col-md-6 div-input">
                                                 <label for="area_id">Recibió</label>
-                                                <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" required autocomplete="off" disabled>
+                                                <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" autocomplete="off" disabled>
                                                     <option value=""></option>
                                                     @foreach ($usuariosPuedenRecibirObras as $usuario)
                                                         <option {{ $obra->usuario_recibio_id == $usuario->id ? "selected" : "" }} value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 div-input required">
+                                            <div class="col-md-6 div-input">
                                                 <label for="fecha_salida">Entregó</label>
-                                                <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" required disabled>
+                                                <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" disabled>
                                             </div>
                                         </div>
 
@@ -389,16 +398,42 @@
                         {!! Form::close() !!}
                     </div>
                     
+                    <div id="tab-usuarios-asignados" class="tab-pane active">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.usuarios-asignados.index')
+                        </div>
+                    </div>
+
+                    <div id="tab-restauracion-conservacion" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.restauracion-conservacion.index')
+                        </div>
+                    </div>
+
+                    <div id="tab-registro-fotografico" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.registro-fotografico.index')
+                        </div>
+                    </div>
+
                     <div id="tab-solicitudes-analisis" class="tab-pane">
                         <div class="panel-body">
                             @include('dashboard.obras.detalle.solicitudes-analisis.index')
                         </div>
                     </div>
-                    <div id="tab-usuarios-asignados" class="tab-pane">
+
+                    <div id="tab-resultado-analisis" class="tab-pane">
                         <div class="panel-body">
-                            @include('dashboard.obras.detalle.usuarios-asignados.index')
+                            @include('dashboard.obras.detalle.resultado-analisis.index')
+                        </div>
+                    </div>                    
+                    
+                    <div id="tab-informes" class="tab-pane">
+                        <div class="panel-body">
+                            @include('dashboard.obras.detalle.informes.index')
                         </div>
                     </div>
+                    
                 </div>
 
 
