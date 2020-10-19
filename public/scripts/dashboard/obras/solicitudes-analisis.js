@@ -222,6 +222,10 @@ function crearMuestra(id_de_solicitud)
                           placeholder: "Seleccione una opción"
                         });
                         $('#solicitud_analisis_id').val(id_de_solicitud);
+                        // función para evitar el frezzing del modal cuando se se cancela por medio del boton data-dismiss
+                        $(document).on('click', '[data-dismiss="modal"]', function(){
+                          $('body').addClass('modal-open');
+                        });
                       }, //Funcion para el success
                       "#form-obras-detalle-solicitudes-analisis-crear-muestra", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
@@ -229,6 +233,8 @@ function crearMuestra(id_de_solicitud)
                       function(){
                           _ocultarModal("#modal-crear-muestra", function(){
                             _recargarTabla("#dt-datos-solicitudes-analisis-muestras");
+                            // evita el freezing cuando se completa la operacion correctamente
+                            $('body').addClass('modal-open');
                           });
                       });//Funcion en caso de guardar correctamente);
 }
@@ -244,6 +250,10 @@ function editarMuestra(id_de_muestra)
                           placeholder: "Seleccione una opción"
                         });
                         $('#solicitud_analisis_id').val($('#id_de_solicitud').val());
+                        // función para evitar el frezzing del modal cuando se se cancela por medio del boton data-dismiss
+                        $(document).on('click', '[data-dismiss="modal"]', function(){
+                          $('body').addClass('modal-open');
+                        });
                       }, //Funcion para el success
                       "#form-obras-detalle-solicitudes-analisis-crear-muestra", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
@@ -251,6 +261,8 @@ function editarMuestra(id_de_muestra)
                       function(){
                           _ocultarModal("#modal-crear-muestra", function(){
                             _recargarTabla("#dt-datos-solicitudes-analisis-muestras");
+                            // evita el freezing cuando se completa la operacion correctamente
+                            $('body').addClass('modal-open');
                           });
                       });//Funcion en caso de guardar correctamente);
 }
@@ -262,7 +274,10 @@ function eliminarMuestra(id)
                       "#modal-eliminar-muestra", //Nombre modal
                       "", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
-                        
+                        // función para evitar el frezzing del modal cuando se se cancela por medio del boton data-dismiss
+                        $(document).on('click', '[data-dismiss="modal"]', function(){
+                          $('body').addClass('modal-open');
+                        });
                       }, //Funcion para el success
                       "#form-obras-detalle-solicitudes-analisis-eliminar-muestra", //ID del Formulario
                       "#carga-eliminar-muestra", //Loading de guardar datos de formulario
@@ -270,6 +285,8 @@ function eliminarMuestra(id)
                       function(){
                         _ocultarModal("#modal-eliminar-muestra", function(){
                           _recargarTabla("#dt-datos-solicitudes-analisis-muestras");
+                          // evita el freezing cuando se completa la operacion correctamente
+                          $('body').addClass('modal-open');
                         });
                       });//Funcion en caso de guardar correctamente);
 }

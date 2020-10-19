@@ -2,7 +2,6 @@
     <div class="modal-dialog modal-lg" {{-- style="width: 1000px;" --}}>
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <i onclick="crearMuestra({{ $registro->id }})" class="fa fa-plus fa-lg pointer pull-left" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Crear nueva muestra"></i>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Solicitud de análisis</h4>
 
@@ -39,6 +38,15 @@
                 <div class="progress hidden" id="carga-dt-solicitudes-analisis-muestras">
                     <div class="progress-bar-indeterminate"></div>
                 </div>
+
+                <div class="row ibox">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="button" onclick="crearMuestra({{ $registro->id }})" class="btn btn-primary pull-right">Agregar muestra</button>
+                        </div>                        
+                    </div>
+                </div>
+                
                 <div class="table-responsive">
                     <table class="table table-striped table-condensed" id="dt-datos-solicitudes-analisis-muestras">
                         <thead>
