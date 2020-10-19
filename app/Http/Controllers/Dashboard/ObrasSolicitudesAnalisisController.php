@@ -63,7 +63,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                 }
                             }
 
-                            return $fecha = '<span class="'.$label_estatus.'" mi-tooltip="'.$registro->estatus.' - '.$registro->motivo_de_rechazo.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
+                            return $fecha = '<span class="'.$label_estatus.'" mi-tooltip="'.$registro->estatus.'. '.$registro->motivo_de_rechazo.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
                         })
                         ->addColumn('acciones', function($registro){
                             $muestra        = '';
