@@ -184,7 +184,7 @@ function verMuestras(id)
                         function(){
                           $('#nombre_obra_solicitud').text($('#nombre_obra').text());
                           $('#folio_obra_solicitud').text($('#folio_obra').text());
-
+                          recargarImagenesEsquema(id);
                           _cargarTabla(
                             "#dt-datos-solicitudes-analisis-muestras", // ID de la tabla
                             "#carga-dt-solicitudes-analisis-muestras", // ID elemento del progreso

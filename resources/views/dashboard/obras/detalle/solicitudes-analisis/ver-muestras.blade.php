@@ -24,12 +24,16 @@
                             <input type="text" class="form-control" id="obra_usuario_asignado_id" value="{{ $registro->reponsable_solicitud->usuario->name }}" disabled="" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 div-input">
-                            <label for="esquema">Esquema</label>
-                            <input type="text" class="form-control" id="esquema" value="{{ $registro->esquema }}" disabled="" autocomplete="off">
+                    @if ($registro->imagenes_esquema == "[]")
+                        <div class="row m-t-md text-center">
+                            <h3>Sin esquema</h3>
+                            <small>Si lo requiere, vaya al botón edición de la solicitud de análisis para agregar</small>
                         </div>
-                    </div>
+                    @else
+                        <div class="row m-t-md">
+                            @include('dashboard.obras.detalle.solicitudes-analisis.esquema.ver', ["imagenes_esquema" => $registro->imagenes_esquema])
+                        </div>
+                    @endif
                 </div>
 
                 <div class="progress hidden" id="carga-dt-solicitudes-analisis-muestras">
