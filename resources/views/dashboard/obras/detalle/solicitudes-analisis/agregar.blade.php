@@ -34,12 +34,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 div-input required">
-                                <label for="esquema">Esquema</label>
-                                <input type="text" class="form-control" id="esquema" name="esquema" value="{{ $registro->esquema }}" required autocomplete="off">
+
+                        @if ($registro != "[]")
+                            <div class="row">
+                                <div class="col-md-12 div-input required">
+                                    <label for="dropzone-solicitud-analisis">Esquema</label>
+                                    <div class="dropzone " id="dropzone-solicitud-analisis">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endif
+                    </div>
+
+                    <div class="row m-t-md">
+                        @include('dashboard.obras.detalle.solicitudes-analisis.esquema.ver', ["imagenes_esquema" => $registro->imagenes_esquema])
                     </div>
 
                     <div class="row m-t-md" id="div-notificacion">

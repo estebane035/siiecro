@@ -18,7 +18,6 @@ class ObrasSolicitudesAnalisis extends Model
         'motivo_de_rechazo',
     	'tecnica',
     	'fecha_intervencion',
-    	'esquema',
         'estatus',
         'fecha_aprobacion',
         'fecha_rechazo',
@@ -31,5 +30,9 @@ class ObrasSolicitudesAnalisis extends Model
 
     public function reponsable_solicitud() {
         return $this->hasOne('App\ObrasUsuariosAsignados', 'usuario_id', 'obra_usuario_asignado_id');
+    }
+
+    public function imagenes_esquema() {
+        return $this->hasMany('App\ObrasSolicitudesAnalisisImagenesEsquema', 'solicitud_analisis_id', 'id');
     }
 }

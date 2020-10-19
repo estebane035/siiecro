@@ -27,7 +27,6 @@ class CreateObrasSolicitudesAnalisisTable extends Migration
             $table->text('motivo_de_rechazo')->default('Sin observaciones iniciales')->nullable();
             $table->string('tecnica');
             $table->date('fecha_intervencion');
-            $table->text('esquema');
             $table->enum('estatus', config('valores.status_solicitud_analisis'))->default('En revision');
             $table->datetime('fecha_aprobacion')->nullable();
             $table->datetime('fecha_rechazo')->nullable();
