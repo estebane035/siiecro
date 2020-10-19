@@ -15,9 +15,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12 div-input required">
+                    <div class="col-md-12 div-input">
                         <label for="motivo_de_rechazo">Comentarios</label>
-                        <textarea class="form-control no-resize" name="motivo_de_rechazo" id="motivo_de_rechazo" rows="6" autocomplete="off">{{ $registro->motivo_de_rechazo }}</textarea>
+                        <textarea class="form-control no-resize" name="motivo_de_rechazo" id="motivo_de_rechazo" rows="6" autocomplete="off" placeholder="Comentarios opcionales"></textarea>
                     </div>
                 </div>
 
