@@ -17,7 +17,8 @@
         "nao-pon/flysystem-google-drive": "~1.1",
         "nesbot/carbon": "^2.40",
         "spatie/laravel-backup": "^6.0.0",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "intervention/image": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
