@@ -49,6 +49,9 @@
             <li class="{{ $menu == "areas" ? "active" : "" }}">
                 <a href="{{ route('dashboard.areas.index') }}"><i class="fa fa-folder"></i> <span class="nav-label">Áreas de la ECRO</span></a>
             </li>
+            <li class="{{ $menu == "proyectos" ? "active" : "" }}">
+                <a href="{{ route('dashboard.proyectos.index') }}"><i class="fa fa-bookmark"></i> <span class="nav-label">Proyectos de la ECRO</span></a>
+            </li>
             <li class="{{ $menu == "usuarios" ? "active" : "" }}">
                 <a href="{{ route('dashboard.usuarios.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Usuarios</span></a>
             </li>

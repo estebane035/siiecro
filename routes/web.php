@@ -39,6 +39,12 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::resource('areas', 			'AreasController');
 	#################################################################################
 
+    ######## Proyectos ###############################################################
+		Route::get('proyectos/carga', 			'ProyectosController@cargarTabla');
+		Route::get('proyectos/{id}/eliminar', 	'ProyectosController@eliminar');
+		Route::resource('proyectos', 			'ProyectosController');
+	#################################################################################
+
     ######## ROLES ##################################################################
 		Route::get('roles/carga', 			'RolesController@cargarTabla');
 		Route::get('roles/{id}/eliminar', 	'RolesController@eliminar');
