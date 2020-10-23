@@ -33,8 +33,9 @@ class ProyectosController extends Controller
                         ->addColumn('acciones', function($registro){
                             $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
                             $eliminar       =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
+                            $ver            =   '<a class="icon-link" href="'.route('dashboard.proyectos.show', $registro->id).'" target="_blank"><i class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Ver temporadas trabajo"></i></a>';
 
-                            return $editar.$eliminar;
+                            return $ver.$editar.$eliminar;
                         })
                         ->rawColumns(['acciones'])
                         ->make('true');
@@ -100,5 +101,12 @@ class ProyectosController extends Controller
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
+    }
+
+    public function show($id){
+        $proyecto   =    Proyectos::findOrFail($id);
+        $titulo     =   "Temporadas de trabajo del proyecto ".$proyecto->nombre;
+
+        return view('dashboard.proyectos.temporadas-trabajo.index', ["titulo" => $titulo, "proyecto" => $proyecto]);
     }
 }
