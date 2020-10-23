@@ -51,5 +51,9 @@ class RolesSeeder extends Seeder
             'nombre'      	=>  "Administrador",
             'descripcion' 	=>  "Administrador de la sistema del SIIECRO",
         ]);
+        DB::table('roles')->insert([
+            'nombre'        =>  "Externo",
+            'descripcion'   =>  "Usuario externo al sistema SIIECRO",
+        ]);
     }
 }

@@ -32,8 +32,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- CAPTURA --}}
                                 <tr>
-                                    <th rowspan="7">CAPTURA</th>
+                                    <th rowspan="9">CAPTURA</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="captura_solicitud_obra"  {{ (($registro->captura_solicitud_obra == 1) ? 'checked=""' : '') }} ><i></i> Captura de solicitud obra
+                                            </label>
+                                        </div>                            
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -48,7 +58,7 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="captura_de_registro_avanzada_1"  {{ (($registro->captura_de_registro_avanzada_1 == 1) ? 'checked=""' : '') }} ><i></i> Captura de registro avanzada 1
+                                                <input type="checkbox" name="captura_de_registro_avanzada"  {{ (($registro->captura_de_registro_avanzada == 1) ? 'checked=""' : '') }} ><i></i> Captura de registro avanzada
                                             </label>
                                         </div>                            
                                     </td>
@@ -57,7 +67,7 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="captura_de_registro_avanzada_2"  {{ (($registro->captura_de_registro_avanzada_2 == 1) ? 'checked=""' : '') }} ><i></i> Captura de registro avanzada 2
+                                                <input type="checkbox" name="captura_de_responsables_intervencion"  {{ (($registro->captura_de_responsables_intervencion == 1) ? 'checked=""' : '') }} ><i></i> Captura de responsables de intervención
                                             </label>
                                         </div>                            
                                     </td>
@@ -66,7 +76,7 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="captura_de_solicitud"  {{ (($registro->captura_de_solicitud == 1) ? 'checked=""' : '') }} ><i></i> Captura de solicitud
+                                                <input type="checkbox" name="captura_de_catalogos_basica"  {{ (($registro->captura_de_catalogos_basica == 1) ? 'checked=""' : '') }} ><i></i> Captura de catálogos básica
                                             </label>
                                         </div>                            
                                     </td>
@@ -75,7 +85,7 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="captura_de_resultados_basica"  {{ (($registro->captura_de_resultados_basica == 1) ? 'checked=""' : '') }} ><i></i> Captura de resultados básica
+                                                <input type="checkbox" name="captura_de_catalogos_avanzada"  {{ (($registro->captura_de_catalogos_avanzada == 1) ? 'checked=""' : '') }} ><i></i> Captura de catálogos avanzada
                                             </label>
                                         </div>                            
                                     </td>
@@ -84,13 +94,23 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="captura_de_resultados_avanzada"  {{ (($registro->captura_de_resultados_avanzada == 1) ? 'checked=""' : '') }} ><i></i> Captura de resultados avanzada
+                                                <input type="checkbox" name="captura_de_solicitud_analisis"  {{ (($registro->captura_de_solicitud_analisis == 1) ? 'checked=""' : '') }} ><i></i> Captura de solicitud de análisis
                                             </label>
                                         </div>                            
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th rowspan="7">EDICIÓN</th>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="captura_de_resultados"  {{ (($registro->captura_de_resultados == 1) ? 'checked=""' : '') }} ><i></i> Captura de resultados
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                {{-- EDICIÓN --}}
+                                <tr>
+                                    <th rowspan="4">EDICIÓN</th>
                                 </tr>
                                 <tr>
                                     <td>
@@ -119,35 +139,18 @@
                                         </div>                            
                                     </td>
                                 </tr>
+                                {{-- ELIMINACIÓN --}}
                                 <tr>
-                                    <td>
-                                        <div class="i-checks">
-                                            <label>
-                                                <input type="checkbox" name="edicion_de_solicitud"  {{ (($registro->edicion_de_solicitud == 1) ? 'checked=""' : '') }} ><i></i> Edición de solicitud
-                                            </label>
-                                        </div>                            
-                                    </td>
+                                    <th rowspan="6">ELIMINACIÓN</th>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="edicion_de_resultados_basica"  {{ (($registro->edicion_de_resultados_basica == 1) ? 'checked=""' : '') }} ><i></i> Edición de resultados básica
+                                                <input type="checkbox" name="eliminar_solicitud_obra"  {{ (($registro->eliminar_solicitud_obra == 1) ? 'checked=""' : '') }} ><i></i> Eliminar solicitud de obra
                                             </label>
                                         </div>                            
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="i-checks">
-                                            <label>
-                                                <input type="checkbox" name="edicion_de_resultados_avanzada"  {{ (($registro->edicion_de_resultados_avanzada == 1) ? 'checked=""' : '') }} ><i></i> Edición de resultados avanzada
-                                            </label>
-                                        </div>                            
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th rowspan="4">ELIMINACIÓN</th>
                                 </tr>
                                 <tr>
                                     <td>
@@ -162,7 +165,7 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="eliminar_solicitud"  {{ (($registro->eliminar_solicitud == 1) ? 'checked=""' : '') }} ><i></i> Eliminar solicitud
+                                                <input type="checkbox" name="eliminar_solicitud_analisis"  {{ (($registro->eliminar_solicitud_analisis == 1) ? 'checked=""' : '') }} ><i></i> Eliminar solicitud análisis
                                             </label>
                                         </div>                            
                                     </td>
@@ -177,7 +180,56 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th rowspan="7">CONSULTA</th>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="eliminar_catalogos"  {{ (($registro->eliminar_catalogos == 1) ? 'checked=""' : '') }} ><i></i> Eliminar catálogos
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                {{-- ACCESO --}}
+                                <tr>
+                                    <th rowspan="5">ACCESO</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="acceso_a_lista_solicitudes_analisis"  {{ (($registro->acceso_a_lista_solicitudes_analisis == 1) ? 'checked=""' : '') }} ><i></i> Acceso a listado de solicitudes de análisis
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="acceso_a_lista_solicitudes_obras"  {{ (($registro->acceso_a_lista_solicitudes_obras == 1) ? 'checked=""' : '') }} ><i></i> Acceso a listado de solicitudes de obras
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="acceso_a_datos_basico"  {{ (($registro->acceso_a_datos_basico == 1) ? 'checked=""' : '') }} ><i></i> Acceso a datos básico
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="acceso_a_datos_avanzado"  {{ (($registro->acceso_a_datos_avanzado == 1) ? 'checked=""' : '') }} ><i></i> Acceso a datos avanzado
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                {{-- CONSULTA --}}
+                                <tr>
+                                    <th rowspan="5">CONSULTA</th>
                                 </tr>
                                 <tr>
                                     <td>
@@ -192,16 +244,7 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="consulta_general_avanzada_1"  {{ (($registro->consulta_general_avanzada_1 == 1) ? 'checked=""' : '') }} ><i></i> Consulta general avanzada 1
-                                            </label>
-                                        </div>                            
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="i-checks">
-                                            <label>
-                                                <input type="checkbox" name="consulta_general_avanzada_2"  {{ (($registro->consulta_general_avanzada_2 == 1) ? 'checked=""' : '') }} ><i></i> Consulta general avanzada 2
+                                                <input type="checkbox" name="consulta_general_avanzada"  {{ (($registro->consulta_general_avanzada == 1) ? 'checked=""' : '') }} ><i></i> Consulta general avanzada
                                             </label>
                                         </div>                            
                                     </td>
@@ -219,6 +262,19 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
+                                                <input type="checkbox" name="consulta_estadistica"  {{ (($registro->consulta_estadistica == 1) ? 'checked=""' : '') }} ><i></i> Consulta de estadisticas
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                {{-- IMPRIMIR --}}
+                                <tr>
+                                    <th rowspan="3">IMPRESIÓN</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
                                                 <input type="checkbox" name="imprimir_condicionado"  {{ (($registro->imprimir_condicionado == 1) ? 'checked=""' : '') }} ><i></i> Imprimir condicionado
                                             </label>
                                         </div>                            
@@ -228,19 +284,46 @@
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="imprimir"  {{ (($registro->imprimir == 1) ? 'checked=""' : '') }} ><i></i> Imprimir
+                                                <input type="checkbox" name="imprimir_oficios"  {{ (($registro->imprimir_oficios == 1) ? 'checked=""' : '') }} ><i></i> Imprimir
                                             </label>
                                         </div>                            
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th rowspan="2">ADMINISTRACIÓN DEL SISTEMA</th>
+                                    <th rowspan="5">ADMINISTRACIÓN DEL SISTEMA</th>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="i-checks">
                                             <label>
-                                                <input type="checkbox" name="admin_de_usuarios"  {{ (($registro->admin_de_usuarios == 1) ? 'checked=""' : '') }} ><i></i> Administración de usuarios
+                                                <input type="checkbox" name="creacion_usuarios_permisos"  {{ (($registro->creacion_usuarios_permisos == 1) ? 'checked=""' : '') }} ><i></i> Administración de usuarios y permisos
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="administrar_solicitudes_obras"  {{ (($registro->administrar_solicitudes_obras == 1) ? 'checked=""' : '') }} ><i></i> Administración de solicitudes de obra
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="administrar_solicitudes_analisis"  {{ (($registro->administrar_solicitudes_analisis == 1) ? 'checked=""' : '') }} ><i></i> Administración de solicitudes de análisis
+                                            </label>
+                                        </div>                            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="i-checks">
+                                            <label>
+                                                <input type="checkbox" name="administrar_registro_resultados"  {{ (($registro->administrar_registro_resultados == 1) ? 'checked=""' : '') }} ><i></i> Administración de registro de resultados
                                             </label>
                                         </div>                            
                                     </td>

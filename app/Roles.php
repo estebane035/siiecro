@@ -12,31 +12,41 @@ class Roles extends Model
         'nombre',
         'descripcion',
         
+        'captura_solicitud_obra',
         'captura_de_registro_basica',
-        'captura_de_registro_avanzada_1',
-        'captura_de_registro_avanzada_2',
-        'captura_de_solicitud',
-        'captura_de_resultados_basica',
-        'captura_de_resultados_avanzada',
+        'captura_de_registro_avanzada',
+        'captura_de_responsables_intervencion',
+        'captura_de_catalogos_basica',
+        'captura_de_catalogos_avanzada',
+        'captura_de_solicitud_analisis',
+        'captura_de_resultados',
 
         'edicion_de_registro_basica',
         'edicion_de_registro_avanzada_1',
         'edicion_de_registro_avanzada_2',
-        'edicion_de_solicitud',
-        'edicion_de_resultados_basica',
-        'edicion_de_resultados_avanzada',
-
+        
+        'eliminar_solicitud_obra',
         'eliminar_registro',
-        'eliminar_solicitud',
+        'eliminar_solicitud_analisis',
         'eliminar_resultados',
-
+        'eliminar_catalogos',
+        
+        'acceso_a_lista_solicitudes_analisis',
+        'acceso_a_lista_solicitudes_obras',
+        'acceso_a_datos_basico',
+        'acceso_a_datos_avanzado',
+        
         'consulta_general_basica',
-        'consulta_general_avanzada_1',
-        'consulta_general_avanzada_2',
+        'consulta_general_avanzada',
         'consulta_externa',
-        'imprimir_condicionado',
-        'imprimir',
+        'consulta_estadistica',
 
-        'admin_de_usuarios',
+        'imprimir_condicionado',
+        'imprimir_oficios',
+
+        'creacion_usuarios_permisos',
+        'administrar_solicitudes_obras',
+        'administrar_solicitudes_analisis',
+        'administrar_registro_resultados',
     ];
 }
