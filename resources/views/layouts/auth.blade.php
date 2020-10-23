@@ -16,7 +16,7 @@
     {!!Html::style('css/animate.css')!!}
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg body-login">
 	@yield('body')
 </body>
 

@@ -8630,3 +8630,11 @@ body.md-skin {
   position: absolute;
   cursor: pointer;
 }
+
+.body-login {
+  background-image: url('/img/fachada-ecro-min.png'); 
+  background-position: center center; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed; 
+  background-size: cover; 
+}
