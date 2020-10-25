@@ -26,6 +26,7 @@ class CreateObrasTable extends Migration
             $table->integer('temporalidad_id')->unsigned()->nullable();
             $table->integer('area_id')->unsigned()->nullable();
             $table->integer('usuario_recibio_id')->unsigned()->nullable();
+            $table->integer('proyecto_id')->unsigned()->nullable();
 
             $table->string('nombre')->index();
             $table->string('autor')->index()->nullable();
@@ -70,6 +71,7 @@ class CreateObrasTable extends Migration
             $table->foreign('epoca_id')->references('id')->on('obras__epoca');
             $table->foreign('temporalidad_id')->references('id')->on('obras__temporalidad');
             $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('proyecto_id')->references('id')->on('proyectos');
         });
     }
 

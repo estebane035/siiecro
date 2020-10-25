@@ -11,8 +11,11 @@ class Proyectos extends Model
     protected $table = "proyectos";
     protected $fillable = [
     	'id',
+        'area_id',
         'nombre',
-        'seo'
+        'seo',
+        'forma_ingreso',
+        'status'
     ];
 
     public function generaSeo(){

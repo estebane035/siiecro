@@ -29,6 +29,10 @@ return 	[
 												"En revision",
 												"Aprobada",
 												"Rechazada"
+											],
+			"status" 					=> 	[
+												"Abierto",
+												"Cerrado"
 											]
 		];
 
