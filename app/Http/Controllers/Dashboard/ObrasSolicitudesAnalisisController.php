@@ -36,7 +36,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                     obras__solicitudes_analisis.tecnica,
                                                                     obras__solicitudes_analisis.fecha_intervencion,
                                                                     obras__solicitudes_analisis.estatus,
-                                                                    obras__solicitudes_analisis.motivo_de_rechazo,
+                                                                    -- obras__solicitudes_analisis.motivo_de_rechazo,
                                                                     users.name
                                                                 ')
                                                     ->join('users', 'users.id','=', 'obras__solicitudes_analisis.obra_usuario_asignado_id')
