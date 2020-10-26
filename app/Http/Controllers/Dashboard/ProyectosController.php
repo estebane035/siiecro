@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Areas;
 use App\Proyectos;
 
 use DataTables;
@@ -27,9 +28,16 @@ class ProyectosController extends Controller
     }
 
     public function cargarTabla(Request $request){
-        $registros      =   Proyectos::all();
+        $registros      =   Proyectos::selectRaw("
+                                                    proyectos.*,
+                                                    a.nombre as area
+                                                ")
+                                        ->join('areas as a', 'a.id', 'proyectos.area_id');
 
         return DataTables::of($registros)
+                        ->addColumn('folio', function($registro){
+                            return $registro->etiquetaFolio();
+                        })
                         ->addColumn('acciones', function($registro){
                             $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
                             $eliminar       =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
@@ -37,13 +45,14 @@ class ProyectosController extends Controller
 
                             return $ver.$editar.$eliminar;
                         })
-                        ->rawColumns(['acciones'])
+                        ->rawColumns(['folio', 'acciones'])
                         ->make('true');
     }
 
     public function create(Request $request){
         $registro   =   new Proyectos;
-        return view('dashboard.proyectos.agregar', ["registro" => $registro]);
+        $areas      =   Areas::all();
+        return view('dashboard.proyectos.agregar', ["registro" => $registro, "areas" => $areas]);
     }
 
     public function store(Request $request){
@@ -53,10 +62,10 @@ class ProyectosController extends Controller
         	$request->merge(["seo" => "temp"]);
 
             $response 		= 	BD::crear('Proyectos', $request);
-            
+
             // Si se guardo bien generamos el seo
-            if($response->status() == 200 || $response->status() == 201){
-            	$proyecto 	= 	Proyectos::find($response->getOriginalContent()->id);
+            if(($response->status() == 200 || $response->status() == 201) && !$response->getOriginalContent()["error"]){
+            	$proyecto 	= 	Proyectos::find($response->getOriginalContent()["id"]);
             	$proyecto->generaSeo();
             }
 
@@ -68,7 +77,8 @@ class ProyectosController extends Controller
 
     public function edit(Request $request, $id){
         $registro   =   Proyectos::findOrFail($id);
-        return view('dashboard.proyectos.agregar', ["registro" => $registro]);
+        $areas      =   Areas::all();
+        return view('dashboard.proyectos.agregar', ["registro" => $registro, "areas" => $areas]);
     }
 
     public function update(Request $request, $id){

@@ -30,7 +30,7 @@ return 	[
 												"Aprobada",
 												"Rechazada"
 											],
-			"status" 					=> 	[
+			"status_abierto_cerrado" 	=> 	[
 												"Abierto",
 												"Cerrado"
 											]

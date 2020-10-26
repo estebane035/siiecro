@@ -19,6 +19,39 @@
                                 <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $registro->nombre }}" required autocomplete="off">
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-12 div-input required">
+                                <label for="area_id">Área</label>
+                                <select class="form-control select2 full-width" id="area_id" name="area_id" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach ($areas as $area)
+                                        <option {{ $registro->area_id == $area->id ? "selected" : "" }} value="{{ $area->id }}">{{ $area->campo }} {{ $area->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 div-input required">
+                                <label for="forma_ingreso">Status</label>
+                                <select class="form-control select2 full-width" id="status" name="status" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach (config('valores.status_abierto_cerrado') as $status)
+                                        <option {{ $registro->status == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6 div-input required">
+                                <label for="forma_ingreso">Forma de ingreso</label>
+                                <select class="form-control select2 full-width" id="forma_ingreso" name="forma_ingreso" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach (config('valores.obras_formas_ingreso') as $forma)
+                                        <option {{ $registro->forma_ingreso == $forma ? "selected" : "" }} value="{{ $forma }}">{{ $forma }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row m-t-md" id="div-notificacion">

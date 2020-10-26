@@ -17,7 +17,9 @@
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <btn onclick="crear();" class="btn btn-primary">Crear nueva solicitud de intervención</btn>
+            @if (Auth::user()->rol->captura_solicitud_obra)
+                <btn onclick="crear();" class="btn btn-primary">Crear nueva solicitud de intervención</btn>
+            @endif
         </div>
     </div>
 @endsection

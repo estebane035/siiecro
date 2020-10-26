@@ -36,13 +36,15 @@
                                         <div class="ibox-title" style="min-height: 65px;">
                                             <h5>Datos generales de identificación</h5>
 
-                                            <div id="btn-group-habilitar-edicion">
-                                                <button onclick="toggleEdicionDatosGenerales(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
-                                            </div>
-                                            <div id="btn-group-editar" class="hidden">
-                                                <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
-                                                <button onclick="toggleEdicionDatosGenerales(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
-                                            </div>
+                                            @if (Auth::user()->rol->edicion_de_registro_basica)
+                                                <div id="btn-group-habilitar-edicion">
+                                                    <button onclick="toggleEdicionDatosGenerales(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
+                                                </div>
+                                                <div id="btn-group-editar" class="hidden">
+                                                    <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
+                                                    <button onclick="toggleEdicionDatosGenerales(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
+                                                </div>
+                                            @endif
                                             
                                         </div>
                                         <div class="ibox-content">
@@ -55,7 +57,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6 div-input required">
                                                             <label for="nombre">Nombre</label>
-                                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $obra->nombre }}" required autocomplete="off" disabled no-editar>
+                                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $obra->nombre }}" required autocomplete="off" disabled>
                                                         </div>
 
                                                         <div class="col-md-3 div-input required">
@@ -189,13 +191,17 @@
                                     <div class="row m-b-md">
                                         <div class="col-md-8" id="div-respuesta-datos-identificacion"></div>
                                         <div class="col-md-4">
-                                            <div id="btn-group-habilitar-edicion-datos-identificacion">
-                                                <button onclick="toggleEdicionDatosIdentificacion(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
-                                            </div>
-                                            <div id="btn-group-editar-datos-identificacion" class="hidden">
-                                                <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
-                                                <button onclick="toggleEdicionDatosIdentificacion(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
-                                            </div>
+
+                                            @if (Auth::user()->rol->edicion_de_registro_avanzada_1 || Auth::user()->rol->edicion_de_registro_avanzada_2)
+                                                <div id="btn-group-habilitar-edicion-datos-identificacion">
+                                                    <button onclick="toggleEdicionDatosIdentificacion(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
+                                                </div>
+                                                <div id="btn-group-editar-datos-identificacion" class="hidden">
+                                                    <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
+                                                    <button onclick="toggleEdicionDatosIdentificacion(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
+                                                </div>
+                                            @endif
+                                            
                                         </div>    
                                     </div>
                                     <hr>
@@ -262,7 +268,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 div-input">
                                                     <label for="area_id">Recibió</label>
-                                                    <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" autocomplete="off" disabled>
+                                                    <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" autocomplete="off" disabled {{ Auth::user()->rol->edicion_de_registro_avanzada_2 ? "" : "no-editar" }}>
                                                         <option value=""></option>
                                                         @foreach ($usuariosPuedenRecibirObras as $usuario)
                                                             <option {{ $obra->usuario_recibio_id == $usuario->id ? "selected" : "" }} value="{{ $usuario->id }}">{{ $usuario->name }}</option>
@@ -271,7 +277,7 @@
                                                 </div>
                                                 <div class="col-md-6 div-input">
                                                     <label for="fecha_salida">Entregó</label>
-                                                    <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" disabled>
+                                                    <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" disabled {{ Auth::user()->rol->edicion_de_registro_avanzada_2 ? "" : "no-editar" }}>
                                                 </div>
                                             </div>
 

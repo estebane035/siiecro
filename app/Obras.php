@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Cadenas;
 use Archivos;
+use Auth;
 
 class Obras extends Model
 {
@@ -278,5 +279,23 @@ class Obras extends Model
         }
 
         $this->save();
+    }
+
+    public static function buscarObraValidandoPermisos($obra_id){
+        $obra           =   Obras::where('obras.id', $obra_id);
+
+        if(!Auth::user()->rol->acceso_a_lista_solicitudes_obras){
+
+            $obra       =   $obra->leftJoin('obras__usuarios_asignados as oua',         'oua.obra_id',  'obras.id')
+                                    ->leftJoin('obras__responsables_asignados as ora',  'ora.obra_id',  'obras.id')
+                                    ->where(function($query){
+                                        $query->orWhere('obras.area_id', Auth::user()->area_id ?? 0);
+                                        $query->orWhere('oua.usuario_id', Auth::id());
+                                        $query->orWhere('ora.usuario_id', Auth::id());
+                                    });
+        }
+
+        $obra           =   $obra->first();
+        return $obra;
     }
 }

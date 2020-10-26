@@ -49,12 +49,25 @@ class ObrasController extends Controller
                                                 oto.nombre  as tipo_objeto,
                                                 a.nombre    as nombre_area
                                             ")
-                                    ->join('obras__tipo_bien_cultural as obc', 'obc.id', 'obras.tipo_bien_cultural_id')
-                                    ->join('obras__tipo_objeto as oto', 'oto.id', 'obras.tipo_objeto_id')
-                                    ->leftJoin('obras__temporalidad as ot', 'ot.id', 'obras.temporalidad_id')
-                                    ->leftJoin('obras__epoca as oe', 'oe.id', 'obras.epoca_id')
-                                    ->leftJoin('areas as a', 'a.id', 'obras.area_id')
-                                    ->orWhereNotNull('fecha_aprobacion');
+                                    ->join('obras__tipo_bien_cultural as obc',  'obc.id',   'obras.tipo_bien_cultural_id')
+                                    ->join('obras__tipo_objeto as oto',         'oto.id',   'obras.tipo_objeto_id')
+                                    ->leftJoin('obras__temporalidad as ot',     'ot.id',    'obras.temporalidad_id')
+                                    ->leftJoin('obras__epoca as oe',            'oe.id',    'obras.epoca_id')
+                                    ->leftJoin('areas as a',                    'a.id',     'obras.area_id')
+                                    ->whereNotNull('fecha_aprobacion')
+                                    ->groupBy('obras.id');
+
+        // Verifico permiso
+        if(!Auth::user()->rol->acceso_a_lista_solicitudes_obras){
+
+            $registros  =   $registros->leftJoin('obras__usuarios_asignados as oua',        'oua.obra_id',  'obras.id')
+                                        ->leftJoin('obras__responsables_asignados as ora',  'ora.obra_id',  'obras.id')
+                                        ->where(function($query){
+                                            $query->orWhere('obras.area_id', Auth::user()->area_id ?? 0);
+                                            $query->orWhere('oua.usuario_id', Auth::id());
+                                            $query->orWhere('ora.usuario_id', Auth::id());
+                                        });
+        }
 
     	return DataTables::of($registros)
     					->addColumn('folio', function($registro){
@@ -91,6 +104,11 @@ class ObrasController extends Controller
                                     ->leftJoin('obras__epoca as oe', 'oe.id', 'obras.epoca_id')
                                     ->whereNull('obras.fecha_aprobacion');
 
+        // Verifico permiso
+        if(!Auth::user()->rol->acceso_a_lista_solicitudes_analisis){
+            $registros  =   $registros->where("obras.usuario_solicito_id", Auth::id());
+        }
+
         return DataTables::of($registros)
                         ->editColumn('año', function($registro){
                             if($registro->año){
@@ -113,7 +131,11 @@ class ObrasController extends Controller
                                 $rechazar   =   '<i onclick="rechazar('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
                             }
 
-                            return $editar.$aprobar.$rechazar.$eliminar;
+                            if(Auth::user()->rol->captura_solicitud_obra){
+                                return $editar.$aprobar.$rechazar.$eliminar;
+                            } else{
+                                return "";
+                            }
                         })
                         ->rawColumns(['acciones'])
                         ->make('true');
@@ -298,7 +320,11 @@ class ObrasController extends Controller
     }
 
     public function show(Request $request, $id){
-        $registro                       =   Obras::findOrFail($id);
+        $registro                       =   Obras::buscarObraValidandoPermisos($id);
+        if(is_null($registro)){
+            abort(404);
+        }
+
         $tiposBienCultural              =   ObrasTipoBienCultural::all();
         $tiposObjeto                    =   ObrasTipoObjeto::all();
         $epocas                         =   ObrasEpoca::all();
