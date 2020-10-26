@@ -8631,10 +8631,24 @@ body.md-skin {
   cursor: pointer;
 }
 
-.body-login {
-  background-image: url('/img/fachada-ecro-min.png'); 
+.login-foto {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 334.717px;
+  border-radius: 20px;
+  /*con esta linea tiene un efecto de que en la vista de iPad la imagen se ve del tamaño real*/
+  /*pero se ven espacios a los lados si la propiedad background-repeat: está desactivada como la dejé*/
+  background: url('/img/fachada-ecro-min.png'); 
+  /*background-image: url('/img/fachada-ecro-min.png'); */
   background-position: center center; 
-  background-repeat: no-repeat; 
-  background-attachment: fixed; 
-  background-size: cover; 
+  /*background-repeat: no-repeat; */
+}
+
+.login-login {
+  text-align: center;
+  padding: 1em;
+  border-radius: 20px;
+  height: 334.717px
 }
