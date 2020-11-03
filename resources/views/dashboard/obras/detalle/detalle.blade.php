@@ -255,6 +255,28 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="row {{ is_null($obra->area_id) ? "hidden" : "" }}" id="div-proyecto">
+                                                <div class="col-md-12 div-input">
+                                                    <label for="area_id">Proyecto</label>
+                                                    <select class="form-control select2 full-width" id="proyecto_id" name="proyecto_id" autocomplete="off" disabled>
+                                                        @if ($obra->proyecto)
+                                                            <option value="{{ $obra->proyecto_id }}">{{ $obra->proyecto->nombre }}</option>
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row {{ is_null($obra->area_id) ? "hidden" : "" }}" id="div-temporadas-trabajo">
+                                                <div class="col-md-12 div-input">
+                                                    <label for="_temporadas_trabajo">Temporadas de trabajo</label>
+                                                    <select class="form-control select2 full-width" id="_temporadas_trabajo" name="_temporadas_trabajo[]" autocomplete="off" disabled multiple="multiple">
+                                                        @foreach ($obra->temporadas_trabajo_asignadas as $temporada_trabajo)
+                                                            <option selected value="{{ $temporada_trabajo->id }}">{{ $temporada_trabajo->numero_temporada }} [{{ $temporada_trabajo->año }}]</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div class="row">
                                                 <div class="col-md-6 div-input required">
                                                     <label for="fecha_ingreso">Fecha ingreso</label>

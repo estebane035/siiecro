@@ -12,7 +12,8 @@ class ProyectosTemporadasTrabajo extends Model
     protected $fillable = [
     	'id',
         'proyecto_id',
-        'año'
+        'año',
+        'numero_temporada'
     ];
 
     public function proyecto() {

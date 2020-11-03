@@ -40,6 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>Año</th>
+                                    <th>Número de temporada</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

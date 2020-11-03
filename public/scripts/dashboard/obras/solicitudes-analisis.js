@@ -4,9 +4,10 @@ jQuery(document).ready(function($) {
 			"#carga-dt-solicitudes-analisis", // ID elemento del progreso
 			"/dashboard/solicitudes-analisis/carga/"+ $('#id').val(), // URL datos
 			[
-            { data: "fecha_intervencion", width: "30%"},
-            { data: "name",               width: "55%"},
-			   { data: "acciones",           width: "15%", 	searchable: false, 	orderable: false},
+          { data: "fecha_intervencion", width: "30%"},
+          { data: "name",               width: "30%"},
+          { data: "temporada_trabajo",  width: "25%"},
+          { data: "acciones",           width: "15%", 	searchable: false, 	orderable: false},
 			], // Columnas
 		);
 });
@@ -20,7 +21,7 @@ function crear()
                       function(){
                         $('#obra_id').val($('#id').val());
                        
-                        $('#obra_usuario_asignado_id').select2({
+                        $('#obra_usuario_asignado_id, #obra_temporada_trabajo_asignada_id').select2({
                           placeholder: "Seleccione una opción"
                         });
 
@@ -47,43 +48,43 @@ function editar(id)
                         "#modal-crear", //Nombre modal
                         "#tecnica", //Elemento al que se le dara focus una vez cargado el modal
                         function(){
-                           $('#obra_usuario_asignado_id').select2({
-                              placeholder: "Seleccione una opción"
-                           });
+                          $('#obra_usuario_asignado_id, #obra_temporada_trabajo_asignada_id').select2({
+                            placeholder: "Seleccione una opción"
+                          });
                           
-                           $("#fecha_intervencion").datepicker({
-                              language:       'es',
-                              format:         'yyyy-mm-dd',
-                           });
+                          $("#fecha_intervencion").datepicker({
+                            language:       'es',
+                            format:         'yyyy-mm-dd',
+                         });
 
-                           $("#dropzone-solicitud-analisis").dropzone({ 
-                              url: "/dashboard/solicitudes-analisis/" + id + "/subir-esquema",
-                              uploadMultiple: false,
-                              parallelUploads: 1,
-                              maxFiles: 10,
-                              addRemoveLinks: false,
-                              acceptedFiles: 'image/*',
-                              sending: function(file, xhr, formData) {
-                                 formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
-                              },
-                              error: function(file, message) {
-                                 $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(message.mensaje);
-                              },
-                              success: function(file, message){
-                                 var drop    =  this;
-                                 setTimeout(function() {
-                                   drop.removeFile(file);
-                                   recargarImagenesEsquema(id);
-                                 }, 1000);
-                              }
-                           });
+                          $("#dropzone-solicitud-analisis").dropzone({ 
+                            url: "/dashboard/solicitudes-analisis/" + id + "/subir-esquema",
+                            uploadMultiple: false,
+                            parallelUploads: 1,
+                            maxFiles: 10,
+                            addRemoveLinks: false,
+                            acceptedFiles: 'image/*',
+                            sending: function(file, xhr, formData) {
+                               formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                            },
+                            error: function(file, message) {
+                               $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(message.mensaje);
+                            },
+                            success: function(file, message){
+                               var drop    =  this;
+                               setTimeout(function() {
+                                 drop.removeFile(file);
+                                 recargarImagenesEsquema(id);
+                               }, 1000);
+                            }
+                          });
 
-                           $('#carrusel-imagenes-esquema').owlCarousel({
-                               loop:      false,
-                               margin:    10,
-                               nav:       false,
-                               center:    false
-                           });
+                          $('#carrusel-imagenes-esquema').owlCarousel({
+                            loop:      false,
+                            margin:    10,
+                            nav:       false,
+                            center:    false
+                          });
                         }, //Funcion para el success
                         "#form-obras-detalle-solicitudes-analisis", //ID del Formulario
                         "#carga-agregar", //Loading de guardar datos de formulario

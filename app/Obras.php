@@ -21,6 +21,7 @@ class Obras extends Model
         'tipo_bien_cultural_id',
         'area_id',
         'responsable_id',
+        'proyecto_id',
         'nombre',
         'autor',
         'cultura',
@@ -156,6 +157,10 @@ class Obras extends Model
         return $this->hasOne('App\Areas', 'id', 'area_id');
     }
 
+    public function proyecto() {
+        return $this->hasOne('App\Proyectos', 'id', 'proyecto_id');
+    }
+
     public function responsables_asignados() {
         return $this->hasManyThrough(
             'App\User',
@@ -164,6 +169,17 @@ class Obras extends Model
             'id', // Llave foranea de segunda tabla con tercera tabla
             'id', // llave foranea de segunda tabla con primera tabla
             'usuario_id' // llave foranea de tercera tabla con segunda tabla
+        );
+    }
+
+    public function temporadas_trabajo_asignadas() {
+        return $this->hasManyThrough(
+            'App\ProyectosTemporadasTrabajo',
+            'App\ObrasTemporadasTrabajoAsignadas',
+            'obra_id', // Llave foranea de primer tabla con segunda tabla
+            'id', // Llave foranea de segunda tabla con tercera tabla
+            'id', // llave foranea de segunda tabla con primera tabla
+            'proyecto_temporada_trabajo_id' // llave foranea de tercera tabla con segunda tabla
         );
     }
 

@@ -41,6 +41,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 
     ######## Proyectos ###############################################################
 		Route::get('proyectos/carga', 			'ProyectosController@cargarTabla');
+		Route::get('proyectos/select2', 		'ProyectosController@select2');
 		Route::get('proyectos/{id}/eliminar', 	'ProyectosController@eliminar');
 		Route::resource('proyectos', 			'ProyectosController');
 
@@ -48,6 +49,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 			Route::get('proyectos/temporadas-trabajo/carga/{proyecto_id}', 			'ProyectosTemporadasTrabajoController@cargarTabla');
 			Route::get('proyectos/temporadas-trabajo/{id}/eliminar', 				'ProyectosTemporadasTrabajoController@eliminar');
 			Route::get('proyectos/temporadas-trabajo/create/{proyecto_id}', 		'ProyectosTemporadasTrabajoController@create');
+			Route::get('proyectos/temporadas-trabajo/select2', 						'ProyectosTemporadasTrabajoController@select2');
 			Route::resource('proyectos/temporadas-trabajo', 						'ProyectosTemporadasTrabajoController');
 		#############################################################################
 	#################################################################################

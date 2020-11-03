@@ -19,7 +19,7 @@ class CreateProyectosTable extends Migration
             $table->string('nombre')->unique();
             $table->string('seo');
             $table->enum('forma_ingreso', config('valores.obras_formas_ingreso'));
-            $table->enum('status', config('valores.status'));
+            $table->enum('status', config('valores.status_abierto_cerrado'));
             $table->timestamps();
             
             $table->foreign('area_id')->references('id')->on('areas');

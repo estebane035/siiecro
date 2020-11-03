@@ -18,24 +18,12 @@ class Proyectos extends Model
         'status'
     ];
 
+    public function area() {
+        return $this->hasOne('App\Areas', 'id', 'area_id');
+    }
+
     public function getFolioAttribute(){
-        $folio          =   str_pad($this->id, 4, "0", STR_PAD_LEFT);
-
-        // if($this->año){
-        //     $folio      .=  "-".$this->año->format('y')."/";
-        // }else{
-        //     $folio      .=  "-00/";
-        // }
-
-        // $folio          .=  $this->forma_ingreso."-";
-
-        // if($this->modalidad){
-        //     $folio      .=  Cadenas::obtenerSiglasDeCadena($this->modalidad)."-";
-        // }
-
-        // if($this->area){
-        //     $folio      .=  $this->area->siglas;
-        // }
+        $folio          =   str_pad($this->id, 4, "0", STR_PAD_LEFT)."/".$this->area->siglas."-".$this->forma_ingreso;
 
         return $folio;
     }

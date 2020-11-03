@@ -41,15 +41,6 @@ class ProyectosTemporadasTrabajoController extends Controller
 
     public function store(Request $request){
         if($request->ajax()){
-        	// Verificamos duplicidad
-        	$duplicado 	=	ProyectosTemporadasTrabajo::where('año', $request->input('año'))
-        												->where('proyecto_id', $request->input('proyecto_id'))
-        												->first();
-
-        	if($duplicado){
-        		return Response::json(["mensaje" => "Ya existe una temporada de trabajo para ese año."], 500);
-        	}
-
             return BD::crear('ProyectosTemporadasTrabajo', $request);
         }
 
@@ -63,16 +54,6 @@ class ProyectosTemporadasTrabajoController extends Controller
 
     public function update(Request $request, $id){
         if($request->ajax()){
-        	// Verificamos duplicidad
-        	$duplicado 	=	ProyectosTemporadasTrabajo::where('año', $request->input('año'))
-        												->where('proyecto_id', $request->input('proyecto_id'))
-        												->where('id', '<>', $id)
-        												->first();
-
-        	if($duplicado){
-        		return Response::json(["mensaje" => "Ya existe una temporada de trabajo para ese año."], 500);
-        	}
-
             $data   		= 	$request->all();
             return BD::actualiza($id, "ProyectosTemporadasTrabajo", $data);
         }
@@ -88,6 +69,35 @@ class ProyectosTemporadasTrabajoController extends Controller
     public function destroy(Request $request, $id){
         if($request->ajax()){
             return BD::elimina($id, "ProyectosTemporadasTrabajo");
+        }
+
+        return Response::json(["mensaje" => "Petición incorrecta"], 500);
+    }
+
+    public function select2(Request $request){
+        if($request->ajax()){
+            $proyecto_id        =   $request->input('proyecto_id');
+
+            $temporadas         =   ProyectosTemporadasTrabajo::selectRaw("proyectos__temporadas_trabajo.*")
+                                                            ->where('proyecto_id', $proyecto_id)
+                                                            ->get();
+
+            $array              =   [];
+
+            $a                  =   [];
+            $a["id"]            =   "";
+            $a["text"]          =   "";
+            array_push($array, $a);
+
+            foreach ($temporadas as $temporada) {
+                $a              =   [];
+                $a["id"]        =   $temporada->id;
+                $a["text"]      =   $temporada->numero_temporada." [".$temporada->año."]";
+
+                array_push($array, $a);
+            }
+
+            return json_encode($array);
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);

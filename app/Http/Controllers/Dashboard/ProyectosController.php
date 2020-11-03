@@ -30,7 +30,7 @@ class ProyectosController extends Controller
     public function cargarTabla(Request $request){
         $registros      =   Proyectos::selectRaw("
                                                     proyectos.*,
-                                                    a.nombre as area
+                                                    a.nombre    as nombre_area
                                                 ")
                                         ->join('areas as a', 'a.id', 'proyectos.area_id');
 
@@ -118,5 +118,43 @@ class ProyectosController extends Controller
         $titulo     =   "Temporadas de trabajo del proyecto ".$proyecto->nombre;
 
         return view('dashboard.proyectos.temporadas-trabajo.index', ["titulo" => $titulo, "proyecto" => $proyecto]);
+    }
+
+    public function select2(Request $request){
+        if($request->ajax()){
+            $area_id            =   $request->input('area_id');
+            $forma_ingreso      =   $request->input('forma_ingreso');
+
+            $proyectos          =   Proyectos::selectRaw("proyectos.*");
+
+            if($area_id){
+                $proyectos      =   $proyectos->where('area_id', $area_id);
+            }
+
+            if($forma_ingreso){
+                $proyectos      =   $proyectos->where('forma_ingreso', $forma_ingreso);
+            }
+
+            $proyectos          =   $proyectos->get();
+
+            $array              =   [];
+
+            $a                  =   [];
+            $a["id"]            =   "";
+            $a["text"]          =   "";
+            array_push($array, $a);
+
+            foreach ($proyectos as $proyecto) {
+                $a              =   [];
+                $a["id"]        =   $proyecto->id;
+                $a["text"]      =   $proyecto->nombre;
+
+                array_push($array, $a);
+            }
+
+            return json_encode($array);
+        }
+
+        return Response::json(["mensaje" => "Petición incorrecta"], 500);
     }
 }

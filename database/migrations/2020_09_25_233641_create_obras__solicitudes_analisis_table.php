@@ -16,7 +16,7 @@ class CreateObrasSolicitudesAnalisisTable extends Migration
         Schema::create('obras__solicitudes_analisis', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('obra_id')->unsigned();
-            // campo creo_usuario_id para un tipo de bitacora de quien creó la solicitud de análisis
+            $table->integer('obra_temporada_trabajo_asignada_id')->unsigned();
             $table->integer('creo_usuario_id')->unsigned();
             $table->integer('usuario_aprobo_id')->unsigned()->nullable();
             $table->integer('usuario_rechazo_id')->unsigned()->nullable();
@@ -33,6 +33,7 @@ class CreateObrasSolicitudesAnalisisTable extends Migration
             $table->timestamps();
 
             $table->foreign('obra_id')->references('id')->on('obras');
+            $table->foreign('obra_temporada_trabajo_asignada_id', 'obra_temporada_trabajo_foreign')->references('id')->on('obras__temporadas_trabajo_asignadas');
             $table->foreign('creo_usuario_id')->references('id')->on('users');
             $table->foreign('usuario_aprobo_id')->references('id')->on('users');
             $table->foreign('usuario_rechazo_id')->references('id')->on('users');

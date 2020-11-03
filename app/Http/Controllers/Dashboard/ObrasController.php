@@ -18,6 +18,7 @@ use App\Obras;
 use App\ObrasEpoca;
 use App\ObrasResponsablesAsignados;
 use App\ObrasTemporalidad;
+use App\ObrasTemporadasTrabajoAsignadas;
 use App\ObrasTipoBienCultural;
 use App\ObrasTipoObjeto;
 use App\User;
@@ -235,7 +236,6 @@ class ObrasController extends Controller
             $request->merge([
                                 "usuario_solicito_id"   =>  Auth::id()
                             ]);
-
             $data               =   $request->all();
             $respuesta          =   BD::actualiza($id, "Obras", $data);
 
@@ -245,6 +245,10 @@ class ObrasController extends Controller
 
                 // Re asignamos los responsables ECRO a la obra
                 ObrasResponsablesAsignados::reAsignarResponsables($id, $request->input('_responsables'));
+
+                // Re asignamos las epocas de trabajo recibidas
+                ObrasTemporadasTrabajoAsignadas::reAsignarTemporadas($id, $request->input('_temporadas_trabajo'));
+
                 if($request->file('vista_frontal')){
                     $obra->subirImagenVistaFrontal($request->file('vista_frontal'));
                 }

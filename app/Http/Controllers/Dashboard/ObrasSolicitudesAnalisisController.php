@@ -18,6 +18,7 @@ use App\ObrasSolicitudesAnalisis;
 use App\ObrasSolicitudesAnalisisMuestras;
 use App\ObrasSolicitudesAnalisisTipoAnalisis;
 use App\ObrasSolicitudesAnalisisImagenesEsquema;
+use App\ObrasTemporadasTrabajoAsignadas;
 use App\ObrasUsuariosAsignados;
 // use App\User;
 
@@ -37,9 +38,13 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                     obras__solicitudes_analisis.fecha_intervencion,
                                                                     obras__solicitudes_analisis.estatus,
                                                                     -- obras__solicitudes_analisis.motivo_de_rechazo,
-                                                                    users.name
+                                                                    users.name,
+                                                                    proyecto_temporada.año                  as año_proyecto_temporada,
+                                                                    proyecto_temporada.numero_temporada     as numero_proyecto_temporada
                                                                 ')
                                                     ->join('users', 'users.id','=', 'obras__solicitudes_analisis.obra_usuario_asignado_id')
+                                                    ->join('obras__temporadas_trabajo_asignadas as temporada_asignada', 'temporada_asignada.id', 'obras__solicitudes_analisis.obra_temporada_trabajo_asignada_id')
+                                                    ->join('proyectos__temporadas_trabajo as proyecto_temporada', 'proyecto_temporada.id', 'temporada_asignada.proyecto_temporada_trabajo_id')
                                                     ->where('obras__solicitudes_analisis.obra_id', '=', $obra_id)
                                                     ->get();
 
@@ -64,6 +69,9 @@ class ObrasSolicitudesAnalisisController extends Controller
                             }
 
                             return $fecha = '<span class="'.$label_estatus.'" mi-tooltip="'.$registro->estatus.'. '.$registro->motivo_de_rechazo.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
+                        })
+                        ->addColumn('temporada_trabajo', function($registro){
+                            return $registro->numero_proyecto_temporada." [".$registro->año_proyecto_temporada."]";
                         })
                         ->addColumn('acciones', function($registro){
                             $muestra        = '';
@@ -103,18 +111,21 @@ class ObrasSolicitudesAnalisisController extends Controller
 
     public function create(Request $request, $id)
     {
-        $registro                   = new ObrasSolicitudesAnalisis;
+        $registro                       =   new ObrasSolicitudesAnalisis;
         
-        $responsables_intervencion  = ObrasUsuariosAsignados::selectRaw('
-                                                                        users.id,
-                                                                        users.name
-                                                                        ')
-                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
-                                                            ->where('users.es_responsable_intervencion', '=', 'si')
-                                                            ->where('obras__usuarios_asignados.obra_id', '=', $id)
-                                                            ->get();
+        $responsables_intervencion      =   ObrasUsuariosAsignados::selectRaw('
+                                                                                users.id,
+                                                                                users.name
+                                                                            ')
+                                                                    ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                                    ->where('users.es_responsable_intervencion', '=', 'si')
+                                                                    ->where('obras__usuarios_asignados.obra_id', '=', $id)
+                                                                    ->get();
 
-        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
+        $temporadasTrabajoAsignadas     =   ObrasTemporadasTrabajoAsignadas::where('obra_id', $id)
+                                                                            ->get();
+
+        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion, 'temporadasTrabajoAsignadas' => $temporadasTrabajoAsignadas]);
     }
 
     public function store(Request $request)
@@ -134,17 +145,20 @@ class ObrasSolicitudesAnalisisController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $registro                   = ObrasSolicitudesAnalisis::findOrFail($id);
-        $responsables_intervencion  = ObrasUsuariosAsignados::selectRaw('
-                                                                        users.id,
-                                                                        users.name
-                                                                        ')
-                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
-                                                            ->where('users.es_responsable_intervencion', '=', 'si')
-                                                            ->where('obras__usuarios_asignados.id', '=', $id)
-                                                            ->get();
+        $registro                       = ObrasSolicitudesAnalisis::findOrFail($id);
+        $responsables_intervencion      = ObrasUsuariosAsignados::selectRaw('
+                                                                                users.id,
+                                                                                users.name
+                                                                            ')
+                                                                ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                                ->where('users.es_responsable_intervencion', '=', 'si')
+                                                                ->where('obras__usuarios_asignados.id', '=', $registro->obra_id)
+                                                                ->get();
+
+        $temporadasTrabajoAsignadas     =   ObrasTemporadasTrabajoAsignadas::where('obra_id', $registro->obra_id)
+                                                                            ->get();
                                                             
-        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
+        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion, "temporadasTrabajoAsignadas" => $temporadasTrabajoAsignadas]);
     }
 
     public function update(Request $request, $id)

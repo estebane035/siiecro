@@ -17,6 +17,7 @@ class CreateProyectosTemporadasTrabajoTable extends Migration
             $table->increments('id');
             $table->integer('proyecto_id')->unsigned();
             $table->integer('año')->unsigned();
+            $table->string('numero_temporada');
             $table->timestamps();
 
             $table->foreign('proyecto_id')->references('id')->on('proyectos');
