@@ -19,6 +19,7 @@ class ProyectosController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('VerificarPermiso:captura_de_catalogos_avanzada', ['except' => ["select2"]]);
     }
     
     public function index(){

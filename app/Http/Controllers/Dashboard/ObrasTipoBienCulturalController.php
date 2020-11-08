@@ -18,6 +18,8 @@ class ObrasTipoBienCulturalController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('VerificarPermiso:captura_de_catalogos_avanzada|captura_de_catalogos_basica');
+        $this->middleware('VerificarPermiso:eliminar_catalogos',    ["only" =>  ["eliminar", "destroy"]]);
     }
     
     public function index(){
@@ -33,7 +35,11 @@ class ObrasTipoBienCulturalController extends Controller
         return DataTables::of($registros)
                         ->addColumn('acciones', function($registro){
                             $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
-                            $eliminar       =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
+                            $eliminar       =   '';
+
+                            if(Auth::user()->rol->eliminar_catalogos){
+                                $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
+                            }
 
                             return $editar.$eliminar;
                         })

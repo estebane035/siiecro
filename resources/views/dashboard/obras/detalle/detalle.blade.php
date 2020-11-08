@@ -430,7 +430,11 @@
                     <li class="active"><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-restauracion-conservacion">Restauración/Conservación</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
+
+                    @if (Auth::user()->rol->captura_de_solicitud_analisis)
+                        <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
+                    @endif
+                    
                     <li class=""><a data-toggle="tab" href="#tab-resultado-analisis">Resultado de análisis</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-informes">Informes</a></li>
                 </ul>
@@ -453,11 +457,13 @@
                         </div>
                     </div>
 
-                    <div id="tab-solicitudes-analisis" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.solicitudes-analisis.index')
+                    @if (Auth::user()->rol->captura_de_solicitud_analisis)
+                        <div id="tab-solicitudes-analisis" class="tab-pane">
+                            <div class="panel-body">
+                                @include('dashboard.obras.detalle.solicitudes-analisis.index')
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div id="tab-resultado-analisis" class="tab-pane">
                         <div class="panel-body">

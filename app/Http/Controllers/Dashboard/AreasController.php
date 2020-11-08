@@ -18,6 +18,7 @@ class AreasController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('VerificarPermiso:captura_de_catalogos_avanzada');
     }
     
     public function index(){

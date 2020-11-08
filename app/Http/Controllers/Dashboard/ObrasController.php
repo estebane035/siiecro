@@ -27,6 +27,14 @@ class ObrasController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('VerificarPermiso:administrar_solicitudes_obras',     [
+                                                                                    "only" => [
+                                                                                                    "modalAprobar", 
+                                                                                                    "aprobar", 
+                                                                                                    "modalRechazar", 
+                                                                                                    "rechazar"
+                                                                                                ]
+                                                                                ]);
     }
     
     public function index(){
@@ -83,7 +91,11 @@ class ObrasController extends Controller
                         })
     					->addColumn('acciones', function($registro){
                             $editar         =   '<a class="icon-link" href="'.route("dashboard.obras.show", $registro->id).'"><i class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i></a>';
-                            $eliminar   	=   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
+                            $eliminar   	=   '';
+
+                            if(Auth::user()->rol->eliminar_registro){
+                                $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
+                            }
 
                             return $editar.$eliminar;
     					})
@@ -119,17 +131,22 @@ class ObrasController extends Controller
                             return NULL;
                         })
                         ->addColumn('acciones', function($registro){
-                            $eliminar       =   '';
-                            $aprobar        =   '';
-                            $rechazar       =   '';
-                            $editar         =   '';
+                            $eliminar           =   '';
+                            $aprobar            =   '';
+                            $rechazar           =   '';
+                            $editar             =   '';
 
                             if($registro->fecha_rechazo){
-                                $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
+                                if(Auth::user()->rol->eliminar_solicitud_obra){
+                                    $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
+                                }
                             } else{
-                                $editar     =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
-                                $aprobar    =   '<i onclick="aprobar('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar"></i>';
-                                $rechazar   =   '<i onclick="rechazar('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
+                                $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
+
+                                if(Auth::user()->rol->administrar_solicitudes_obras){
+                                    $aprobar    =   '<i onclick="aprobar('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar"></i>';
+                                    $rechazar   =   '<i onclick="rechazar('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar"></i>';
+                                }
                             }
 
                             if(Auth::user()->rol->captura_solicitud_obra){
