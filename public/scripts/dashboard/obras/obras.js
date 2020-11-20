@@ -35,3 +35,21 @@ function eliminar(id)
                     });
                   });//Funcion en caso de guardar correctamente);
 }
+
+function importarObras(){
+  _mostrarFormulario("/dashboard/obras/importar", //Url solicitud de datos
+                      "#modal-1", //Div que contendra el modal
+                      "#modal-importar", //Nombre modal
+                      "#name", //Elemento al que se le dara focus una vez cargado el modal
+                      function(){
+
+                      }, //Funcion para el success
+                      "#form-importar", //ID del Formulario
+                      "#carga-importar", //Loading de guardar datos de formulario
+                      "#div-notificacion-importar", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      function(){
+                          _ocultarModal("#modal-importar", function(){
+                            _recargarTabla("#dt-datos");
+                          });
+                      });//Funcion en caso de guardar correctamente);
+}

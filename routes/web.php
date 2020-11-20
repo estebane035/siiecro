@@ -12,9 +12,9 @@
 */
 Auth::routes();
 
-Route::get('/', function () {
-    return redirect('/login');
-});
+// Route::get('/', function () {
+    // return redirect('/login');
+// });
 
 ################ RUTAS DEL DASHBOARD ####################################
 # 	Todos los controladores van dentro de la carpeta Dashboard 			#
@@ -26,7 +26,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
     ######## DASHBOARD ##############################################################
 		Route::get('/', 	'DashboardController@index')->name('dashboard.index');
 	#################################################################################
-
+		
     ######## USUARIOS ###############################################################
 		Route::get('usuarios/carga', 			'UsuariosController@cargarTabla');
 		Route::get('usuarios/{id}/eliminar', 	'UsuariosController@eliminar');
@@ -69,6 +69,8 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::put('obras/{id}/aprobar', 						'ObrasController@aprobar')->name('obras.aprobar');
 		Route::get('obras/{id}/rechazar', 						'ObrasController@modalRechazar');
 		Route::put('obras/{id}/rechazar', 						'ObrasController@rechazar')->name('obras.rechazar');
+		Route::get('obras/importar', 							'ObrasController@modalImportar');
+		Route::put('obras/importar', 							'ObrasController@importar')->name('obras.importar');
 		Route::resource('obras', 								'ObrasController');
 
 		###### OBRAS USUARIOS ASIGNADOS #############################################

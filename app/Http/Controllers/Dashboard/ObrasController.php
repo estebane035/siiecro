@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Imports\ObrasImport;
 
 use DataTables;
 use BD;
+use DB;
 use Response;
 use Hash;
 use Auth;
@@ -322,6 +326,28 @@ class ObrasController extends Controller
             $obra->save();
 
             return Response::json(["mensaje" => "Solicitud rechazada exitosamente.", "id" => $obra->id, "error" => false], 200);
+        }
+
+        return Response::json(["mensaje" => "Petición incorrecta"], 500);
+    }
+
+    public function modalImportar(Request $request){
+        return view('dashboard.obras.importar');
+    }
+
+    public function importar(Request $request){
+        if($request->ajax()){
+            DB::beginTransaction();
+
+            try {
+                Excel::import(new ObrasImport, request()->file('archivo'));
+            } catch (\Exception $e) {
+                DB::rollback();
+                return Response::json(["mensaje" => $e->getMessage(), "error" => true], 500);
+            }
+
+            DB::commit();
+            return Response::json(["mensaje" => "Obras importadas correctamente.", "error" => false], 200);
         }
 
         return Response::json(["mensaje" => "Petición incorrecta"], 500);
