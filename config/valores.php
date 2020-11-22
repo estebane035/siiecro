@@ -21,6 +21,10 @@ return 	[
 												"Confirmado",
 												"Aproximado"
 											],
+			"status_usuarios" 			=> 	[
+												"Activo",
+												"Inactivo"
+											],
 			"obras_formas_ingreso" 		=> 	[
 												"INT",
 												"EXT"

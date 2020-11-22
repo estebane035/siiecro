@@ -6,15 +6,31 @@
                 <h4 class="modal-title">Obras | Detalle | Usuarios asignados</h4>
                 <small class="font-bold">Asignar nuevo usuario</small>
             </div>
-           {!! Form::open(['route' => ['dashboard.usuarios-asignados.store'], 'method' => 'POST', 'id' => 'form-obras-asignar-usuario', 'class' => 'form-horizontal']) !!}
+            @if ($registro == "[]")
+                {!! Form::open(['route' => ['dashboard.usuarios-asignados.store'], 'method' => 'POST', 'id' => 'form-obras-asignar-usuario', 'class' => 'form-horizontal']) !!}
+            @else
+                {!! Form::open(['route' => ['dashboard.usuarios-asignados.update', $registro->id], 'method' => 'PUT', 'id' => 'form-obras-asignar-usuario', 'class' => 'form-horizontal']) !!}
+            @endif
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12 div-input required">
+                            <div class="col-md-8 div-input required">
                                 <label for="usuario_id">Usuario</label>
                                 <select class="form-control select2" id="_usuario_id" name="usuario_id" required autocomplete="off">
-                                    @foreach ($usuariosParaAsignar as $usuario)
-                                        <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                    @if (isset($obra_id))
+                                        @foreach ($usuariosParaAsignar as $usuario)
+                                            <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="{{ $registro->usuario->id }}">{{ $registro->usuario->name }}</option>
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="col-md-4 div-input required">
+                                <label for="usuario_id">Status</label>
+                                <select class="form-control select2" id="_status" name="status" required autocomplete="off">
+                                    @foreach (config('valores.status_usuarios') as $status)
+                                        <option {{ $registro->status == $status ? "selected" : "" }} value="{{ $status }}">{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -29,7 +45,9 @@
                     <button type="submit" class="btn btn-primary">Asignar usuario</button>
                 </div>
 
-                <input type="hidden" name="obra_id" value="{{ $obra_id }}">
+                @isset ($obra_id)
+                    <input type="hidden" name="obra_id" value="{{ $obra_id }}">}
+                @endisset
             {!! Form::close() !!}
         </div>
     </div>

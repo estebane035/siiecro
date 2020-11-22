@@ -77,7 +77,10 @@ class ObrasController extends Controller
                                         ->leftJoin('obras__responsables_asignados as ora',  'ora.obra_id',  'obras.id')
                                         ->where(function($query){
                                             $query->orWhere('obras.area_id', Auth::user()->area_id ?? 0);
-                                            $query->orWhere('oua.usuario_id', Auth::id());
+                                            $query->orWhere(function($query2){
+                                                $query2->where('oua.usuario_id', Auth::id());
+                                                $query2->where('oua.status', "Activo");
+                                            });
                                             $query->orWhere('ora.usuario_id', Auth::id());
                                         });
         }
