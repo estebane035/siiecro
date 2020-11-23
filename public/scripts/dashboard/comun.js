@@ -243,3 +243,27 @@ function _inicializarTooltips(){
         $(this).tooltip();
     });
 }
+
+function _llenarSelect2Estatico(id, url, parametros, limpiar = true, clear = true){
+    $.ajax({
+        type: "GET",
+        dataType: 'JSON',
+        data: parametros,
+        url: url,
+        success: function(data){
+            if(limpiar){
+               $(id).empty().trigger("change"); 
+            }
+
+            $(id).select2({
+                data:           data,
+                allowClear:     clear,
+                placeholder:    "Seleccione una opción",
+                debug:          true,
+            });
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            _errorEjecucion(xhr);
+        }
+    })
+}

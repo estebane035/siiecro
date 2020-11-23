@@ -15,19 +15,19 @@ jQuery(document).ready(function($) {
 
 function crear(){
   _mostrarFormulario("/dashboard/usuarios/create", //Url solicitud de datos
-                    "#modal-1", //Div que contendra el modal
-                    "#modal-crear", //Nombre modal
-                    "#name", //Elemento al que se le dara focus una vez cargado el modal
-                    function(){
+                      "#modal-1", //Div que contendra el modal
+                      "#modal-crear", //Nombre modal
+                      "#name", //Elemento al que se le dara focus una vez cargado el modal
+                      function(){
 
-                    }, //Funcion para el success
-                    "#form-usuarios", //ID del Formulario
-                    "#carga-agregar", //Loading de guardar datos de formulario
-                    "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
-                    function(){
-                        _ocultarModal("#modal-crear", function(){
-							_recargarTabla("#dt-datos");
-						});
+                      }, //Funcion para el success
+                      "#form-usuarios", //ID del Formulario
+                      "#carga-agregar", //Loading de guardar datos de formulario
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      function(){
+                          _ocultarModal("#modal-crear", function(){
+  							         _recargarTabla("#dt-datos");
+  				            });
                     });//Funcion en caso de guardar correctamente);
 }
 

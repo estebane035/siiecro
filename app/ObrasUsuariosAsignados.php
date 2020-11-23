@@ -9,7 +9,8 @@ class ObrasUsuariosAsignados extends Model
     protected $table = 'obras__usuarios_asignados';
     protected $fillable = [
     	'obra_id',
-    	'usuario_id'
+    	'usuario_id',
+        'status'
     ];
 
     public function obra() {

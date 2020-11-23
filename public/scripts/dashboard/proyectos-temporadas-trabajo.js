@@ -5,8 +5,9 @@ jQuery(document).ready(function($) {
 			"#carga-dt", // ID elemento del progreso
 			"/dashboard/proyectos/temporadas-trabajo/carga/" + proyecto_id, // URL datos
 			[
-				{ data: "año",        width: "85%"},
-				{ data: "acciones",   width: "15%", 	searchable: false, 	orderable: false},
+        { data: "año",                width: "50%"},
+        { data: "numero_temporada",   width: "35%"},
+				{ data: "acciones",           width: "15%", 	searchable: false, 	orderable: false},
 			], // Columnas
 		);
 });
@@ -22,7 +23,9 @@ function crear(proyecto_id){
                         language:       'es',
                         format:         'yyyy',
                         minViewMode:    'years',
-
+                      });
+                      $("#numero_temporada").select2({
+                        placeholder: "Seleccione una opción"
                       });
                     }, //Funcion para el success
                     "#form-temporadas-trabajo", //ID del Formulario
@@ -40,13 +43,15 @@ function editar(id)
     _mostrarFormulario("/dashboard/proyectos/temporadas-trabajo/"+id+"/edit/", //Url solicitud de datos
                     "#modal-1", //Div que contendra el modal
                     "#modal-crear", //Nombre modal
-                    "#año", //Elemento al que se le dara focus una vez cargado el modal
+                    "", //Elemento al que se le dara focus una vez cargado el modal
                     function(){
                       $("#año").datepicker({
                         language:       'es',
                         format:         'yyyy',
                         minViewMode:    'years',
-
+                      });
+                      $("#numero_temporada").select2({
+                        placeholder: "Seleccione una opción"
                       });
                     }, //Funcion para el success
                     "#form-temporadas-trabajo", //ID del Formulario

@@ -18,6 +18,7 @@ use App\ObrasSolicitudesAnalisis;
 use App\ObrasSolicitudesAnalisisMuestras;
 use App\ObrasSolicitudesAnalisisTipoAnalisis;
 use App\ObrasSolicitudesAnalisisImagenesEsquema;
+use App\ObrasTemporadasTrabajoAsignadas;
 use App\ObrasUsuariosAsignados;
 // use App\User;
 
@@ -26,20 +27,41 @@ class ObrasSolicitudesAnalisisController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('VerificarPermiso:captura_de_solicitud_analisis');
+        $this->middleware('VerificarPermiso:administrar_solicitudes_analisis',     [
+                                                                                    "only"  =>  [
+                                                                                                    "modalAprobarSolicitudAnalisis",
+                                                                                                    "aprobarSolicitudAnalisis",
+                                                                                                    "modalRechazarSolicitudAnalisis",
+                                                                                                    "rechazarSolicitudAnalisis",
+                                                                                                    "modalEnRevisionSolicitudAnalisis",
+                                                                                                    "enRevisionSolicitudAnalisis"
+                                                                                                ]
+                                                                                ]);
+
+        $this->middleware('VerificarPermiso:eliminar_solicitud_analisis',       [
+                                                                                    "only"  =>  [
+                                                                                                    "eliminar",
+                                                                                                    "destroy"
+                                                                                                ]
+                                                                                ]);
     }
     
 ###### SOLICITUDES ANALISIS ##################################################################################
-    public function cargarTabla(Request $request, $obra_id)
-    {
+    public function cargarTabla(Request $request, $obra_id){
         $registros      =   ObrasSolicitudesAnalisis::selectRaw('
                                                                     obras__solicitudes_analisis.id,
                                                                     obras__solicitudes_analisis.tecnica,
                                                                     obras__solicitudes_analisis.fecha_intervencion,
                                                                     obras__solicitudes_analisis.estatus,
                                                                     obras__solicitudes_analisis.motivo_de_rechazo,
-                                                                    users.name
+                                                                    users.name,
+                                                                    proyecto_temporada.año                  as año_proyecto_temporada,
+                                                                    proyecto_temporada.numero_temporada     as numero_proyecto_temporada
                                                                 ')
                                                     ->join('users', 'users.id','=', 'obras__solicitudes_analisis.obra_usuario_asignado_id')
+                                                    ->join('obras__temporadas_trabajo_asignadas as temporada_asignada', 'temporada_asignada.id', 'obras__solicitudes_analisis.obra_temporada_trabajo_asignada_id')
+                                                    ->join('proyectos__temporadas_trabajo as proyecto_temporada', 'proyecto_temporada.id', 'temporada_asignada.proyecto_temporada_trabajo_id')
                                                     ->where('obras__solicitudes_analisis.obra_id', '=', $obra_id)
                                                     ->get();
 
@@ -65,34 +87,56 @@ class ObrasSolicitudesAnalisisController extends Controller
 
                             return $fecha = '<span class="'.$label_estatus.'" mi-tooltip="'.$registro->estatus.'. '.$registro->motivo_de_rechazo.'"><strong>'.$registro->fecha_intervencion.'</strong></span>';
                         })
+                        ->addColumn('temporada_trabajo', function($registro){
+                            return $registro->numero_proyecto_temporada." [".$registro->año_proyecto_temporada."]";
+                        })
                         ->addColumn('acciones', function($registro){
-                            $muestra        = '';
-                            $editar         = '';
-                            $eliminar       = '';
-                            $aprobar        = '';
-                            $rechazar       = '';
-                            $revision       = '';
+                            $muestra            =   '';
+                            $editar             =   '';
+                            $eliminar           =   '';
+                            $aprobar            =   '';
+                            $rechazar           =   '';
+                            $revision           =   '';
 
                             if ($registro->estatus == 'Rechazada') {
-                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
-                                // $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
-                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
-                                $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision solicitud de analisis"></i>';
+                                $muestra        =   '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
+                                // $editar      =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
+                                
+                                if(Auth::user()->rol->eliminar_solicitud_analisis){
+                                    $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
+                                }
+
+                                if(Auth::user()->rol->administrar_solicitudes_analisis){
+                                    $revision   =   '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision solicitud de analisis"></i>';
+                                }
                             }
                             elseif ($registro->estatus == 'Aprobada') {
-                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
-                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
-                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
-                                // $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Aprobar solicitud de analisis"></i>';
-                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar solicitud de analisis"></i>';
+                                $muestra        =   '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
+                                $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
+
+                                if(Auth::user()->rol->eliminar_solicitud_analisis){
+                                    $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
+                                }
+
+                                // $aprobar     =   '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Aprobar solicitud de analisis"></i>';
+
+                                if(Auth::user()->rol->administrar_solicitudes_analisis){
+                                    $rechazar   =   '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar solicitud de analisis"></i>';
+                                }
                             }
                             else{
-                                $muestra    = '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
-                                $editar     = '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
-                                $eliminar   = '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
-                                $aprobar    = '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar solicitud de analisis"></i>';
-                                $rechazar   = '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar solicitud de analisis"></i>';
-                                // $revision   = '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision solicitud de analisis"></i>';
+                                $muestra        =   '<i onclick="verMuestras('.$registro->id.')" class="fa fa-search fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Ver todas las muestras"></i>';
+                                $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar solicitud de analisis"></i>';
+
+                                if(Auth::user()->rol->eliminar_solicitud_analisis){
+                                    $eliminar   =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar solicitud de analisis"></i>';
+                                }
+
+                                if(Auth::user()->rol->administrar_solicitudes_analisis){
+                                    $aprobar    =   '<i onclick="aprobarSolicitudAnalisis('.$registro->id.')" class="fa fa-check-square-o fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Aprobar solicitud de analisis"></i>';
+                                    $rechazar   =   '<i onclick="rechazarSolicitudAnalisis('.$registro->id.')" class="fa fa-ban fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Rechazar solicitud de analisis"></i>';
+                                }
+                                // $revision    =   '<i onclick="ponerEnRevisionSolicitudAnalisis('.$registro->id.')" class="fa fa-history fa-lg m-r-sm pointer inline-block disabled" aria-hidden="true" mi-tooltip="Poner en revision solicitud de analisis"></i>';
                             }
 
                             return $muestra.$aprobar.$rechazar.$revision.$editar.$eliminar;
@@ -101,20 +145,22 @@ class ObrasSolicitudesAnalisisController extends Controller
                         ->make('true');
     }
 
-    public function create(Request $request, $id)
-    {
-        $registro                   = new ObrasSolicitudesAnalisis;
+    public function create(Request $request, $id){
+        $registro                       =   new ObrasSolicitudesAnalisis;
         
-        $responsables_intervencion  = ObrasUsuariosAsignados::selectRaw('
-                                                                        users.id,
-                                                                        users.name
-                                                                        ')
-                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
-                                                            ->where('users.es_responsable_intervencion', '=', 'si')
-                                                            ->where('obras__usuarios_asignados.obra_id', '=', $id)
-                                                            ->get();
+        $responsables_intervencion      =   ObrasUsuariosAsignados::selectRaw('
+                                                                                users.id,
+                                                                                users.name
+                                                                            ')
+                                                                    ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                                    ->where('users.es_responsable_intervencion', '=', 'si')
+                                                                    ->where('obras__usuarios_asignados.obra_id', '=', $id)
+                                                                    ->get();
 
-        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
+        $temporadasTrabajoAsignadas     =   ObrasTemporadasTrabajoAsignadas::where('obra_id', $id)
+                                                                            ->get();
+
+        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion, 'temporadasTrabajoAsignadas' => $temporadasTrabajoAsignadas]);
     }
 
     public function store(Request $request)
@@ -134,17 +180,20 @@ class ObrasSolicitudesAnalisisController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $registro                   = ObrasSolicitudesAnalisis::findOrFail($id);
-        $responsables_intervencion  = ObrasUsuariosAsignados::selectRaw('
-                                                                        users.id,
-                                                                        users.name
-                                                                        ')
-                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
-                                                            ->where('users.es_responsable_intervencion', '=', 'si')
-                                                            ->where('obras__usuarios_asignados.id', '=', $id)
-                                                            ->get();
+        $registro                       = ObrasSolicitudesAnalisis::findOrFail($id);
+        $responsables_intervencion      = ObrasUsuariosAsignados::selectRaw('
+                                                                                users.id,
+                                                                                users.name
+                                                                            ')
+                                                                ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                                ->where('users.es_responsable_intervencion', '=', 'si')
+                                                                ->where('obras__usuarios_asignados.id', '=', $registro->obra_id)
+                                                                ->get();
+
+        $temporadasTrabajoAsignadas     =   ObrasTemporadasTrabajoAsignadas::where('obra_id', $registro->obra_id)
+                                                                            ->get();
                                                             
-        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion]);
+        return view('dashboard.obras.detalle.solicitudes-analisis.agregar', ["registro" => $registro, 'responsables_intervencion' => $responsables_intervencion, "temporadasTrabajoAsignadas" => $temporadasTrabajoAsignadas]);
     }
 
     public function update(Request $request, $id)

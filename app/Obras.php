@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Cadenas;
 use Archivos;
+use Auth;
 
 class Obras extends Model
 {
@@ -20,6 +21,7 @@ class Obras extends Model
         'tipo_bien_cultural_id',
         'area_id',
         'responsable_id',
+        'proyecto_id',
         'nombre',
         'autor',
         'cultura',
@@ -155,6 +157,10 @@ class Obras extends Model
         return $this->hasOne('App\Areas', 'id', 'area_id');
     }
 
+    public function proyecto() {
+        return $this->hasOne('App\Proyectos', 'id', 'proyecto_id');
+    }
+
     public function responsables_asignados() {
         return $this->hasManyThrough(
             'App\User',
@@ -163,6 +169,17 @@ class Obras extends Model
             'id', // Llave foranea de segunda tabla con tercera tabla
             'id', // llave foranea de segunda tabla con primera tabla
             'usuario_id' // llave foranea de tercera tabla con segunda tabla
+        );
+    }
+
+    public function temporadas_trabajo_asignadas() {
+        return $this->hasManyThrough(
+            'App\ProyectosTemporadasTrabajo',
+            'App\ObrasTemporadasTrabajoAsignadas',
+            'obra_id', // Llave foranea de primer tabla con segunda tabla
+            'id', // Llave foranea de segunda tabla con tercera tabla
+            'id', // llave foranea de segunda tabla con primera tabla
+            'proyecto_temporada_trabajo_id' // llave foranea de tercera tabla con segunda tabla
         );
     }
 
@@ -278,5 +295,27 @@ class Obras extends Model
         }
 
         $this->save();
+    }
+
+    public static function buscarObraValidandoPermisos($obra_id){
+        $obra           =   Obras::selectRaw("obras.*")
+                                    ->where('obras.id', $obra_id);
+
+        if(!Auth::user()->rol->acceso_a_lista_solicitudes_obras){
+
+            $obra       =   $obra->leftJoin('obras__usuarios_asignados as oua',         'oua.obra_id',  'obras.id')
+                                    ->leftJoin('obras__responsables_asignados as ora',  'ora.obra_id',  'obras.id')
+                                    ->where(function($query){
+                                        $query->orWhere('obras.area_id', Auth::user()->area_id ?? 0);
+                                        $query->orWhere(function($query2){
+                                            $query2->where('oua.usuario_id', Auth::id());
+                                            $query2->where('oua.status', "Activo");
+                                        });
+                                        $query->orWhere('ora.usuario_id', Auth::id());
+                                    });
+        }
+
+        $obra           =   $obra->first();
+        return $obra;
     }
 }

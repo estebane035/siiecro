@@ -14,9 +14,18 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12 div-input required">
+                            <div class="col-md-5 div-input required">
                                 <label for="nombre">Año</label>
                                 <input type="text" class="form-control" id="año" name="año" value="{{ $registro->año }}" required autocomplete="off">
+                            </div>
+                            <div class="col-md-7 div-input required">
+                                <label for="nombre">Número de temporada</label>
+                                <select class="form-control select2 full-width" id="numero_temporada" name="numero_temporada" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach (config('valores.numeros_ordinarios') as $numero)
+                                        <option {{ $registro->numero_temporada == $numero ? "selected" : "" }} value="{{ $numero }}">{{ $numero }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

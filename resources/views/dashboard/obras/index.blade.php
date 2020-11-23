@@ -13,6 +13,7 @@
         </ol>
     </div>
     <div class="col-sm-8">
+        <button class="btn btn-outline btn-success dim m-t-md pull-right" type="button" onclick="importarObras();">Importar <i class="fa fa-upload"></i></button>
     </div>
 @endsection
 

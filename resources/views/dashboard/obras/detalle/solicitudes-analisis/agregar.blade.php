@@ -24,12 +24,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 div-input required">
+                            <div class="col-md-6 div-input required">
                                 <label for="obra_usuario_asignado_id">Responsable</label>
                                 <select class="form-control select2" id="obra_usuario_asignado_id" name="obra_usuario_asignado_id" required autocomplete="off">
                                     <option value=""></option>
                                     @foreach ($responsables_intervencion as $responsable_intervencion)
                                         <option {{ $responsable_intervencion->id == $registro->obra_usuario_asignado_id ? "selected" : "" }} value="{{ $responsable_intervencion->id }}">{{ $responsable_intervencion->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6 div-input required">
+                                <label for="obra_temporada_trabajo_asignada_id">Temporada trabajo</label>
+                                <select class="form-control select2" id="obra_temporada_trabajo_asignada_id" name="obra_temporada_trabajo_asignada_id" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach ($temporadasTrabajoAsignadas as $temporadaTrabajoAsignada)
+                                        <option {{ $temporadaTrabajoAsignada->id == $registro->obra_temporada_trabajo_asignada_id ? "selected" : "" }} value="{{ $temporadaTrabajoAsignada->id }}">{{ $temporadaTrabajoAsignada->temporada_trabajo->numero_temporada }} [{{ $temporadaTrabajoAsignada->temporada_trabajo->año }}]</option>
                                     @endforeach
                                 </select>
                             </div>

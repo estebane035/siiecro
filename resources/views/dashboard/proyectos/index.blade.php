@@ -33,7 +33,9 @@
                         <table class="table table-striped" id="dt-datos">
                             <thead>
                                 <tr>
+                                    <th>Folio</th>
                                     <th>Nombre</th>
+                                    <th>Área</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

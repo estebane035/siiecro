@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Areas;
 use App\Proyectos;
 
 use DataTables;
@@ -18,6 +19,7 @@ class ProyectosController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
+        $this->middleware('VerificarPermiso:captura_de_catalogos_avanzada', ['except' => ["select2"]]);
     }
     
     public function index(){
@@ -27,9 +29,16 @@ class ProyectosController extends Controller
     }
 
     public function cargarTabla(Request $request){
-        $registros      =   Proyectos::all();
+        $registros      =   Proyectos::selectRaw("
+                                                    proyectos.*,
+                                                    a.nombre    as nombre_area
+                                                ")
+                                        ->join('areas as a', 'a.id', 'proyectos.area_id');
 
         return DataTables::of($registros)
+                        ->addColumn('folio', function($registro){
+                            return $registro->etiquetaFolio();
+                        })
                         ->addColumn('acciones', function($registro){
                             $editar         =   '<i onclick="editar('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Editar"></i>';
                             $eliminar       =   '<i onclick="eliminar('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true" mi-tooltip="Eliminar"></i>';
@@ -37,13 +46,14 @@ class ProyectosController extends Controller
 
                             return $ver.$editar.$eliminar;
                         })
-                        ->rawColumns(['acciones'])
+                        ->rawColumns(['folio', 'acciones'])
                         ->make('true');
     }
 
     public function create(Request $request){
         $registro   =   new Proyectos;
-        return view('dashboard.proyectos.agregar', ["registro" => $registro]);
+        $areas      =   Areas::all();
+        return view('dashboard.proyectos.agregar', ["registro" => $registro, "areas" => $areas]);
     }
 
     public function store(Request $request){
@@ -53,10 +63,10 @@ class ProyectosController extends Controller
         	$request->merge(["seo" => "temp"]);
 
             $response 		= 	BD::crear('Proyectos', $request);
-            
+
             // Si se guardo bien generamos el seo
-            if($response->status() == 200 || $response->status() == 201){
-            	$proyecto 	= 	Proyectos::find($response->getOriginalContent()->id);
+            if(($response->status() == 200 || $response->status() == 201) && !$response->getOriginalContent()["error"]){
+            	$proyecto 	= 	Proyectos::find($response->getOriginalContent()["id"]);
             	$proyecto->generaSeo();
             }
 
@@ -68,7 +78,8 @@ class ProyectosController extends Controller
 
     public function edit(Request $request, $id){
         $registro   =   Proyectos::findOrFail($id);
-        return view('dashboard.proyectos.agregar', ["registro" => $registro]);
+        $areas      =   Areas::all();
+        return view('dashboard.proyectos.agregar', ["registro" => $registro, "areas" => $areas]);
     }
 
     public function update(Request $request, $id){
@@ -108,5 +119,43 @@ class ProyectosController extends Controller
         $titulo     =   "Temporadas de trabajo del proyecto ".$proyecto->nombre;
 
         return view('dashboard.proyectos.temporadas-trabajo.index', ["titulo" => $titulo, "proyecto" => $proyecto]);
+    }
+
+    public function select2(Request $request){
+        if($request->ajax()){
+            $area_id            =   $request->input('area_id');
+            $forma_ingreso      =   $request->input('forma_ingreso');
+
+            $proyectos          =   Proyectos::selectRaw("proyectos.*");
+
+            if($area_id){
+                $proyectos      =   $proyectos->where('area_id', $area_id);
+            }
+
+            if($forma_ingreso){
+                $proyectos      =   $proyectos->where('forma_ingreso', $forma_ingreso);
+            }
+
+            $proyectos          =   $proyectos->get();
+
+            $array              =   [];
+
+            $a                  =   [];
+            $a["id"]            =   "";
+            $a["text"]          =   "";
+            array_push($array, $a);
+
+            foreach ($proyectos as $proyecto) {
+                $a              =   [];
+                $a["id"]        =   $proyecto->id;
+                $a["text"]      =   $proyecto->nombre;
+
+                array_push($array, $a);
+            }
+
+            return json_encode($array);
+        }
+
+        return Response::json(["mensaje" => "Petición incorrecta"], 500);
     }
 }

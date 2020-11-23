@@ -17,15 +17,33 @@ function asignarUsuario(){
                       "#modal-crear", //Nombre modal
                       "#name", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
-                        $("#_usuario_id").select2();
+                        $("#_usuario_id, #_status").select2();
                       }, //Funcion para el success
                       "#form-obras-asignar-usuario", //ID del Formulario
                       "#carga-agregar", //Loading de guardar datos de formulario
                       "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
                       function(){
                         _ocultarModal("#modal-crear", function(){
-            							_recargarTabla("#dt-usuarios-asignados");
-            						});
+                          _recargarTabla("#dt-usuarios-asignados");
+                        });
+                      });//Funcion en caso de guardar correctamente);
+}
+
+function editarUsuarioAsignado(usuario_asignado_id){
+  _mostrarFormulario("/dashboard/obras/usuarios-asignados/" + usuario_asignado_id + "/edit", //Url solicitud de datos
+                      "#modal-1", //Div que contendra el modal
+                      "#modal-crear", //Nombre modal
+                      "#name", //Elemento al que se le dara focus una vez cargado el modal
+                      function(){
+                        $("#_usuario_id, #_status").select2();
+                      }, //Funcion para el success
+                      "#form-obras-asignar-usuario", //ID del Formulario
+                      "#carga-agregar", //Loading de guardar datos de formulario
+                      "#div-notificacion", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                      function(){
+                        _ocultarModal("#modal-crear", function(){
+                          _recargarTabla("#dt-usuarios-asignados");
+                        });
                       });//Funcion en caso de guardar correctamente);
 }
 

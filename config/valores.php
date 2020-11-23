@@ -21,6 +21,10 @@ return 	[
 												"Confirmado",
 												"Aproximado"
 											],
+			"status_usuarios" 			=> 	[
+												"Activo",
+												"Inactivo"
+											],
 			"obras_formas_ingreso" 		=> 	[
 												"INT",
 												"EXT"
@@ -30,9 +34,61 @@ return 	[
 												"Aprobada",
 												"Rechazada"
 											],
-			"status" 					=> 	[
+			"status_abierto_cerrado" 	=> 	[
 												"Abierto",
 												"Cerrado"
+											],
+			"numeros_ordinarios" 		=> 	[
+												"Primera",
+												"Segunda",
+												"Tercera",
+												"Cuarta",
+												"Quinta",
+												"Sexta",
+												"Séptima",
+												"Octava",
+												"Novena",
+												"Décima",
+												"Décima Primera",
+												"Décima Tercera",
+												"Décima Cuarta",
+												"Décima Quinta",
+												"Décima Sexta",
+												"Décima Séptima",
+												"Décima Octava",
+												"Décima Novena",
+												"Décima Décima",
+												"Vigesima",
+												"Vigesima Primera",
+												"Vigesima Tercera",
+												"Vigesima Cuarta",
+												"Vigesima Quinta",
+												"Vigesima Sexta",
+												"Vigesima Séptima",
+												"Vigesima Octava",
+												"Vigesima Novena",
+												"Vigesima Décima",
+												"Trigésima",
+												"Trigésima Primera",
+												"Trigésima Tercera",
+												"Trigésima Cuarta",
+												"Trigésima Quinta",
+												"Trigésima Sexta",
+												"Trigésima Séptima",
+												"Trigésima Octava",
+												"Trigésima Novena",
+												"Trigésima Décima",
+												"Cuadragésima",
+												"Cuadragésima Primera",
+												"Cuadragésima Tercera",
+												"Cuadragésima Cuarta",
+												"Cuadragésima Quinta",
+												"Cuadragésima Sexta",
+												"Cuadragésima Séptima",
+												"Cuadragésima Octava",
+												"Cuadragésima Novena",
+												"Cuadragésima Décima",
+												"Quincuagésima",
 											]
 		];
 

@@ -36,13 +36,15 @@
                                         <div class="ibox-title" style="min-height: 65px;">
                                             <h5>Datos generales de identificación</h5>
 
-                                            <div id="btn-group-habilitar-edicion">
-                                                <button onclick="toggleEdicionDatosGenerales(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
-                                            </div>
-                                            <div id="btn-group-editar" class="hidden">
-                                                <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
-                                                <button onclick="toggleEdicionDatosGenerales(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
-                                            </div>
+                                            @if (Auth::user()->rol->edicion_de_registro_basica)
+                                                <div id="btn-group-habilitar-edicion">
+                                                    <button onclick="toggleEdicionDatosGenerales(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
+                                                </div>
+                                                <div id="btn-group-editar" class="hidden">
+                                                    <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
+                                                    <button onclick="toggleEdicionDatosGenerales(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
+                                                </div>
+                                            @endif
                                             
                                         </div>
                                         <div class="ibox-content">
@@ -55,7 +57,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6 div-input required">
                                                             <label for="nombre">Nombre</label>
-                                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $obra->nombre }}" required autocomplete="off" disabled no-editar>
+                                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $obra->nombre }}" required autocomplete="off" disabled>
                                                         </div>
 
                                                         <div class="col-md-3 div-input required">
@@ -189,13 +191,17 @@
                                     <div class="row m-b-md">
                                         <div class="col-md-8" id="div-respuesta-datos-identificacion"></div>
                                         <div class="col-md-4">
-                                            <div id="btn-group-habilitar-edicion-datos-identificacion">
-                                                <button onclick="toggleEdicionDatosIdentificacion(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
-                                            </div>
-                                            <div id="btn-group-editar-datos-identificacion" class="hidden">
-                                                <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
-                                                <button onclick="toggleEdicionDatosIdentificacion(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
-                                            </div>
+
+                                            @if (Auth::user()->rol->edicion_de_registro_avanzada_1 || Auth::user()->rol->edicion_de_registro_avanzada_2)
+                                                <div id="btn-group-habilitar-edicion-datos-identificacion">
+                                                    <button onclick="toggleEdicionDatosIdentificacion(true);" type="button" class="btn btn-primary pull-right">Editar</button> 
+                                                </div>
+                                                <div id="btn-group-editar-datos-identificacion" class="hidden">
+                                                    <button type="submit" class="btn btn-primary pull-right m-l-sm">Guardar cambios</button> 
+                                                    <button onclick="toggleEdicionDatosIdentificacion(false);" type="button" class="btn btn-danger pull-right">Cancelar edición</button> 
+                                                </div>
+                                            @endif
+                                            
                                         </div>    
                                     </div>
                                     <hr>
@@ -249,6 +255,28 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="row {{ is_null($obra->area_id) ? "hidden" : "" }}" id="div-proyecto">
+                                                <div class="col-md-12 div-input">
+                                                    <label for="area_id">Proyecto</label>
+                                                    <select class="form-control select2 full-width" id="proyecto_id" name="proyecto_id" autocomplete="off" disabled>
+                                                        @if ($obra->proyecto)
+                                                            <option value="{{ $obra->proyecto_id }}">{{ $obra->proyecto->nombre }}</option>
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row {{ is_null($obra->area_id) ? "hidden" : "" }}" id="div-temporadas-trabajo">
+                                                <div class="col-md-12 div-input">
+                                                    <label for="_temporadas_trabajo">Temporadas de trabajo</label>
+                                                    <select class="form-control select2 full-width" id="_temporadas_trabajo" name="_temporadas_trabajo[]" autocomplete="off" disabled multiple="multiple">
+                                                        @foreach ($obra->temporadas_trabajo_asignadas as $temporada_trabajo)
+                                                            <option selected value="{{ $temporada_trabajo->id }}">{{ $temporada_trabajo->numero_temporada }} [{{ $temporada_trabajo->año }}]</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div class="row">
                                                 <div class="col-md-6 div-input required">
                                                     <label for="fecha_ingreso">Fecha ingreso</label>
@@ -262,7 +290,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 div-input">
                                                     <label for="area_id">Recibió</label>
-                                                    <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" autocomplete="off" disabled>
+                                                    <select class="form-control select2 full-width" id="usuario_recibio_id" name="usuario_recibio_id" autocomplete="off" disabled {{ Auth::user()->rol->edicion_de_registro_avanzada_2 ? "" : "no-editar" }}>
                                                         <option value=""></option>
                                                         @foreach ($usuariosPuedenRecibirObras as $usuario)
                                                             <option {{ $obra->usuario_recibio_id == $usuario->id ? "selected" : "" }} value="{{ $usuario->id }}">{{ $usuario->name }}</option>
@@ -271,7 +299,7 @@
                                                 </div>
                                                 <div class="col-md-6 div-input">
                                                     <label for="fecha_salida">Entregó</label>
-                                                    <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" disabled>
+                                                    <input type="text" class="form-control" id="persona_entrego" name="persona_entrego" value="{{ $obra->persona_entrego }}" autocomplete="off" disabled {{ Auth::user()->rol->edicion_de_registro_avanzada_2 ? "" : "no-editar" }}>
                                                 </div>
                                             </div>
 
@@ -402,7 +430,11 @@
                     <li class="active"><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-restauracion-conservacion">Restauración/Conservación</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
+
+                    @if (Auth::user()->rol->captura_de_solicitud_analisis)
+                        <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
+                    @endif
+                    
                     <li class=""><a data-toggle="tab" href="#tab-resultado-analisis">Resultado de análisis</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-informes">Informes</a></li>
                 </ul>
@@ -425,11 +457,13 @@
                         </div>
                     </div>
 
-                    <div id="tab-solicitudes-analisis" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.solicitudes-analisis.index')
+                    @if (Auth::user()->rol->captura_de_solicitud_analisis)
+                        <div id="tab-solicitudes-analisis" class="tab-pane">
+                            <div class="panel-body">
+                                @include('dashboard.obras.detalle.solicitudes-analisis.index')
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div id="tab-resultado-analisis" class="tab-pane">
                         <div class="panel-body">

@@ -17,6 +17,7 @@
                             <tr>
                                 <th>Fecha de Intervención</th>
                                 <th>Responsable</th>
+                                <th>Temporada trabajo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>

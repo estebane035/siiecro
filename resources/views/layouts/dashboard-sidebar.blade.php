@@ -12,11 +12,7 @@
                         </span> 
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
-                        <li><a href="mailbox.html">Mailbox</a></li>
-                        <li class="divider"></li>
-                        <li><a href="login.html">Logout</a></li>
+                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -35,29 +31,36 @@
                     <li class="{{ $menu == "obras" ? "active" : "" }}">
                         <a href="{{ route('dashboard.obras.index') }}">Listado</a>
                     </li>
-                    <li>
-                        <a href="#">Catálogos <span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level collapse" style="height: 0px;">
-                            <li><a href="{{ route('dashboard.obras-epoca.index') }}">Época</a></li>
-                            <li><a href="{{ route('dashboard.obras-temporalidad.index') }}">Temporalidad</a></li>
-                            <li><a href="{{ route('dashboard.obras-tipo-bien-cultural.index') }}">Tipo Bien Cultural</a></li>
-                            <li><a href="{{ route('dashboard.obras-tipo-objeto.index') }}">Tipo Objeto</a></li>
-                        </ul>
-                    </li>
+                    @if (Auth::user()->rol->captura_de_catalogos_basica || Auth::user()->rol->captura_de_catalogos_avanzada)
+                        <li>
+                            <a href="#">Catálogos <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level collapse" style="height: 0px;">
+                                <li><a href="{{ route('dashboard.obras-epoca.index') }}">Época</a></li>
+                                <li><a href="{{ route('dashboard.obras-temporalidad.index') }}">Temporalidad</a></li>
+                                <li><a href="{{ route('dashboard.obras-tipo-bien-cultural.index') }}">Tipo Bien Cultural</a></li>
+                                <li><a href="{{ route('dashboard.obras-tipo-objeto.index') }}">Tipo Objeto</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </li>
-            <li class="{{ $menu == "areas" ? "active" : "" }}">
-                <a href="{{ route('dashboard.areas.index') }}"><i class="fa fa-folder"></i> <span class="nav-label">Áreas de la ECRO</span></a>
-            </li>
-            <li class="{{ $menu == "proyectos" ? "active" : "" }}">
-                <a href="{{ route('dashboard.proyectos.index') }}"><i class="fa fa-bookmark"></i> <span class="nav-label">Proyectos de la ECRO</span></a>
-            </li>
-            <li class="{{ $menu == "usuarios" ? "active" : "" }}">
-                <a href="{{ route('dashboard.usuarios.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Usuarios</span></a>
-            </li>
-            <li class="{{ $menu == "roles" ? "active" : "" }}">
-                <a href="{{ route('dashboard.roles.index') }}"><i class="fa fa-lock"></i> <span class="nav-label">Roles</span></a>
-            </li>
+            @if (Auth::user()->rol->captura_de_catalogos_avanzada)
+                <li class="{{ $menu == "areas" ? "active" : "" }}">
+                    <a href="{{ route('dashboard.areas.index') }}"><i class="fa fa-folder"></i> <span class="nav-label">Áreas de la ECRO</span></a>
+                </li>
+                <li class="{{ $menu == "proyectos" ? "active" : "" }}">
+                    <a href="{{ route('dashboard.proyectos.index') }}"><i class="fa fa-bookmark"></i> <span class="nav-label">Proyectos de la ECRO</span></a>
+                </li>
+            @endif
+
+            @if (Auth::user()->rol->creacion_usuarios_permisos)
+                <li class="{{ $menu == "usuarios" ? "active" : "" }}">
+                    <a href="{{ route('dashboard.usuarios.index') }}"><i class="fa fa-user-circle-o"></i> <span class="nav-label">Usuarios</span></a>
+                </li>
+                <li class="{{ $menu == "roles" ? "active" : "" }}">
+                    <a href="{{ route('dashboard.roles.index') }}"><i class="fa fa-lock"></i> <span class="nav-label">Roles</span></a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>
