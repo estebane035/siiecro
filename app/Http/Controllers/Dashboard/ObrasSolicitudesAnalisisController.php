@@ -36,7 +36,7 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                     obras__solicitudes_analisis.tecnica,
                                                                     obras__solicitudes_analisis.fecha_intervencion,
                                                                     obras__solicitudes_analisis.estatus,
-                                                                    -- obras__solicitudes_analisis.motivo_de_rechazo,
+                                                                    obras__solicitudes_analisis.motivo_de_rechazo,
                                                                     users.name
                                                                 ')
                                                     ->join('users', 'users.id','=', 'obras__solicitudes_analisis.obra_usuario_asignado_id')
@@ -313,10 +313,13 @@ class ObrasSolicitudesAnalisisController extends Controller
                                                                             obras__solicitudes_analisis_muestras.informacion_requerida,
                                                                             obras__solicitudes_analisis_muestras.motivo,
                                                                             obras__solicitudes_analisis_muestras.descripcion_muestra,
-                                                                            obras__solicitudes_analisis_muestras.ubicacion
+                                                                            obras__solicitudes_analisis_muestras.ubicacion,
+                                                                            obras__resultados_analisis.solicitudes_analisis_muestras_id
                                                                         ')
                                                             ->join('obras__solicitudes_analisis_tipo_analisis as obras_tipo', 'obras_tipo.id','=', 'obras__solicitudes_analisis_muestras.tipo_analisis_id')
-                                                            ->where('solicitud_analisis_id', '=', $solicitud_analisis_id)->get();
+                                                            ->leftJoin('obras__resultados_analisis', 'obras__resultados_analisis.solicitudes_analisis_muestras_id','=', 'obras__solicitudes_analisis_muestras.id')
+                                                            ->where('solicitud_analisis_id', '=', $solicitud_analisis_id)
+                                                            ->get();
 
         return DataTables::of($registros)
                         ->editColumn('nombre', function($registro){
@@ -327,8 +330,13 @@ class ObrasSolicitudesAnalisisController extends Controller
                         ->addColumn('acciones', function($registro){
                             $editar         =   '<i onclick="editarMuestra('.$registro->id.')" class="fa fa-pencil fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Editar muestra '.$registro->no_muestra.'"></i>';
                             $eliminar       =   '<i onclick="eliminarMuestra('.$registro->id.')" class="fa fa-trash fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Eliminar muestra '.$registro->no_muestra.'"></i>';
+                            
+                            $resultados     = '';
+                            if ($registro->solicitudes_analisis_muestras_id == '') {
+                                $resultados     =   '<i onclick="agregarResultados('.$registro->id.')" class="fa fa-plus fa-lg m-r-sm pointer inline-block" aria-hidden="true"  mi-tooltip="Agregar resultado a la muestra '.$registro->no_muestra.'"></i>';
+                            }
 
-                            return $editar.$eliminar;
+                            return $editar.$eliminar.$resultados;
                         })
                         ->rawColumns(['nombre','acciones'])
                         ->make('true');

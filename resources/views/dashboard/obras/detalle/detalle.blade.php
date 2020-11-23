@@ -433,7 +433,7 @@
 
                     <div id="tab-resultado-analisis" class="tab-pane">
                         <div class="panel-body">
-                            @include('dashboard.obras.detalle.resultado-analisis.index')
+                            @include('dashboard.obras.detalle.resultados-analisis.index')
                         </div>
                     </div>                    
                     
@@ -453,6 +453,7 @@
 
 @section('scripts')
     {!! Html::script('scripts/dashboard/obras/detalle.js') !!}
+    {!! Html::script('scripts/dashboard/obras/resultados-analisis.js') !!}
     {!! Html::script('scripts/dashboard/obras/solicitudes-analisis.js') !!}
     {!! Html::script('scripts/dashboard/obras/usuarios-asignados.js') !!}
 @endsection

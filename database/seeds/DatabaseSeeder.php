@@ -19,5 +19,12 @@ class DatabaseSeeder extends Seeder
         $this->call(ObrasEpocaSeeder::class);
         $this->call(ObrasTemporalidadSeeder::class);
         $this->call(ObrasSolicitudesAnalisisTipoAnalisisSeeder::class);
+
+        $this->call(ObrasFormaObtencionMuestraSeeder::class);
+        $this->call(ObrasTipoMaterialSeeder::class);
+        $this->call(ObrasTipoMaterialInformacionPorDefinirSeeder::class);
+        $this->call(ObrasTipoMaterialInterpretacionParticularSeeder::class);
+        $this->call(ObrasAnalisisARealizarSeeder::class);
+        $this->call(ObrasAnalisisARealizarTecnicaSeeder::class);
     }
 }

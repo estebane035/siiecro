@@ -105,6 +105,39 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::resource('solicitudes-analisis', 						'ObrasSolicitudesAnalisisController');
 	#################################################################################
     
+    ######## OBRAS DETALLE SOLICITUD ANALISIS #######################################
+		Route::post('resultados-analisis/{id}/subir-esquema-muestra', 					'ObrasResultadosAnalisisController@subirImagenEsquemaMuestra');
+		Route::get('resultados-analisis/{id}/eliminar-esquema-muestra', 				'ObrasResultadosAnalisisController@alertaEliminarEsquemaMuestra');
+		Route::delete('resultados-analisis/{id}/eliminar-esquema-muestra', 				'ObrasResultadosAnalisisController@eliminarEsquemaMuestra')->name('obras.eliminar-esquema-muestra-resultados-analisis');
+		Route::get('resultados-analisis/{id}/ver-esquema-muestra', 						'ObrasResultadosAnalisisController@verEsquemaMuestra');
+
+		Route::post('resultados-analisis/{id}/subir-esquema-microfotografia', 			'ObrasResultadosAnalisisController@subirImagenEsquemaMicrofotografia');
+		Route::get('resultados-analisis/{id}/eliminar-esquema-microfotografia', 		'ObrasResultadosAnalisisController@alertaEliminarEsquemaMicrofotografia');
+		Route::delete('resultados-analisis/{id}/eliminar-esquema-microfotografia', 		'ObrasResultadosAnalisisController@eliminarEsquemaMicrofotografia')->name('obras.eliminar-esquema-microfotografia');
+		Route::get('resultados-analisis/{id}/ver-esquema-microfotografia', 				'ObrasResultadosAnalisisController@verEsquemaMicrofotografia');
+
+		// RESULTADOS ANALITICOS
+		Route::get('resultados-analisis/carga-analisis-realizar-resultados/{id}', 		'ObrasResultadosAnalisisController@cargarAnalisisRealizarResultados');
+		
+		Route::get('resultados-analisis/crear-resultado-analitico', 					'ObrasResultadosAnalisisController@crearResultadoAnalitico');
+		Route::post('resultados-analisis/guardar-resultado-analitico', 					'ObrasResultadosAnalisisController@guardarResultadoAnalitico')->name('resultados-analisis.guardar-resultado-analitico');
+		Route::get('resultados-analisis/editar-resultado-analitico/{id}', 				'ObrasResultadosAnalisisController@editarResultadoAnalitico');
+		Route::put('resultados-analisis/actualizar-resultado-analitico/{id}', 			'ObrasResultadosAnalisisController@actualizarResultadoAnalitico')->name('resultados-analisis.actualizar-resultado-analitico');
+		Route::get('resultados-analisis/aviso-eliminar-resultado-analitico/{id}', 		'ObrasResultadosAnalisisController@avisoEliminarResultadoAnalitico');
+		Route::delete('resultados-analisis/destruir-resultado-analitico/{id}', 			'ObrasResultadosAnalisisController@destruirResultadoAnalitico')->name('resultados-analisis.destruir-resultado-analitico');
+		
+		// RESULTADOS ANALITICOS MICROFOTOGRAFIA
+		Route::post('resultados-analisis/{id}/subir-esquema-analiticos-microfotografia', 		'ObrasResultadosAnalisisController@subirImagenEsquemaAnaliticosMicrofotografia');
+		Route::get('resultados-analisis/{id}/eliminar-esquema-analiticos-microfotografia', 		'ObrasResultadosAnalisisController@alertaEliminarEsquemaAnaliticosMicrofotografia');
+		Route::delete('resultados-analisis/{id}/eliminar-esquema-analiticos-microfotografia', 	'ObrasResultadosAnalisisController@eliminarEsquemaAnaliticosMicrofotografia')->name('resultados-analisis.eliminar-esquema-analiticos-microfotografia');
+		Route::get('resultados-analisis/{id}/ver-esquema-analiticos-microfotografia', 			'ObrasResultadosAnalisisController@verEsquemaAnaliticosMicrofotografia');
+		///
+
+		Route::get('resultados-analisis/carga/{id}', 									'ObrasResultadosAnalisisController@cargarTabla');
+		Route::get('resultados-analisis/{id}/eliminar', 								'ObrasResultadosAnalisisController@eliminar');
+		Route::resource('resultados-analisis', 											'ObrasResultadosAnalisisController');
+	#################################################################################
+    
     ######## OBRAS TIPO BIEN CULTURAL ###############################################
 		Route::get('obras-tipo-bien-cultural/carga', 			'ObrasTipoBienCulturalController@cargarTabla');
 		Route::get('obras-tipo-bien-cultural/{id}/eliminar', 	'ObrasTipoBienCulturalController@eliminar');
