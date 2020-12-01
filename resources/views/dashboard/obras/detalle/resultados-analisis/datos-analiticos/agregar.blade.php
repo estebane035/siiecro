@@ -36,11 +36,13 @@
                         <div class="row">
                             <div class="col-md-6 div-input required">
                                 <label for="descripciones">Descripciones</label>
-                                <input type="text" class="form-control" id="descripciones" name="descripciones" value="{{ $registro->descripciones }}" required autocomplete="off">
+                                <textarea class="form-control no-resize" name="descripciones" id="descripciones" rows="6" required autocomplete="off"><?php echo($registro->descripciones); ?></textarea>
+                                {{-- <input type="text" class="form-control" id="descripciones" name="descripciones" value="{{ $registro->descripciones }}" required autocomplete="off"> --}}
                             </div>
                             <div class="col-md-6 div-input required">
                                 <label for="interpretacion">Interpretacion</label>
-                                <input type="text" class="form-control" id="interpretacion" name="interpretacion" value="{{ $registro->interpretacion }}" required autocomplete="off">
+                                <textarea class="form-control no-resize" name="interpretacion" id="interpretacion" rows="6" required autocomplete="off"><?php echo($registro->interpretacion); ?></textarea>
+                                {{-- <input type="text" class="form-control" id="interpretacion" name="interpretacion" value="{{ $registro->interpretacion }}" required autocomplete="off"> --}}
                             </div>
                         </div>
                         <div class="row">
