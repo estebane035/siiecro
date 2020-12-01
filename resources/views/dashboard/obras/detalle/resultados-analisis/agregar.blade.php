@@ -46,14 +46,9 @@
                     @if ($registro != "[]")
                     <div class="form-group ibox">
                         <div class="row">
-                            <div class="col-md-6 div-input required">
+                            <div class="col-md-12 div-input required">
                                 <label for="ubicacion_de_toma_muestra">Ubicación de la toma de muestra</label>
                                 <input type="text" class="form-control" id="ubicacion_de_toma_muestra" name="ubicacion_de_toma_muestra" value="{{ $registro->ubicacion_de_toma_muestra }}" required autocomplete="off">
-                            </div>
-                            
-                            <div class="col-md-6 div-input required">
-                                <label for="indicaciones">Indicaciones</label>
-                                <input type="text" class="form-control" id="indicaciones" name="indicaciones" value="{{ $registro->indicaciones }}" required autocomplete="off">
                             </div>
                         </div>
 

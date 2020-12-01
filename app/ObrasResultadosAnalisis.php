@@ -19,7 +19,6 @@ class ObrasResultadosAnalisis extends Model
         'profesor_responsable_de_analisis',
     	'persona_realiza_analisis',
         'ubicacion_de_toma_muestra',
-    	'indicaciones',
         'descripcion',
         'ruta_acceso_microfotografia',
         'conclusion_general',

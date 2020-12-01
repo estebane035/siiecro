@@ -21,15 +21,12 @@ class CreateObrasResultadosAnalisisTable extends Migration
             $table->integer('informacion_por_definir_id')->unsigned()->nullable();
             $table->integer('interpretacion_particular_id')->unsigned()->nullable();
 
-            // $table->string('lugar_de_Resguardo_muestra');
             $table->date('fecha_analisis');
             $table->string('profesor_responsable_de_analisis');
             $table->string('persona_realiza_analisis');
             $table->string('ubicacion_de_toma_muestra')->nullable();
-            // $table->string('foto_esquema')->comment('ruta de la foto en el servidor, según instrucciones, solo debe ser una'); //ruta de la foto en el servidor, dice que es solo una foto
-            $table->string('indicaciones')->nullable();
             $table->string('descripcion')->nullable();
-            // $table->string('microfotografia')->comment('serán varias fotos, se deja para identificación, pero mejor se realizará abla cruzada'); //serán varias fotos, se deja para identificación, pero mejor se realizará relacion en otra tabla
+
             $table->string('ruta_acceso_microfotografia')->comment('ruta de las fotos en sus pc')->nullable();
             $table->string('conclusion_general')->nullable();
             
