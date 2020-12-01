@@ -15,18 +15,18 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 div-input required">
-                                <label for="fecha_analisis">Fecha del analisis</label>
+                                <label for="fecha_analisis">Fecha del análisis</label>
                                 <input type="text" class="form-control" id="fecha_analisis" name="fecha_analisis" value="{{ $registro->fecha_analisis }}" required autocomplete="off">
                             </div>
                             
                             <div class="col-md-8 div-input required">
-                                <label for="profesor_responsable_de_analisis">Profesor responsable</label>
+                                <label for="profesor_responsable_de_analisis">Asesor científico responsable</label>
                                 <input type="text" class="form-control" id="profesor_responsable_de_analisis" name="profesor_responsable_de_analisis" value="{{ $registro->profesor_responsable_de_analisis }}" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 div-input required">
-                                <label for="persona_realiza_analisis">Persona que analizó</label>
+                                <label for="persona_realiza_analisis">Persona que realizó el análisis</label>
                                 <input type="text" class="form-control" id="persona_realiza_analisis" name="persona_realiza_analisis" value="{{ $registro->persona_realiza_analisis }}" required autocomplete="off">
                             </div>
 
@@ -54,7 +54,7 @@
 
                         <div class="row">
                             <div class="col-md-12 div-input required">
-                                <label for="dropzone-esquema-muestra">Esquema (foto)</label>
+                                <label for="dropzone-esquema-muestra">Esquema</label>
                                 <div class="dropzone" id="dropzone-esquema-muestra">
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
 
                         <div class="row">
                             <div class="col-md-12 div-input required">
-                                <label for="dropzone-esquema-microfotografia">Esquema microfotografía</label>
+                                <label for="dropzone-esquema-microfotografia">Microfotografía</label>
                                 <div class="dropzone" id="dropzone-esquema-microfotografia">
                                 </div>
                             </div>

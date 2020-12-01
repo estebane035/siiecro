@@ -67,7 +67,7 @@
                         @if ($registro != "[]")
                         <div class="row">
                             <div class="col-md-12 div-input required">
-                                <label for="dropzone-esquema-analiticos-microfotografia">Otra microfotografía</label>
+                                <label for="dropzone-esquema-analiticos-microfotografia">Microfotografía</label>
                                 <div class="dropzone " id="dropzone-esquema-analiticos-microfotografia">
                                 </div>
                             </div>

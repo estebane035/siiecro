@@ -235,7 +235,7 @@ function crearResultadoAnalitico(id_de_resultado_analisis)
   _mostrarFormulario("/dashboard/resultados-analisis/crear-resultado-analitico", //Url solicitud de datos
                       "#modal-2", //Div que contendra el modal
                       "#modal-crear-resultado-analitico", //Nombre modal
-                      "#analisis_a_realizar_id", //Elemento al que se le dara focus una vez cargado el modal
+                      "", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
                         $('#analisis_a_realizar_id, #tecnica_analitica_id').select2({
                           placeholder: "Seleccione una opción"
