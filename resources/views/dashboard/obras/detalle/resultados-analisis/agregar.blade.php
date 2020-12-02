@@ -150,7 +150,6 @@
                             <div class="col-md-6 div-input required">
                                 <label for="conclusion_general">Conclusion general</label>
                                 <textarea class="form-control no-resize" name="conclusion_general" id="conclusion_general" rows="6" required autocomplete="off"><?php echo($registro->conclusion_general); ?></textarea>
-                                {{-- <input type="text" class="form-control" id="conclusion_general" name="conclusion_general" value="{{ $registro->conclusion_general }}" required autocomplete="off"> --}}
                             </div>
                             <div class="col-md-6 div-input required">
                                 <label for="interpretacion_particular_id">Interpretación particular</label>

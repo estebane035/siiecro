@@ -426,58 +426,58 @@
         <div class="col-md-12 m-b-md">
             <div class="ibox">
                 <div class="tabs-container">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-restauracion-conservacion">Restauración/Conservación</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-usuarios-asignados">Usuarios asignados</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-restauracion-conservacion">Restauración/Conservación</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-registro-fotografico">Registro fotográfico</a></li>
 
-                    @if (Auth::user()->rol->captura_de_solicitud_analisis)
-                        <li class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
-                    @endif
-                    
-                    <li class=""><a data-toggle="tab" href="#tab-resultado-analisis">Resultado de análisis</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-informes">Informes</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div id="tab-usuarios-asignados" class="tab-pane active">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.usuarios-asignados.index')
-                        </div>
-                    </div>
-
-                    <div id="tab-restauracion-conservacion" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.restauracion-conservacion.index')
-                        </div>
-                    </div>
-
-                    <div id="tab-registro-fotografico" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.registro-fotografico.index')
-                        </div>
-                    </div>
-
-                    @if (Auth::user()->rol->captura_de_solicitud_analisis)
-                        <div id="tab-solicitudes-analisis" class="tab-pane">
+                        @if (Auth::user()->rol->captura_de_solicitud_analisis)
+                            <li id="li-solicitudes-analisis" class=""><a data-toggle="tab" href="#tab-solicitudes-analisis"> Solicitudes de ánalisis</a></li>
+                        @endif
+                        
+                        <li id="li-resultados-analisis" class=""><a data-toggle="tab" href="#tab-resultados-analisis">Resultado de análisis</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-informes">Informes</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-usuarios-asignados" class="tab-pane active">
                             <div class="panel-body">
-                                @include('dashboard.obras.detalle.solicitudes-analisis.index')
+                                @include('dashboard.obras.detalle.usuarios-asignados.index')
                             </div>
                         </div>
-                    @endif
 
-                    <div id="tab-resultado-analisis" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.resultados-analisis.index')
+                        <div id="tab-restauracion-conservacion" class="tab-pane">
+                            <div class="panel-body">
+                                @include('dashboard.obras.detalle.restauracion-conservacion.index')
+                            </div>
                         </div>
-                    </div>                    
-                    
-                    <div id="tab-informes" class="tab-pane">
-                        <div class="panel-body">
-                            @include('dashboard.obras.detalle.informes.index')
+
+                        <div id="tab-registro-fotografico" class="tab-pane">
+                            <div class="panel-body">
+                                @include('dashboard.obras.detalle.registro-fotografico.index')
+                            </div>
                         </div>
+
+                        @if (Auth::user()->rol->captura_de_solicitud_analisis)
+                            <div id="tab-solicitudes-analisis" class="tab-pane">
+                                <div class="panel-body">
+                                    @include('dashboard.obras.detalle.solicitudes-analisis.index')
+                                </div>
+                            </div>
+                        @endif
+
+                        <div id="tab-resultados-analisis" class="tab-pane">
+                            <div class="panel-body">
+                                @include('dashboard.obras.detalle.resultados-analisis.index')
+                            </div>
+                        </div>                    
+                        
+                        <div id="tab-informes" class="tab-pane">
+                            <div class="panel-body">
+                                @include('dashboard.obras.detalle.informes.index')
+                            </div>
+                        </div>
+                        
                     </div>
-                    
-                </div>
                 </div>
             </div>
         </div>

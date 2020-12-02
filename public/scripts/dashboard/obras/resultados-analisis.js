@@ -36,14 +36,22 @@ function agregarResultados(solicitudes_analisis_muestras_id)
                       "#form-obras-detalle-resultados-analisis", //ID del Formulario
                       "", //Loading de guardar datos de formulario
                       "#div-notificacion-resultado", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
-                      function(){
+                      function(respuesta){
                         _ocultarModal("#modal-crear-resultado", function(){
             							_recargarTabla("#dt-datos-resultados-analisis");
                           _recargarTabla("#dt-datos-solicitudes-analisis-muestras");
                           _recargarTabla("#dt-datos-solicitudes-analisis");
-                          // verMuestras(respuesta.id);
                           $('body').removeClass('modal-open');
             						});
+                        setTimeout(function () {
+                          _ocultarModal("#modal-ver-muestras", function(){
+                            $('#li-solicitudes-analisis').removeClass('active');
+                            $('#tab-solicitudes-analisis').removeClass('active');
+                            editarResultado(respuesta.id);
+                            $('#li-resultados-analisis').addClass('active');
+                            $('#tab-resultados-analisis').addClass('active');
+                          });
+                        }, 1000);
                       });//Funcion en caso de guardar correctamente);
 }
 
