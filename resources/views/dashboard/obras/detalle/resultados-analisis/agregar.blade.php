@@ -5,6 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Obras | Detalle | Resultados de Análisis</h4>
                 <small class="font-bold">{{ $registro == "[]" ? "Creando Resultado de Análisis" : "Editando resultado " }} <strong>{{ $registro->tecnica }}</strong></small>
+                <h1>Obra <strong><span id="ventana-resultados-nombre_obra_solicitud"></span></strong> - Folio <strong><span id="ventana-resultados-folio_obra_solicitud"></span></strong></h1>
             </div>
             @if ($registro == "[]")
                 {!! Form::open(['route' => ['dashboard.resultados-analisis.store'], 'method' => 'POST', 'id' => 'form-obras-detalle-resultados-analisis', 'class' => 'form-horizontal']) !!}

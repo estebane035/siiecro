@@ -20,6 +20,8 @@ function agregarResultados(solicitudes_analisis_muestras_id)
                       "#modal-crear-resultado", //Nombre modal
                       "#fecha_analisis", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
+                        $('#ventana-resultados-nombre_obra_solicitud').text($('#nombre_obra').text());
+                        $('#ventana-resultados-folio_obra_solicitud').text($('#folio_obra').text());
 
                         $('#solicitudes_analisis_muestras_id').val(solicitudes_analisis_muestras_id);
                        
@@ -63,6 +65,9 @@ function editarResultado(resultado_analisis_id)
                       "", //Elemento al que se le dara focus una vez cargado el modal
                       function(){
                         // $('#solicitudes_analisis_muestras_id').val(solicitudes_analisis_muestras_id);
+                        $('#ventana-resultados-nombre_obra_solicitud').text($('#nombre_obra').text());
+                        $('#ventana-resultados-folio_obra_solicitud').text($('#folio_obra').text());
+
                         _cargarTabla(
                           "#dt-datos-analisis-realizar-resultados", // ID de la tabla
                           "#carga-dt-analisis-realizar-resultados", // ID elemento del progreso
