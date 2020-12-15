@@ -15,6 +15,18 @@ class ObrasResultadosAnalisis extends Model
         'informacion_por_definir_id',
         'interpretacion_particular_id',
         
+        'usuario_creo_id',
+        'usuario_aprobo_id',
+        'usuario_rechazo_id',
+        'usuario_reviso_id',
+
+        'motivo_de_rechazo',
+        'estatus',
+
+        'fecha_aprobacion',
+        'fecha_rechazo',
+        'fecha_revision',
+        
         'fecha_analisis',
         'profesor_responsable_de_analisis',
     	'persona_realiza_analisis',

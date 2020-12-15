@@ -21,6 +21,9 @@ class BD
             $error_code 	= 	$e->errorInfo[1];
             DB::rollback();
 
+            // para ver más detalle del error descomentar la siguiente línea
+            // return Response::json(["mensaje" => $e->errorInfo, "error" => true], 200);
+
             $error 			= 	BD::descripcionDelError($error_code);
 
             if($error != 'No se encontró la descripción del error.' && !env('APP_DEBUG')){
@@ -46,8 +49,9 @@ class BD
 		}catch(\Illuminate\Database\QueryException $e) {
             $error_code 		= 	$e->errorInfo[1];
             DB::rollback();
+            
             // para ver más detalle del error descomentar la siguiente línea
-            return Response::json(["mensaje" => $$e->errorInfo, "error" => true], 200);
+            // return Response::json(["mensaje" => $e->errorInfo, "error" => true], 200);
             
             $error 				= 	BD::descripcionDelError($error_code);
             if($error!='No se encontró la descripción del error.'){

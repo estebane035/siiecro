@@ -109,7 +109,7 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::resource('solicitudes-analisis', 						'ObrasSolicitudesAnalisisController');
 	#################################################################################
     
-    ######## OBRAS DETALLE SOLICITUD ANALISIS #######################################
+    ######## OBRAS DETALLE RESULTADOS ANALISIS #######################################
 		Route::post('resultados-analisis/{id}/subir-esquema-muestra', 					'ObrasResultadosAnalisisController@subirImagenEsquemaMuestra');
 		Route::get('resultados-analisis/{id}/eliminar-esquema-muestra', 				'ObrasResultadosAnalisisController@alertaEliminarEsquemaMuestra');
 		Route::delete('resultados-analisis/{id}/eliminar-esquema-muestra', 				'ObrasResultadosAnalisisController@eliminarEsquemaMuestra')->name('obras.eliminar-esquema-muestra-resultados-analisis');
@@ -137,6 +137,15 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		Route::get('resultados-analisis/{id}/ver-esquema-analiticos-microfotografia', 			'ObrasResultadosAnalisisController@verEsquemaAnaliticosMicrofotografia');
 		///
 
+		// BITACORA DE APROBACIONES - RECHAZOZ DE RESULTADOS DE ANALISIS
+		Route::get('resultados-analisis/{id}/aprobar-resultado-analisis', 				'ObrasResultadosAnalisisController@modalAprobarResultadoAnalisis');
+		Route::put('resultados-analisis/{id}/aprobar-resultado-analisis', 				'ObrasResultadosAnalisisController@aprobarResultadoAnalisis')->name('obras.aprobar-resultado-analisis');
+		Route::get('resultados-analisis/{id}/rechazar-resultado-analisis', 				'ObrasResultadosAnalisisController@modalRechazarResultadoAnalisis');
+		Route::put('resultados-analisis/{id}/rechazar-resultado-analisis', 				'ObrasResultadosAnalisisController@rechazarResultadoAnalisis')->name('obras.rechazar-resultado-analisis');
+		Route::get('resultados-analisis/{id}/poner-en-revision-resultado-analisis', 	'ObrasResultadosAnalisisController@modalEnRevisionResultadoAnalisis');
+		Route::put('resultados-analisis/{id}/poner-en-revision-resultado-analisis', 	'ObrasResultadosAnalisisController@enRevisionResultadoAnalisis')->name('obras.poner-en-revision-resultado-analisis');
+		///
+		
 		Route::get('resultados-analisis/carga/{id}', 									'ObrasResultadosAnalisisController@cargarTabla');
 		Route::get('resultados-analisis/{id}/eliminar', 								'ObrasResultadosAnalisisController@eliminar');
 		Route::resource('resultados-analisis', 											'ObrasResultadosAnalisisController');

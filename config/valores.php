@@ -34,6 +34,11 @@ return 	[
 												"Aprobada",
 												"Rechazada"
 											],
+			"status_resultado_analisis" => 	[
+												"En revision",
+												"Aprobado",
+												"Rechazado"
+											],
 			"status_abierto_cerrado" 	=> 	[
 												"Abierto",
 												"Cerrado"

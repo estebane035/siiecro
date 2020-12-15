@@ -21,6 +21,18 @@ class CreateObrasResultadosAnalisisTable extends Migration
             $table->integer('informacion_por_definir_id')->unsigned()->nullable();
             $table->integer('interpretacion_particular_id')->unsigned()->nullable();
 
+            // bitacora
+            $table->integer('usuario_creo_id')->unsigned();
+            $table->integer('usuario_aprobo_id')->unsigned()->nullable();
+            $table->integer('usuario_rechazo_id')->unsigned()->nullable();
+            $table->integer('usuario_reviso_id')->unsigned()->nullable();
+            $table->text('motivo_de_rechazo')->nullable();
+            
+            $table->enum('estatus', config('valores.status_resultado_analisis'))->default('En revision');
+            $table->datetime('fecha_aprobacion')->nullable();
+            $table->datetime('fecha_rechazo')->nullable();
+            $table->datetime('fecha_revision')->nullable();
+
             $table->date('fecha_analisis');
             $table->string('profesor_responsable_de_analisis');
             $table->string('persona_realiza_analisis');
@@ -36,6 +48,13 @@ class CreateObrasResultadosAnalisisTable extends Migration
             $table->foreign('tipo_material_id', 'tipo_material_id_foreign')->references('id')->on('obras__tipo_material');
             $table->foreign('informacion_por_definir_id', 'informacion_por_definir_id_foreign')->references('id')->on('obras__tipo_material__informacion_por_definir');
             $table->foreign('interpretacion_particular_id', 'interpretacion_particular_id_foreign')->references('id')->on('obras__tipo_material__interpretacion_particular');
+
+            // foraneas de bitacora
+            $table->foreign('usuario_creo_id')->references('id')->on('users');
+            $table->foreign('usuario_aprobo_id')->references('id')->on('users');
+            $table->foreign('usuario_rechazo_id')->references('id')->on('users');
+            $table->foreign('usuario_reviso_id')->references('id')->on('users');
+
         });
     }
 

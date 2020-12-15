@@ -182,63 +182,63 @@ function eliminarResultado(solicitudes_analisis_muestras_id)
                       });//Funcion en caso de guardar correctamente);
 }
 
-// // CAMBIOS DE ESTATUS EN LAS SOLICTUDES
-// function aprobarSolicitudAnalisis(id)
-// {
-//   _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/aprobar-solicitud-analisis/", //Url solicitud de datos
-//                   "#modal-1", //Div que contendra el modal
-//                   "#modal-aprobar-solicitud-analisis", //Nombre modal
-//                   "", //Elemento al que se le dara focus una vez cargado el modal
-//                   function(){
+// CAMBIOS DE ESTATUS EN LOS RESULTADOS
+function aprobarResultadoAnalisis(id)
+{
+  _mostrarFormulario("/dashboard/resultados-analisis/"+id+"/aprobar-resultado-analisis/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-aprobar-resultado-analisis", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
 
-//                   }, //Funcion para el success
-//                   "#form-solicitud-analisis", //ID del Formulario
-//                   "", //Loading de guardar datos de formulario
-//                   "#div-notificacion-solicitud-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
-//                   function(){
-//                     _ocultarModal("#modal-aprobar-solicitud-analisis", function(){
-//                       _recargarTabla("#dt-datos-solicitudes-analisis");
-//                     });
-//                   });//Funcion en caso de guardar correctamente);
-// }
+                  }, //Funcion para el success
+                  "#form-resultado-analisis", //ID del Formulario
+                  "", //Loading de guardar datos de formulario
+                  "#div-notificacion-resultado-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-aprobar-resultado-analisis", function(){
+                      _recargarTabla("#dt-datos-resultados-analisis");
+                    });
+                  });//Funcion en caso de guardar correctamente);
+}
 
-// function rechazarSolicitudAnalisis(id)
-// {
-//   _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/rechazar-solicitud-analisis/", //Url solicitud de datos
-//                   "#modal-1", //Div que contendra el modal
-//                   "#modal-rechazar-solicitud-analisis", //Nombre modal
-//                   "", //Elemento al que se le dara focus una vez cargado el modal
-//                   function(){
+function rechazarResultadoAnalisis(id)
+{
+  _mostrarFormulario("/dashboard/resultados-analisis/"+id+"/rechazar-resultado-analisis/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-rechazar-resultado-analisis", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
 
-//                   }, //Funcion para el success
-//                   "#form-solicitud-analisis", //ID del Formulario
-//                   "", //Loading de guardar datos de formulario
-//                   "#div-notificacion-solicitud-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
-//                   function(){
-//                     _ocultarModal("#modal-rechazar-solicitud-analisis", function(){
-//                       _recargarTabla("#dt-datos-solicitudes-analisis");
-//                     });
-//                   });//Funcion en caso de guardar correctamente);
-// }
+                  }, //Funcion para el success
+                  "#form-resultado-analisis", //ID del Formulario
+                  "", //Loading de guardar datos de formulario
+                  "#div-notificacion-resultado-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-rechazar-resultado-analisis", function(){
+                      _recargarTabla("#dt-datos-resultados-analisis");
+                    });
+                  });//Funcion en caso de guardar correctamente);
+}
 
-// function ponerEnRevisionSolicitudAnalisis(id)
-// {
-//   _mostrarFormulario("/dashboard/solicitudes-analisis/"+id+"/poner-en-revision-solicitud-analisis/", //Url solicitud de datos
-//                   "#modal-1", //Div que contendra el modal
-//                   "#modal-poner-en-revision-solicitud-analisis", //Nombre modal
-//                   "", //Elemento al que se le dara focus una vez cargado el modal
-//                   function(){
+function ponerEnRevisionResultadoAnalisis(id)
+{
+  _mostrarFormulario("/dashboard/resultados-analisis/"+id+"/poner-en-revision-resultado-analisis/", //Url solicitud de datos
+                  "#modal-1", //Div que contendra el modal
+                  "#modal-poner-en-revision-resultado-analisis", //Nombre modal
+                  "", //Elemento al que se le dara focus una vez cargado el modal
+                  function(){
 
-//                   }, //Funcion para el success
-//                   "#form-solicitud-analisis", //ID del Formulario
-//                   "", //Loading de guardar datos de formulario
-//                   "#div-notificacion-solicitud-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
-//                   function(){
-//                     _ocultarModal("#modal-poner-en-revision-solicitud-analisis", function(){
-//                       _recargarTabla("#dt-datos-solicitudes-analisis");
-//                     });
-//                   });//Funcion en caso de guardar correctamente);
-// }
+                  }, //Funcion para el success
+                  "#form-resultado-analisis", //ID del Formulario
+                  "", //Loading de guardar datos de formulario
+                  "#div-notificacion-resultado-analisis", //Div donde mostrara el error en caso de, vacio lo muestra en toastr
+                  function(){
+                    _ocultarModal("#modal-poner-en-revision-resultado-analisis", function(){
+                      _recargarTabla("#dt-datos-resultados-analisis");
+                    });
+                  });//Funcion en caso de guardar correctamente);
+}
 
 
 // RESULTADOS ANALITICOS
