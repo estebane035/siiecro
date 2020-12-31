@@ -148,6 +148,8 @@ Route::prefix('dashboard')->namespace('Dashboard')->name('dashboard.')->group(fu
 		
 		Route::get('resultados-analisis/carga/{id}', 									'ObrasResultadosAnalisisController@cargarTabla');
 		Route::get('resultados-analisis/{id}/eliminar', 								'ObrasResultadosAnalisisController@eliminar');
+		Route::get('resultados-analisis/crear/{id}/{obra}', 							'ObrasResultadosAnalisisController@crear');
+		Route::get('resultados-analisis/editar/{id}/{obra}', 							'ObrasResultadosAnalisisController@editar');
 		Route::resource('resultados-analisis', 											'ObrasResultadosAnalisisController');
 	#################################################################################
     

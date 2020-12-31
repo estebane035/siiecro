@@ -15,7 +15,7 @@ jQuery(document).ready(function($) {
 
 function agregarResultados(solicitudes_analisis_muestras_id)
 {
-  _mostrarFormulario("/dashboard/resultados-analisis/create/", //Url solicitud de datos
+  _mostrarFormulario("/dashboard/resultados-analisis/crear/" + solicitudes_analisis_muestras_id + "/" + $('#id').val(), //Url solicitud de datos
                       "#modal-2", //Div que contendra el modal
                       "#modal-crear-resultado", //Nombre modal
                       "#fecha_analisis", //Elemento al que se le dara focus una vez cargado el modal
@@ -25,7 +25,7 @@ function agregarResultados(solicitudes_analisis_muestras_id)
 
                         $('#solicitudes_analisis_muestras_id').val(solicitudes_analisis_muestras_id);
                        
-                        $('#forma_obtencion_muestra_id').select2({
+                        $('#forma_obtencion_muestra_id, #profesor_responsable_de_analisis_id, #persona_realiza_analisis_id').select2({
                           placeholder: "Seleccione una opción"
                         });
 
@@ -59,7 +59,7 @@ function agregarResultados(solicitudes_analisis_muestras_id)
 
 function editarResultado(resultado_analisis_id)
 {
-  _mostrarFormulario("/dashboard/resultados-analisis/" + resultado_analisis_id + "/edit/", //Url solicitud de datos
+  _mostrarFormulario("/dashboard/resultados-analisis/editar/" + resultado_analisis_id + "/" + $('#id').val(), //Url solicitud de datos
                       "#modal-1", //Div que contendra el modal
                       "#modal-crear-resultado", //Nombre modal
                       "", //Elemento al que se le dara focus una vez cargado el modal
@@ -82,7 +82,7 @@ function editarResultado(resultado_analisis_id)
                           ], // Columnas
                         );
 
-                        $('#forma_obtencion_muestra_id, #tipo_material_id, #informacion_por_definir_id, #interpretacion_particular_id').select2({
+                        $('#forma_obtencion_muestra_id, #tipo_material_id, #informacion_por_definir_id, #interpretacion_particular_id, #profesor_responsable_de_analisis_id, #persona_realiza_analisis_id').select2({
                           placeholder: "Seleccione una opción"
                         });
 

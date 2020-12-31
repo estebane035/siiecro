@@ -22,7 +22,7 @@ class BD
             DB::rollback();
 
             // para ver más detalle del error descomentar la siguiente línea
-            // return Response::json(["mensaje" => $e->errorInfo, "error" => true], 200);
+            return Response::json(["mensaje" => $e->errorInfo, "error" => true], 200);
 
             $error 			= 	BD::descripcionDelError($error_code);
 

@@ -14,6 +14,8 @@ class ObrasResultadosAnalisis extends Model
         'tipo_material_id',
         'informacion_por_definir_id',
         'interpretacion_particular_id',
+        'profesor_responsable_de_analisis_id',
+    	'persona_realiza_analisis_id',
         
         'usuario_creo_id',
         'usuario_aprobo_id',
@@ -28,8 +30,6 @@ class ObrasResultadosAnalisis extends Model
         'fecha_revision',
         
         'fecha_analisis',
-        'profesor_responsable_de_analisis',
-    	'persona_realiza_analisis',
         'ubicacion_de_toma_muestra',
         'descripcion',
         'ruta_acceso_microfotografia',

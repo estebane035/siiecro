@@ -14,6 +14,8 @@ use Auth;
 use Archivos;
 use DB;
 
+use App\ObrasSolicitudesAnalisisMuestras;
+
 use App\ObrasResultadosAnalisis;
 use App\ObrasResultadosAnalisisEsquemaMuestra;
 use App\ObrasResultadosAnalisisEsquemaMicrofotografia;
@@ -28,6 +30,10 @@ use App\ObrasAnalisisARealizarResultados;
 use App\ObrasAnalisisARealizar;
 use App\ObrasAnalisisARealizarTecnica;
 use App\ObrasAnalisisARealizarMicrofotografia;
+
+use App\ObrasUsuariosAsignados;
+use App\User;
+
 
 class ObrasResultadosAnalisisController extends Controller
 {
@@ -138,13 +144,43 @@ class ObrasResultadosAnalisisController extends Controller
                         ->make('true');
     }
 
-    public function create()
+    public function crear($id, $obra_id)
     {
+        // se implementa el envío de la solicitud independiente de la variable registro 
+        // ya que en este punto la muestra origen existe pero el resultado de analisis aún no
+        $solicitud          = ObrasSolicitudesAnalisisMuestras::selectRaw('
+                                                                            obras__solicitudes_analisis_muestras.nomenclatura,
+                                                                            obras__solicitudes_analisis_tipo_analisis.nombre
+                                                                            ')
+                                                                ->join('obras__solicitudes_analisis_tipo_analisis', 'obras__solicitudes_analisis_tipo_analisis.id', '=', 'obras__solicitudes_analisis_muestras.tipo_analisis_id')
+                                                                ->where('obras__solicitudes_analisis_muestras.id', '=', $id)
+                                                                // ->toSql();
+                                                                ->first();
+
+        // Rol 8 es asesor científico
+        $asesor_cientifico_responsable  = User::selectRaw('
+                                                            users.id,
+                                                            users.name
+                                                            ')
+                                                ->where('users.rol_id', '=', 8)
+                                                ->get();
+
+        // usuarios asignados a la obra que estén activos
+        $persona_realiza_analisis  = ObrasUsuariosAsignados::selectRaw('
+                                                                            users.id,
+                                                                            users.name
+                                                                        ')
+                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                            ->join('obras__solicitudes_analisis', 'obras__solicitudes_analisis.obra_id', '=', 'obras__usuarios_asignados.obra_id')
+                                                            ->where('obras__usuarios_asignados.status', '=', 'Activo')
+                                                            ->where('obras__solicitudes_analisis.obra_id', '=', $obra_id)
+                                                            ->get();
+
         $registro           = new ObrasResultadosAnalisis;
         $formas_obtencion   = ObrasFormaObtencionMuestra::all();
         // $tipos_material     = ObrasTipoMaterial::all();
 
-        return view('dashboard.obras.detalle.resultados-analisis.agregar', ["registro" => $registro, 'formas_obtencion' => $formas_obtencion]);
+        return view('dashboard.obras.detalle.resultados-analisis.agregar', ["registro" => $registro, 'formas_obtencion' => $formas_obtencion, "solicitud" => $solicitud, 'asesor_cientifico_responsable' => $asesor_cientifico_responsable, 'persona_realiza_analisis' => $persona_realiza_analisis]);
         // return view('dashboard.obras.detalle.resultados-analisis.agregar', ["registro" => $registro, 'formas_obtencion' => $formas_obtencion, 'tipos_material' => $tipos_material]);
     }
 
@@ -161,7 +197,7 @@ class ObrasResultadosAnalisisController extends Controller
         return Response::json(["mensaje" => "Petición incorrecta guardar muestra"], 500);
     }
 
-    public function edit(Request $request, $id)
+    public function editar(Request $request, $id, $obra_id)
     {
         $registro                                   = ObrasResultadosAnalisis::findOrFail($id);
         $formas_obtencion                           = ObrasFormaObtencionMuestra::all();
@@ -169,16 +205,38 @@ class ObrasResultadosAnalisisController extends Controller
         $tipos_material_informacion_por_definir     = ObrasTipoMaterialInformacionPorDefinir::all();
         $tipos_material_interpretacion_particular   = ObrasTipoMaterialInterpretacionParticular::all();
 
-        // $responsables_intervencion  = ObrasUsuariosAsignados::selectRaw('
-        //                                                                 users.id,
-        //                                                                 users.name
-        //                                                                 ')
-        //                                                     ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
-        //                                                     ->where('users.es_responsable_intervencion', '=', 'si')
-        //                                                     ->where('obras__usuarios_asignados.id', '=', $id)
-        //                                                     ->get();
+        // se implementa el envío de la solicitud independiente de la variable registro para mostrar los datos de la muestra origen 
+        // ya que en el punto de creación del resultado de análisis, el envío de la variable solicitud 
+        // de manera independiente es necesario y no se puede precindir de esta variable 
+        $solicitud  = ObrasResultadosAnalisis::selectRaw('
+                                                            obras__solicitudes_analisis_muestras.nomenclatura,
+                                                            obras__solicitudes_analisis_tipo_analisis.nombre
+                                                        ')
+                                            ->join('obras__solicitudes_analisis_muestras', 'obras__solicitudes_analisis_muestras.id', '=', 'obras__resultados_analisis.solicitudes_analisis_muestras_id')
+                                            ->join('obras__solicitudes_analisis_tipo_analisis', 'obras__solicitudes_analisis_tipo_analisis.id', '=', 'obras__solicitudes_analisis_muestras.tipo_analisis_id')
+                                            ->where('obras__resultados_analisis.id', '=', $id)
+                                            ->first();
+
+        // Rol 8 es asesor científico
+        $asesor_cientifico_responsable  = User::selectRaw('
+                                                            users.id,
+                                                            users.name
+                                                            ')
+                                                ->where('users.rol_id', '=', 8)
+                                                ->get();
+
+        // usuarios asignados a la obra que estén activos
+        $persona_realiza_analisis  = ObrasUsuariosAsignados::selectRaw('
+                                                                            users.id,
+                                                                            users.name
+                                                                        ')
+                                                            ->join('users', 'users.id', '=', 'obras__usuarios_asignados.usuario_id')
+                                                            ->join('obras__solicitudes_analisis', 'obras__solicitudes_analisis.obra_id', '=', 'obras__usuarios_asignados.obra_id')
+                                                            ->where('obras__usuarios_asignados.status', '=', 'Activo')
+                                                            ->where('obras__solicitudes_analisis.obra_id', '=', $obra_id)
+                                                            ->get();
                                                             
-        return view('dashboard.obras.detalle.resultados-analisis.agregar', ["registro" => $registro, 'formas_obtencion' => $formas_obtencion, 'tipos_material' => $tipos_material, 'tipos_material_informacion_por_definir' => $tipos_material_informacion_por_definir, 'tipos_material_interpretacion_particular' => $tipos_material_interpretacion_particular]);
+        return view('dashboard.obras.detalle.resultados-analisis.agregar', ["registro" => $registro, 'formas_obtencion' => $formas_obtencion, 'tipos_material' => $tipos_material, 'tipos_material_informacion_por_definir' => $tipos_material_informacion_por_definir, 'tipos_material_interpretacion_particular' => $tipos_material_interpretacion_particular, 'solicitud' => $solicitud, 'asesor_cientifico_responsable' => $asesor_cientifico_responsable, 'persona_realiza_analisis' => $persona_realiza_analisis]);
     }
 
     public function update(Request $request, $id)

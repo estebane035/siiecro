@@ -20,6 +20,8 @@ class CreateObrasResultadosAnalisisTable extends Migration
             $table->integer('tipo_material_id')->unsigned()->nullable();
             $table->integer('informacion_por_definir_id')->unsigned()->nullable();
             $table->integer('interpretacion_particular_id')->unsigned()->nullable();
+            $table->integer('profesor_responsable_de_analisis_id')->unsigned();
+            $table->integer('persona_realiza_analisis_id')->unsigned();
 
             // bitacora
             $table->integer('usuario_creo_id')->unsigned();
@@ -34,8 +36,6 @@ class CreateObrasResultadosAnalisisTable extends Migration
             $table->datetime('fecha_revision')->nullable();
 
             $table->date('fecha_analisis');
-            $table->string('profesor_responsable_de_analisis');
-            $table->string('persona_realiza_analisis');
             $table->string('ubicacion_de_toma_muestra')->nullable();
             $table->string('descripcion')->nullable();
 
@@ -48,6 +48,8 @@ class CreateObrasResultadosAnalisisTable extends Migration
             $table->foreign('tipo_material_id', 'tipo_material_id_foreign')->references('id')->on('obras__tipo_material');
             $table->foreign('informacion_por_definir_id', 'informacion_por_definir_id_foreign')->references('id')->on('obras__tipo_material__informacion_por_definir');
             $table->foreign('interpretacion_particular_id', 'interpretacion_particular_id_foreign')->references('id')->on('obras__tipo_material__interpretacion_particular');
+            $table->foreign('profesor_responsable_de_analisis_id', 'profesor_responsable_de_analisis_id_foreign')->references('id')->on('users');
+            $table->foreign('persona_realiza_analisis_id', 'persona_realiza_analisis_id_foreign')->references('id')->on('obras__usuarios_asignados');
 
             // foraneas de bitacora
             $table->foreign('usuario_creo_id')->references('id')->on('users');

@@ -13,6 +13,23 @@
                 {!! Form::open(['route' => ['dashboard.resultados-analisis.update', $registro->id], 'method' => 'PUT', 'id' => 'form-obras-detalle-resultados-analisis', 'class' => 'form-horizontal']) !!}
             @endif
                 <div class="modal-body">
+                    <h2>Datos de la muestra origen</h2>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4 div-input">
+                                <label for="nomenclatura">Nomenclatura</label>
+                                <input type="text" class="form-control" id="nomenclatura" value="{{ $solicitud->nomenclatura }}" disabled="">
+                            </div>
+                            
+                            <div class="col-md-8 div-input">
+                                <label for="tipo_analisis">Caracterización del tipo de análisis.</label>
+                                <input type="text" class="form-control" id="tipo_analisis" value="{{ $solicitud->nombre }}" disabled="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 div-input required">
@@ -21,14 +38,24 @@
                             </div>
                             
                             <div class="col-md-8 div-input required">
-                                <label for="profesor_responsable_de_analisis">Asesor científico responsable</label>
-                                <input type="text" class="form-control" id="profesor_responsable_de_analisis" name="profesor_responsable_de_analisis" value="{{ $registro->profesor_responsable_de_analisis }}" required autocomplete="off">
+                                <label for="profesor_responsable_de_analisis_id">Asesor científico responsable</label>
+                                <select class="form-control select2" id="profesor_responsable_de_analisis_id" name="profesor_responsable_de_analisis_id" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach ($asesor_cientifico_responsable as $profesor)
+                                        <option {{ $profesor->id == $registro->profesor_responsable_de_analisis_id ? "selected" : "" }} value="{{ $profesor->id }}">{{ $profesor->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 div-input required">
-                                <label for="persona_realiza_analisis">Persona que realizó el análisis</label>
-                                <input type="text" class="form-control" id="persona_realiza_analisis" name="persona_realiza_analisis" value="{{ $registro->persona_realiza_analisis }}" required autocomplete="off">
+                                <label for="persona_realiza_analisis_id">Persona que realizó el análisis</label>
+                                <select class="form-control select2" id="persona_realiza_analisis_id" name="persona_realiza_analisis_id" required autocomplete="off">
+                                    <option value=""></option>
+                                    @foreach ($persona_realiza_analisis as $persona)
+                                        <option {{ $persona->id == $registro->persona_realiza_analisis_id ? "selected" : "" }} value="{{ $persona->id }}">{{ $persona->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="col-md-6 div-input required">
