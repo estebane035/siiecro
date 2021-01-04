@@ -13,7 +13,8 @@
                 {!! Form::open(['route' => ['dashboard.resultados-analisis.update', $registro->id], 'method' => 'PUT', 'id' => 'form-obras-detalle-resultados-analisis', 'class' => 'form-horizontal']) !!}
             @endif
                 <div class="modal-body">
-                    <h2>Datos de la muestra origen</h2>
+                    <h1 class="text-center"><strong>Datos de la muestra</strong></h1>
+                    <hr>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 div-input">
@@ -22,8 +23,14 @@
                             </div>
                             
                             <div class="col-md-8 div-input">
-                                <label for="tipo_analisis">Caracterización del tipo de análisis.</label>
+                                <label for="tipo_analisis">Caracterización materiales</label>
                                 <input type="text" class="form-control" id="tipo_analisis" value="{{ $solicitud->nombre }}" disabled="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 div-input">
+                                <label for="lugar_resguardo_muestra">Lugar de resguardo de la muestra</label>
+                                <input type="text" class="form-control" id="lugar_resguardo_muestra" name="lugar_resguardo_muestra" value="{{ $registro->lugar_resguardo_muestra }}" >
                             </div>
                         </div>
                     </div>
@@ -104,14 +111,14 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 div-input required">
+                            <div class="col-md-6 div-input">
                                 <label for="descripcion">Descripción</label>
-                                <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ $registro->descripcion }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ $registro->descripcion }}" autocomplete="off">
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12 div-input required">
+                            <div class="col-md-12 div-input">
                                 <label for="dropzone-esquema-microfotografia">Microfotografía</label>
                                 <div class="dropzone" id="dropzone-esquema-microfotografia">
                                 </div>
@@ -123,9 +130,9 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-12 div-input required">
+                            <div class="col-md-12 div-input">
                                 <label for="ruta_acceso_microfotografia">Ruta de acceso a microfotografía</label>
-                                <input type="text" class="form-control" id="ruta_acceso_microfotografia" name="ruta_acceso_microfotografia" value="{{ $registro->ruta_acceso_microfotografia }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="ruta_acceso_microfotografia" name="ruta_acceso_microfotografia" value="{{ $registro->ruta_acceso_microfotografia }}" autocomplete="off">
                             </div>
                         </div>
 
@@ -175,9 +182,9 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 div-input required">
+                            <div class="col-md-6 div-input">
                                 <label for="conclusion_general">Conclusion general</label>
-                                <textarea class="form-control no-resize" name="conclusion_general" id="conclusion_general" rows="6" required autocomplete="off"><?php echo($registro->conclusion_general); ?></textarea>
+                                <textarea class="form-control no-resize" name="conclusion_general" id="conclusion_general" rows="6" autocomplete="off"><?php echo($registro->conclusion_general); ?></textarea>
                             </div>
                             <div class="col-md-6 div-input required">
                                 <label for="interpretacion_particular_id">Interpretación particular</label>

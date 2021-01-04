@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4 div-input required">
-                                <label for="tipo_analisis_id">Tipo de análisis</label>
+                                <label for="tipo_analisis_id">Caracterización materiales</label>
                                 <select class="form-control select2" id="tipo_analisis_id" name="tipo_analisis_id" required autocomplete="off">
                                     <option value=""></option>
                                     @foreach ($tipos_analisis as $tipo_analisis)

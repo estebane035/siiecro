@@ -17,7 +17,7 @@
                             <tr>
                                 <th>Fecha de análisis</th>
                                 <th>Nomenclatura</th>
-                                <th>Tipo de análisis</th>
+                                <th>Caracterización materiales</th>
                                 <th>Foto</th>
                                 <th>Acciones</th>
                             </tr>

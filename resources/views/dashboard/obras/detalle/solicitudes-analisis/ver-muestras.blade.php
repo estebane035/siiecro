@@ -51,7 +51,7 @@
                     <table class="table table-striped table-condensed" id="dt-datos-solicitudes-analisis-muestras">
                         <thead>
                             <tr>
-                                <th>Tipo</th>
+                                <th>Caracterización materiales</th>
                                 <th>No Muestra</th>
                                 <th>Nomenclatura</th>
                                 <th>Información Requerida</th>

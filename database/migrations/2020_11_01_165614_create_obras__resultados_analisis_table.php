@@ -35,6 +35,7 @@ class CreateObrasResultadosAnalisisTable extends Migration
             $table->datetime('fecha_rechazo')->nullable();
             $table->datetime('fecha_revision')->nullable();
 
+            $table->string('lugar_resguardo_muestra')->nullable();
             $table->date('fecha_analisis');
             $table->string('ubicacion_de_toma_muestra')->nullable();
             $table->string('descripcion')->nullable();

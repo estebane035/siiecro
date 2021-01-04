@@ -44,29 +44,29 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 div-input required">
+                            <div class="col-md-6 div-input">
                                 <label for="datos">Datos</label>
-                                <input type="text" class="form-control" id="datos" name="datos" value="{{ $registro->datos }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="datos" name="datos" value="{{ $registro->datos }}" autocomplete="off">
                             </div>
-                            <div class="col-md-6 div-input required">
+                            <div class="col-md-6 div-input">
                                 <label for="info_del_equipo">Información del equipo</label>
-                                <input type="text" class="form-control" id="info_del_equipo" name="info_del_equipo" value="{{ $registro->info_del_equipo }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="info_del_equipo" name="info_del_equipo" value="{{ $registro->info_del_equipo }}" autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 div-input required">
+                            <div class="col-md-6 div-input">
                                 <label for="ruta_acceso_imagen">Ruta de acceso a imagen</label>
-                                <input type="text" class="form-control" id="ruta_acceso_imagen" name="ruta_acceso_imagen" value="{{ $registro->ruta_acceso_imagen }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="ruta_acceso_imagen" name="ruta_acceso_imagen" value="{{ $registro->ruta_acceso_imagen }}" autocomplete="off">
                             </div>
-                            <div class="col-md-6 div-input required">
+                            <div class="col-md-6 div-input">
                                 <label for="ruta_acceso_datos">Ruta de acceso a datos</label>
-                                <input type="text" class="form-control" id="ruta_acceso_datos" name="ruta_acceso_datos" value="{{ $registro->ruta_acceso_datos }}" required autocomplete="off">
+                                <input type="text" class="form-control" id="ruta_acceso_datos" name="ruta_acceso_datos" value="{{ $registro->ruta_acceso_datos }}" autocomplete="off">
                             </div>
                         </div>
 
                         @if ($registro != "[]")
                         <div class="row">
-                            <div class="col-md-12 div-input required">
+                            <div class="col-md-12 div-input">
                                 <label for="dropzone-esquema-analiticos-microfotografia">Microfotografía</label>
                                 <div class="dropzone " id="dropzone-esquema-analiticos-microfotografia">
                                 </div>

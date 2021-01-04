@@ -29,6 +29,7 @@ class ObrasResultadosAnalisis extends Model
         'fecha_rechazo',
         'fecha_revision',
         
+        'lugar_resguardo_muestra',
         'fecha_analisis',
         'ubicacion_de_toma_muestra',
         'descripcion',
